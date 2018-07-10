@@ -55,7 +55,7 @@ public class ConcessionariaAcaoBotoes implements ActionListener {
 	private void salvar() {
 
 		Concessionaria concessionaria = controle.getDadosFrm();
-		ConcessionariaService.salve(concessionaria);
+		ConcessionariaService.salva(concessionaria);
 		controle.iniciaTabelaConcessionarias();
 		controle.apagaDadosFrm();
 	}
