@@ -20,7 +20,7 @@ public class testeJPA {
 		// ProjetoService.salve(projeto);
 
 		List<Projeto> lista = ProjetoService.getAll();
-		System.out.println("lista: " + lista);
+		//System.out.println("lista: " + lista);
 
 		/*
 		 * Class<Projeto> projetot = null; JpaDAO<Projeto> projetoDAO = new
