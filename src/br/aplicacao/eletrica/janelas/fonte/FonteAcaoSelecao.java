@@ -26,13 +26,12 @@ public class FonteAcaoSelecao implements ListSelectionListener {
 	public void valueChanged(ListSelectionEvent e) {
 		
 		int firstIndex = e.getFirstIndex();
-		int row = frm.getTableFontes().getSelectedRow();
+		
 
 		if (firstIndex >= 0) {
-
-			Fonte fonte = frm.getFonteControle().getFonte();
+			Fonte fonte = frm.getFonteControle().getTabela().loadItem(firstIndex);
 			frm.getFonteControle().preencheFrm(fonte);
-			frm.getFonteControle().setTabelaSelecao(row);
+			frm.getFonteControle().setTabelaSelecao(firstIndex);
 		}
 	}
 

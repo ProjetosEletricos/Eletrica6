@@ -94,12 +94,14 @@ public class FonteControle {
 				lista.add(f);
 			}
 		}
+		if (!(lista == null)) {
+			tabela = new GenericTableModel<Fonte>(lista, Fonte.class);
+			frm.getTableFontes().repaint();
+			frm.getTableFontes().setModel(tabela);
+			if (tabelaSelecao >= 0) {
+				frm.getTableFontes().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
 
-		tabela = new GenericTableModel<Fonte>(lista, Fonte.class);
-		frm.getTableFontes().repaint();
-		frm.getTableFontes().setModel(tabela);
-		if (tabelaSelecao >= 0) {
-			frm.getTableFontes().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+			}
 		}
 	}
 

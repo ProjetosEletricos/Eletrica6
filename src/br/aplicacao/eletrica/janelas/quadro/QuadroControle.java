@@ -72,6 +72,7 @@ public class QuadroControle {
 		quadro.setNome(frm.getTxtNomeQuadro().getText());
 		quadro.setUsabilidade(frm.getCbUsabilidadeQuadro().getModel().getSelectedItem().toString());
 		quadro.setDrGeral(frm.getCbDrQuadro().getModel().getSelectedItem().toString());
+		quadro.setFonte(frm.getFonteControle().getFonte());
 
 		return quadro;
 	}

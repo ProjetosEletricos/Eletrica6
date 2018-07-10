@@ -61,6 +61,7 @@ public class CircuitoControle {
 		circuito.setNome(frm.getTxtNomeCircuito().getText());
 		circuito.setCondutor(condutorControle.getCondutor());
 		circuito.setCurto(curtoControle.getCurto());
+		circuito.setQuadro(frm.getQuadroControle().getQuadro());
 
 		return circuito;
 	}

@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,13 +25,16 @@ public class Circuito implements Entidade<Circuito> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@ManyToOne()
+	@JoinColumn(name = "quadro_id", nullable = false)
+	private Quadro quadro;
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@Column(colName = "Condutor", colPosition = 1)
 	private Condutor condutor;
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@Column(colName = "Dados CC", colPosition = 2)
 	private Curto dadosCurtoCircuito;
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(mappedBy = "circuito", targetEntity = Equipamento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Equipamento> equipamentos;
 	@Column(colName = "Circuito", colPosition = 0)
 	private String nome;
@@ -306,6 +312,14 @@ public class Circuito implements Entidade<Circuito> {
 	@Override
 	public Integer getId() {
 		return id;
+	}
+
+	public Quadro getQuadro() {
+		return quadro;
+	}
+
+	public void setQuadro(Quadro quadro) {
+		this.quadro = quadro;
 	}
 
 	public String getNome() {

@@ -32,7 +32,7 @@ public class Fonte implements Entidade<Fonte> {
 	@OneToOne()
 	@Column(colName = "Concessionária", colPosition = 2)
 	private Concessionaria concessionaria;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "fonte", targetEntity = Quadro.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Quadro> quadros;
 	@Column(colName = "Nome", colPosition = 0)
 	private String nome;
@@ -71,6 +71,10 @@ public class Fonte implements Entidade<Fonte> {
 	public void setQuadros(List<Quadro> quadros) {
 		this.quadros.clear();
 		this.quadros.addAll(quadros);
+	}
+
+	public List<Quadro> getQuadros() {
+		return quadros;
 	}
 
 	public void setTensaoFN(double tensaoFN) {
@@ -119,8 +123,7 @@ public class Fonte implements Entidade<Fonte> {
 
 			return false;
 		final Fonte other = (Fonte) obj;
-		if (id == null) {	@ManyToOne()
-		private Projeto projeto;
+		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))

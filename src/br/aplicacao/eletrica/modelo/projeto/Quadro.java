@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -21,14 +24,15 @@ public class Quadro implements Entidade<Quadro> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToOne()
+	@JoinColumn(name = "fonte_id", nullable = false)
+	private Fonte fonte;
+	@OneToMany(mappedBy = "quadro", targetEntity = Circuito.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Circuito> circuitos;
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Condutor condutor;
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Curto dadosCurtoCircuito;
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-	private List<Quadro> quadros;
 	private String drGeral;
 	private double fd;
 	private double fp;
@@ -42,16 +46,12 @@ public class Quadro implements Entidade<Quadro> {
 
 	public Quadro() {
 		circuitos = new ArrayList<Circuito>();
-		quadros = new ArrayList<Quadro>();
 	}
 
 	public void addCircuito(Circuito circuito) {
 		this.circuitos.add(circuito);
 	}
 
-	public void addQuadro(Quadro quadro) {
-		this.quadros.add(quadro);
-	}
 
 	public List<Circuito> getCircuitos() {
 		return circuitos;
@@ -79,10 +79,10 @@ public class Quadro implements Entidade<Quadro> {
 			}
 		}
 
-		for (Quadro subQuadro : this.getQuadros()) {
+/*		for (Quadro subQuadro : this.getQuadros()) {
 
 			total += subQuadro.getDemanda();
-		}
+		}*/
 
 		return total;
 	}
@@ -97,19 +97,16 @@ public class Quadro implements Entidade<Quadro> {
 			}
 		}
 
-		for (Quadro q : this.getQuadros()) {
+/*		for (Quadro q : this.getQuadros()) {
 			for (Circuito c : q.getCircuitos()) {
 				for (Equipamento e : c.getEquipamento()) {
 					total += e.getQuantidade() * e.getDemanda();
 				}
 			}
-		}
+		}*/
 		return total;
 	}
 
-	public List<Quadro> getQuadros() {
-		return quadros;
-	}
 
 	public UnidadePontencia getUnidade() {
 		return unidade;
@@ -129,6 +126,14 @@ public class Quadro implements Entidade<Quadro> {
 
 	public double getFp() {
 		return this.fp;
+	}
+
+	public Fonte getFonte() {
+		return fonte;
+	}
+
+	public void setFonte(Fonte fonte) {
+		this.fonte = fonte;
 	}
 
 	public void setCircuitos(List<Circuito> circuitos) {
@@ -180,9 +185,6 @@ public class Quadro implements Entidade<Quadro> {
 		this.pot100PercDem = pot100PercDem;
 	}
 
-	public void setQuadros(List<Quadro> quadros) {
-		this.quadros = quadros;
-	}
 
 	public void setUnidade(UnidadePontencia unidade) {
 		this.unidade = unidade;

@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import br.aplicacao.eletrica.calculo.ConversorPotencia;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
@@ -21,6 +23,9 @@ public class Equipamento implements Entidade<Equipamento> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@ManyToOne()
+	@JoinColumn(name = "circuito_id", nullable = false)
+	private Circuito circuito;
 	private String ligacao;
 	private String ligacaoReal;
 	private String nome;
@@ -217,6 +222,14 @@ public class Equipamento implements Entidade<Equipamento> {
 
 	public UnidadePontencia getUnidade() {
 		return unidade;
+	}
+
+	public Circuito getCircuito() {
+		return circuito;
+	}
+
+	public void setCircuito(Circuito circuito) {
+		this.circuito = circuito;
 	}
 
 	public String getUsabilidade() {

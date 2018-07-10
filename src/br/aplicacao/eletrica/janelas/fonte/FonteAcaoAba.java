@@ -27,7 +27,7 @@ public class FonteAcaoAba implements ChangeListener {
 		
 		if (frm.getAbas().getSelectedComponent() == frm.getPanelFonte()) {
 
-			if (Numero.stringToInteger(frm.getLblIdProjeto().getText()) > 0) {
+			if (!(Numero.stringToInteger(frm.getLblIdProjeto().getText()) == null)) {
 				frm.getFonteControle().apagaDadosFrm();
 				frm.getFonteControle().iniciaTabelaFontes(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
 			} else {
