@@ -27,7 +27,7 @@ public class Fonte implements Entidade<Fonte> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@ManyToOne()
-	@JoinColumn(name = "projeto_id", nullable = false)
+	@JoinColumn(name = "projeto_id")
 	private Projeto projeto;
 	@OneToOne()
 	@Column(colName = "Concessionária", colPosition = 2)

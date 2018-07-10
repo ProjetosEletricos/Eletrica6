@@ -26,7 +26,7 @@ public class Circuito implements Entidade<Circuito> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne()
-	@JoinColumn(name = "quadro_id", nullable = false)
+	@JoinColumn(name = "quadro_id")
 	private Quadro quadro;
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@Column(colName = "Condutor", colPosition = 1)

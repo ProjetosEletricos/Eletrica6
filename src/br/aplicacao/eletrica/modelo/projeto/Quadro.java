@@ -25,7 +25,7 @@ public class Quadro implements Entidade<Quadro> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne()
-	@JoinColumn(name = "fonte_id", nullable = false)
+	@JoinColumn(name = "fonte_id")
 	private Fonte fonte;
 	@OneToMany(mappedBy = "quadro", targetEntity = Circuito.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Circuito> circuitos;

@@ -24,7 +24,7 @@ public class Equipamento implements Entidade<Equipamento> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne()
-	@JoinColumn(name = "circuito_id", nullable = false)
+	@JoinColumn(name = "circuito_id")
 	private Circuito circuito;
 	private String ligacao;
 	private String ligacaoReal;
