@@ -5,6 +5,7 @@ import javax.swing.event.ListSelectionListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Fonte;
+import br.aplicacao.eletrica.uteis.Numero;
 
 public class FonteAcaoSelecao implements ListSelectionListener {
 
@@ -28,7 +29,7 @@ public class FonteAcaoSelecao implements ListSelectionListener {
 		int firstIndex = e.getFirstIndex();
 		
 
-		if (firstIndex >= 0) {
+		if (firstIndex >= 0 && !(Numero.stringToInteger(frm.getLblIdProjeto().getText()) == null)) {
 			Fonte fonte = frm.getFonteControle().getTabela().loadItem(firstIndex);
 			frm.getFonteControle().preencheFrm(fonte);
 			frm.getFonteControle().setTabelaSelecao(firstIndex);

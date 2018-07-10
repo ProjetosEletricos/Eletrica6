@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.servico.ProjetoService;
-import br.aplicacao.eletrica.uteis.Numero;
 
 public class ProjetoAcaoBotoes implements ActionListener {
 
@@ -31,7 +30,7 @@ public class ProjetoAcaoBotoes implements ActionListener {
 		if (event.getSource() == frm.getBtnExcluirProjeto()) {
 
 			ProjetoService.remove(frm.getProjetoControle().getProjeto());
-			
+
 			frm.getProjetoControle().setTabelaSelecao(-1);
 			frm.getProjetoControle().iniciaTabelaProjetos();
 			frm.getProjetoControle().apagaDadosFrm();
@@ -42,7 +41,7 @@ public class ProjetoAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frm.getBtnCopiarProjeto()) {
 
-			frm.getLblIdProjeto().setText("0");
+			frm.getLblIdProjeto().setText(null);
 			this.salvar();
 		}
 	}

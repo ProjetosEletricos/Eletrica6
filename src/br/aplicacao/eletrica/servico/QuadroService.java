@@ -39,9 +39,5 @@ public class QuadroService {
 		DAO_QUADRO.salva(quadro);
 	}
 	
-	public static void atualiza(Quadro quadro) {
-
-		DAO_QUADRO.atualiza(quadro);
-	}
 
 }

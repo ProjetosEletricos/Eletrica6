@@ -39,9 +39,5 @@ public class CondutorService {
 		DAO_CONDUTOR.salva(Condutor);
 	}
 
-	public static void atualiza(Condutor Condutor) {
-
-		DAO_CONDUTOR.atualiza(Condutor);
-	}
 
 }

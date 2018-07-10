@@ -63,10 +63,10 @@ public class QuadroAcaoBotoes implements ActionListener {
 			Quadro quadro = controle.getDadosFrm();
 			if (!(quadro.equals(null))) {
 				if (controle.getIdQuadro() == 0) {
-					fonte.adicionaQuadro(quadro);
+					fonte.getQuadros().add(quadro);
 					FonteService.salva(fonte);
 				} else {
-					QuadroService.atualiza(quadro);
+					QuadroService.salva(quadro);
 				}
 			}
 			controle.iniciaTabelaQuadros(controle.getIdFonte());

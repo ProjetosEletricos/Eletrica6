@@ -103,9 +103,9 @@ public class CircuitoAcaoBotoes implements ActionListener {
 					quadro.addCircuito(circuito);
 					QuadroService.salva(quadro);
 				} else {
-					CircuitoService.atualiza(circuito);
-					CondutorService.atualiza(frmCondutor.getCondutorControle().getCondutor());
-					CurtoService.atualiza(frmCurto.getCurtoControle().getCurto());
+					CircuitoService.salva(circuito);
+					CondutorService.salva(frmCondutor.getCondutorControle().getCondutor());
+					CurtoService.salva(frmCurto.getCurtoControle().getCurto());
 				}
 			}
 			circuitoControle.iniciaTabelaCircuitos(circuitoControle.getIdQuadro());

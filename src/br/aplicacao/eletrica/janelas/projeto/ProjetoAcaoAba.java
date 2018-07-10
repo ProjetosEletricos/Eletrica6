@@ -4,12 +4,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.uteis.Numero;
 
 public class ProjetoAcaoAba implements ChangeListener {
 
 	private PrincipalFrm frm;
-
 
 	public ProjetoAcaoAba(PrincipalFrm frm) {
 

@@ -39,9 +39,5 @@ public class CurtoService {
 		DAO_CURTO.salva(Curto);
 	}
 
-	public static void atualiza(Curto Curto) {
-
-		DAO_CURTO.atualiza(Curto);
-	}
 
 }

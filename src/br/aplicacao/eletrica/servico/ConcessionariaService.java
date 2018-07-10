@@ -34,7 +34,7 @@ public class ConcessionariaService {
 		DAO_CONCESSIONARIA.removeById(id);
 	}
 
-	public static void salve(Concessionaria concessionaria) {
+	public static void salva(Concessionaria concessionaria) {
 
 		DAO_CONCESSIONARIA.salva(concessionaria);
 	}

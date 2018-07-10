@@ -39,9 +39,6 @@ public class ProjetoService {
 		DAO_PROJETO.salva(projeto);
 	}
 	
-/*	public static void atualiza(Projeto projeto) {
 
-		DAO_PROJETO.atualiza(projeto);
-	}*/
 
 }

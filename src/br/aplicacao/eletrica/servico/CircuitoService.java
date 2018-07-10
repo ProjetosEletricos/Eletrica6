@@ -34,14 +34,10 @@ public class CircuitoService {
 		DAO_CIRCUITO.removeById(id);
 	}
 
-	public static void salve(Circuito circuito) {
+	public static void salva(Circuito circuito) {
 
 		DAO_CIRCUITO.salva(circuito);
 	}
 
-	public static void atualiza(Circuito circuito) {
-
-		DAO_CIRCUITO.atualiza(circuito);
-	}
 
 }

@@ -39,9 +39,6 @@ public class FonteService {
 		DAO_FONTE.salva(fonte);
 	}
 	
-/*	public static void atualiza(Fonte fonte) {
 
-		DAO_FONTE.atualiza(fonte);
-	}*/
 
 }

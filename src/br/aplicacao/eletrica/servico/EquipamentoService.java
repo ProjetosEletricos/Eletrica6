@@ -34,7 +34,7 @@ public class EquipamentoService {
 		DAO_EQUIPAMENTO.removeById(id);
 	}
 
-	public static void salve(Equipamento equipamento) {
+	public static void salva(Equipamento equipamento) {
 
 		DAO_EQUIPAMENTO.salva(equipamento);
 	}
