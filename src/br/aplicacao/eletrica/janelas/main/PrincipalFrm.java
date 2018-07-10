@@ -738,8 +738,8 @@ public class PrincipalFrm extends JInternalFrame {
 		
 		projetoControle = new ProjetoControle(this);
 		fonteControle = new FonteControle(this);
-		//quadroControle = new QuadroControle(this);
-		//circuitoControle = new CircuitoControle(this);
+		quadroControle = new QuadroControle(this);
+		circuitoControle = new CircuitoControle(this);
 	}
 	
 	public JButton getBtnCopiarCircuito() {
