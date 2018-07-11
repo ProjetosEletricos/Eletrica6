@@ -41,7 +41,7 @@ public class ProjetoAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frm.getBtnCopiarProjeto()) {
 
-			frm.getLblIdProjeto().setText(null);
+			frm.getLblIdProjeto().repaint();
 			this.salvar();
 		}
 	}

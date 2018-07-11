@@ -37,7 +37,7 @@ public class FonteAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frm.getBtnCopiarFonte()) {
 
-			frm.getLblIdFonte().setText(null);
+			frm.getLblIdFonte().repaint();
 			this.salvar();
 		}
 	}
