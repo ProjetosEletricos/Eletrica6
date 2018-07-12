@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Concessionaria;
@@ -94,14 +95,16 @@ public class FonteControle {
 				lista.add(f);
 			}
 		}
-		if (!(lista == null)) {
+		if (!(lista.isEmpty() || lista == null)) {
 			tabela = new GenericTableModel<Fonte>(lista, Fonte.class);
 			frm.getTableFontes().repaint();
 			frm.getTableFontes().setModel(tabela);
 			if (tabelaSelecao >= 0) {
 				frm.getTableFontes().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
-
 			}
+		} else {
+			frm.getTableFontes().repaint();
+			frm.getTableFontes().setModel(new DefaultTableModel());
 		}
 	}
 

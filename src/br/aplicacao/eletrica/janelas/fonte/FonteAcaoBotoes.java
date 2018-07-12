@@ -25,11 +25,14 @@ public class FonteAcaoBotoes implements ActionListener {
 
 		if (event.getSource() == frm.getBtnExcluirFonte()) {
 
-				FonteService.remove(frm.getFonteControle().getFonte());
-				
-				frm.getFonteControle().setTabelaSelecao(-1);
-				frm.getFonteControle().iniciaTabelaFontes(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
-				frm.getFonteControle().apagaDadosFrm();
+			Projeto projeto = frm.getProjetoControle().getProjeto();
+			Fonte fonte = frm.getFonteControle().getFonte();
+			projeto.getFontes().remove(fonte);
+			FonteService.remove(fonte);
+
+			frm.getFonteControle().setTabelaSelecao(-1);
+			frm.getFonteControle().iniciaTabelaFontes(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
+			frm.getFonteControle().apagaDadosFrm();
 
 		} else if (event.getSource() == frm.getBtnSalvarFonte()) {
 

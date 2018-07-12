@@ -3,6 +3,8 @@ package br.aplicacao.eletrica.janelas.circuito;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.table.DefaultTableModel;
+
 import br.aplicacao.eletrica.janelas.condutor.CondutorControle;
 import br.aplicacao.eletrica.janelas.curto.CurtoControle;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
@@ -78,12 +80,16 @@ public class CircuitoControle {
 				lista.add(c);
 			}
 		}
-
+		if (!(lista.isEmpty() || lista == null)) {
 		tabela = new GenericTableModel<Circuito>(lista, Circuito.class);
 		frm.getTableCircuitos().repaint();
 		frm.getTableCircuitos().setModel(tabela);
 		if (tabelaSelecao >= 0) {
 			frm.getTableCircuitos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+		}
+		} else {
+			frm.getTableCircuitos().repaint();
+			frm.getTableCircuitos().setModel(new DefaultTableModel());
 		}
 	}
 

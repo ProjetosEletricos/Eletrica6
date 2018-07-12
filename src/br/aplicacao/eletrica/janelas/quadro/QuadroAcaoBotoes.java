@@ -8,6 +8,7 @@ import br.aplicacao.eletrica.modelo.projeto.Fonte;
 import br.aplicacao.eletrica.modelo.projeto.Quadro;
 import br.aplicacao.eletrica.servico.FonteService;
 import br.aplicacao.eletrica.servico.QuadroService;
+import br.aplicacao.eletrica.uteis.Numero;
 
 public class QuadroAcaoBotoes implements ActionListener {
 
@@ -16,7 +17,6 @@ public class QuadroAcaoBotoes implements ActionListener {
 
 	public QuadroAcaoBotoes(PrincipalFrm frm) {
 
-		
 		this.frm = frm;
 		this.adicionaActionListener();
 	}
@@ -24,19 +24,17 @@ public class QuadroAcaoBotoes implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		this.controle = frm.getQuadroControle();
-		
+
 		if (event.getSource() == frm.getBtnExcluirQuadro()) {
 
-			int row = controle.getTabelaSelecao();
+			Fonte fonte = frm.getFonteControle().getFonte();
+			Quadro quadro = frm.getQuadroControle().getQuadro();
+			fonte.getQuadros().remove(quadro);
+			QuadroService.remove(quadro);
 
-			if (row >= 0) {
-
-				FonteService.getById(controle.getIdFonte()).getQuadros().remove(controle.getTabela().loadItem(row));
-
-				controle.setTabelaSelecao(-1);
-				controle.iniciaTabelaQuadros(controle.getIdFonte());
-				controle.apagaDadosFrm();
-			}
+			frm.getQuadroControle().setTabelaSelecao(-1);
+			frm.getQuadroControle().iniciaTabelaQuadros(Numero.stringToInteger(frm.getLblIdFonte().getText()));
+			frm.getQuadroControle().apagaDadosFrm();
 
 		} else if (event.getSource() == frm.getBtnSalvarQuadro()) {
 

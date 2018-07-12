@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Fonte;
@@ -45,8 +46,6 @@ public class QuadroControle {
 		new QuadroAcaoSelecao(frm);
 	}
 
-
-
 	public void apagaDadosFrm() {
 
 		frm.getTxtFdQuadro().setText("");
@@ -83,14 +82,14 @@ public class QuadroControle {
 		frm.getCbUsabilidadeQuadro().addItem("Motor");
 		frm.getCbUsabilidadeQuadro().setSelectedIndex(0);
 	}
-	
+
 	private void iniciaCbDrQuadro() {
 		frm.getCbDrQuadro().setModel(new DefaultComboBoxModel<>());
 		frm.getCbDrQuadro().addItem("Sim");
 		frm.getCbDrQuadro().addItem("Não");
 		frm.getCbDrQuadro().setSelectedIndex(0);
 	}
-	
+
 	public void iniciaCbs() {
 		iniciaCbDrQuadro();
 		iniciaCbUsabilidade();
@@ -109,19 +108,24 @@ public class QuadroControle {
 			}
 		}
 
-		tabela = new GenericTableModel<Quadro>(lista, Quadro.class);
-		frm.getTableQuadros().repaint();
-		frm.getTableQuadros().setModel(tabela);
-		if (tabelaSelecao >= 0) {
-			frm.getTableQuadros().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+		if (!(lista.isEmpty() || lista == null)) {
+			tabela = new GenericTableModel<Quadro>(lista, Quadro.class);
+			frm.getTableQuadros().repaint();
+			frm.getTableQuadros().setModel(tabela);
+			if (tabelaSelecao >= 0) {
+				frm.getTableQuadros().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+			}
+		} else {
+			frm.getTableQuadros().repaint();
+			frm.getTableQuadros().setModel(new DefaultTableModel());
 		}
 	}
 
 	public void preencheFrm(Quadro quadro) {
-		
+
 		if (quadro != null) {
 			this.quadro = quadro;
-			
+
 			frm.getTxtFdQuadro().setText(Numero.decimal(quadro.getFd(), "##,00"));
 			frm.getTxtFpQuadro().setText(Numero.decimal(quadro.getFp(), "##,00"));
 			frm.getTxtLocalQuadro().setText(quadro.getLocal());
@@ -132,7 +136,6 @@ public class QuadroControle {
 		}
 	}
 
-
 	public Quadro getQuadro() {
 		return quadro;
 	}
@@ -140,11 +143,11 @@ public class QuadroControle {
 	public void setQuadro(Quadro quadro) {
 		this.quadro = quadro;
 	}
-	
+
 	public Integer getIdFonte() {
 		return Integer.valueOf(frm.getLblIdFonte().getText());
 	}
-	
+
 	public Integer getIdQuadro() {
 		return Integer.valueOf(frm.getLblIdQuadro().getText());
 	}
