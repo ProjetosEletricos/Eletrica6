@@ -174,7 +174,7 @@ public class CondutorFrm extends JInternalFrame {
 		panel.add(txtComprimentoCondutor, "cell 3 6,growx");
 		txtComprimentoCondutor.setColumns(10);
 
-		lblIdCondutor = new JLabel("0");
+		lblIdCondutor = new JLabel("");
 		lblIdCondutor.setName("lblIdCondutor");
 		lblIdCondutor.setBounds(421, 0, 70, 15);
 		panel_5.add(lblIdCondutor);

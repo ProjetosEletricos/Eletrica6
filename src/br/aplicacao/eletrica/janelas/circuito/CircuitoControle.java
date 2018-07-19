@@ -5,24 +5,26 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-import br.aplicacao.eletrica.janelas.condutor.CondutorControle;
-import br.aplicacao.eletrica.janelas.curto.CurtoControle;
+import br.aplicacao.eletrica.janelas.condutor.CondutorFrm;
+import br.aplicacao.eletrica.janelas.curto.CurtoFrm;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Circuito;
 import br.aplicacao.eletrica.modelo.projeto.Quadro;
-import br.aplicacao.eletrica.servico.CircuitoService;
 import br.aplicacao.eletrica.servico.QuadroService;
+import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
 public class CircuitoControle {
 
-	private PrincipalFrm frm;
-	private Circuito circuito;
+	private Circuito circuito = new Circuito();
+	private PrincipalFrm frmCircuito;
+	private CondutorFrm frmCondutor = new CondutorFrm();
+	private CurtoFrm frmCurto = new CurtoFrm();
 	private GenericTableModel<Circuito> tabela;
 	private int tabelaSelecao = -1;
 
 	public CircuitoControle(PrincipalFrm frm) {
-		this.frm = frm;
+		this.frmCircuito = frm;
 		adicionaActionListener();
 		adicionaListSelectionListener();
 		adicionaChangeListener();
@@ -31,39 +33,36 @@ public class CircuitoControle {
 	}
 
 	private void adicionaActionListener() {
-		new CircuitoAcaoBotoes(frm);
+		new CircuitoAcaoBotoes(frmCircuito,frmCondutor,frmCurto);
 	}
 
 	private void adicionaChangeListener() {
-		new CircuitoAcaoAba(frm);
+		new CircuitoAcaoAba(frmCircuito,frmCondutor,frmCurto);
 	}
 
 	private void adicionaKeyListener() {
-		new CircuitoAcaoDigitar(frm);
+		new CircuitoAcaoDigitar(frmCircuito);
 	}
 
 	private void adicionaListSelectionListener() {
-		new CircuitoAcaoSelecao(frm);
+		new CircuitoAcaoSelecao(frmCircuito);
 	}
 
 	public void apagaDadosFrm() {
 
-		frm.getTxtNomeCircuito().setText("");
-		frm.getLblIdCircuito().setText("0");
+		frmCircuito.getTxtNomeCircuito().setText("");
+		frmCircuito.getLblIdCircuito().setText(null);
+		frmCondutor.getCondutorControle().apagaDadosFrm();
+		frmCurto.getCurtoControle().apagaDadosFrm();
 	}
 
-	public Circuito getDadosFrm(CondutorControle condutorControle, CurtoControle curtoControle) {
+	public Circuito getDadosFrm() {
 
-		Circuito circuito = new Circuito();
-
-		if (!(frm.getLblIdCircuito().getText().equals("0"))) {
-			circuito = CircuitoService.getById(Integer.valueOf(frm.getLblIdCircuito().getText()));
-			circuito.setId(Integer.parseInt(frm.getLblIdCircuito().getText()));
-		}
-		circuito.setNome(frm.getTxtNomeCircuito().getText());
-		circuito.setCondutor(condutorControle.getCondutor());
-		circuito.setCurto(curtoControle.getCurto());
-		circuito.setQuadro(frm.getQuadroControle().getQuadro());
+		circuito.setId(Numero.stringToInteger(frmCircuito.getLblIdCircuito().getText()));
+		circuito.setNome(frmCircuito.getTxtNomeCircuito().getText());
+		circuito.setCondutor(frmCondutor.getCondutorControle().getCondutor());
+		circuito.setCurto(frmCurto.getCurtoControle().getCurto());
+		circuito.setQuadro(frmCircuito.getQuadroControle().getQuadro());
 
 		return circuito;
 	}
@@ -81,15 +80,15 @@ public class CircuitoControle {
 			}
 		}
 		if (!(lista.isEmpty() || lista == null)) {
-		tabela = new GenericTableModel<Circuito>(lista, Circuito.class);
-		frm.getTableCircuitos().repaint();
-		frm.getTableCircuitos().setModel(tabela);
-		if (tabelaSelecao >= 0) {
-			frm.getTableCircuitos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
-		}
+			tabela = new GenericTableModel<Circuito>(lista, Circuito.class);
+			frmCircuito.getTableCircuitos().repaint();
+			frmCircuito.getTableCircuitos().setModel(tabela);
+			if (tabelaSelecao >= 0) {
+				frmCircuito.getTableCircuitos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+			}
 		} else {
-			frm.getTableCircuitos().repaint();
-			frm.getTableCircuitos().setModel(new DefaultTableModel());
+			frmCircuito.getTableCircuitos().repaint();
+			frmCircuito.getTableCircuitos().setModel(new DefaultTableModel());
 		}
 	}
 
@@ -97,26 +96,12 @@ public class CircuitoControle {
 
 		if (circuito != null) {
 			this.circuito = circuito;
-			frm.getTxtNomeCircuito().setText(circuito.getNome());
-			frm.getLblIdCircuito().setText(Integer.toString(circuito.getId()));
 
+			frmCircuito.getTxtNomeCircuito().setText(circuito.getNome());
+			frmCircuito.getLblIdCircuito().setText(Integer.toString(circuito.getId()));
+			frmCondutor.getCondutorControle().preencheFrm(circuito.getCondutor());
+			frmCurto.getCurtoControle().preencheFrm(circuito.getCurto());
 		}
-	}
-
-	public PrincipalFrm getFrm() {
-		return frm;
-	}
-
-	public void setFrm(PrincipalFrm frm) {
-		this.frm = frm;
-	}
-
-	public Integer getIdCircuito() {
-		return Integer.valueOf(frm.getLblIdCircuito().getText());
-	}
-
-	public Integer getIdQuadro() {
-		return Integer.valueOf(frm.getLblIdQuadro().getText());
 	}
 
 	public Circuito getCircuito() {

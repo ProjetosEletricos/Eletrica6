@@ -5,11 +5,11 @@ import javax.swing.event.ListSelectionListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Quadro;
+import br.aplicacao.eletrica.uteis.Numero;
 
 public class QuadroAcaoSelecao implements ListSelectionListener {
 
 	private PrincipalFrm frm;
-	private QuadroControle controle;
 
 	public QuadroAcaoSelecao(PrincipalFrm frm) {
 
@@ -25,16 +25,15 @@ public class QuadroAcaoSelecao implements ListSelectionListener {
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		this.controle = frm.getQuadroControle();
 		
 		int firstIndex = e.getFirstIndex();
-		int row = frm.getTableQuadros().getSelectedRow();
 
-		if (firstIndex >= 0 && row >= 0) {
 
-			Quadro quadro = controle.getTabela().loadItem(row);
-			controle.preencheFrm(quadro);
-			controle.setTabelaSelecao(row);
+		if (firstIndex >= 0 && !(Numero.stringToInteger(frm.getLblIdFonte().getText()) == null)) {
+
+			Quadro quadro = frm.getQuadroControle().getTabela().loadItem(firstIndex);
+			frm.getQuadroControle().preencheFrm(quadro);
+			frm.getQuadroControle().setTabelaSelecao(firstIndex);
 		}
 	}
 

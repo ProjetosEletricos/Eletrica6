@@ -4,11 +4,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
+import br.aplicacao.eletrica.uteis.Numero;
 
 public class QuadroAcaoAba implements ChangeListener {
 
 	private PrincipalFrm frm;
-	private QuadroControle controle;
 
 	public QuadroAcaoAba(PrincipalFrm frm) {
 
@@ -24,19 +24,18 @@ public class QuadroAcaoAba implements ChangeListener {
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
-		this.controle = frm.getQuadroControle();
 		
 		if (frm.getAbas().getSelectedComponent() == frm.getPanelQuadro()) {
 
-			if (controle.getIdFonte() > 0) {
-				controle.apagaDadosFrm();
-				controle.iniciaTabelaQuadros(controle.getIdFonte());
+			if (!(Numero.stringToInteger(frm.getLblIdFonte().getText()) == null)) {
+				frm.getQuadroControle().apagaDadosFrm();
+				frm.getQuadroControle().iniciaTabelaQuadros(Numero.stringToInteger(frm.getLblIdFonte().getText()));
 			} else {
-				controle.apagaDadosFrm();
-				controle.setTabelaSelecao(-1);
-				controle.iniciaTabelaQuadros(0);
+				frm.getQuadroControle().apagaDadosFrm();
+				frm.getQuadroControle().setTabelaSelecao(-1);
+				frm.getQuadroControle().iniciaTabelaQuadros(0);
 			}
-			// QuadroControle.iniciaCbs();
+
 		}
 	}
 }

@@ -3,14 +3,12 @@ package br.aplicacao.eletrica.janelas.fonte;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Concessionaria;
 import br.aplicacao.eletrica.modelo.projeto.Fonte;
 import br.aplicacao.eletrica.modelo.projeto.Projeto;
-import br.aplicacao.eletrica.servico.ConcessionariaService;
 import br.aplicacao.eletrica.servico.ProjetoService;
 import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
@@ -29,7 +27,6 @@ public class FonteControle {
 		adicionaMouseListener();
 		adicionaChangeListener();
 		adicionaKeyListener();
-		iniciaCbs();
 	}
 
 	private void adicionaActionListener() {
@@ -72,11 +69,11 @@ public class FonteControle {
 	}
 
 	public void iniciaCbConcessionaria() {
-		frm.getCbConcessionaria().setModel(new DefaultComboBoxModel<>());
-		List<Concessionaria> lista = new ArrayList<Concessionaria>();
-		lista = ConcessionariaService.getAll();
-		frm.setConcessionaria(lista);
-		frm.getCbConcessionaria().setSelectedIndex(-1);
+		/*
+		 * List<Concessionaria> lista = new ArrayList<Concessionaria>(); lista =
+		 * ConcessionariaService.getAll(); frm.getCbConcessionaria().removeAllItems();
+		 * frm.setConcessionaria(lista);
+		 */
 	}
 
 	public void iniciaCbs() {
@@ -109,8 +106,10 @@ public class FonteControle {
 	}
 
 	public void preencheFrm(Fonte fonte) {
+		
 		if (fonte != null) {
 			this.fonte = fonte;
+
 			frm.getLblIdFonte().setText(Integer.toString(fonte.getId()));
 			frm.getTxtTensaoFonte().setText(Numero.decimal(fonte.getTensaoFN(), "0"));
 			frm.getCbConcessionaria().getModel().setSelectedItem(fonte.getConcessionaria());

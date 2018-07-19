@@ -13,7 +13,6 @@ import br.aplicacao.eletrica.uteis.Numero;
 public class QuadroAcaoBotoes implements ActionListener {
 
 	private PrincipalFrm frm;
-	private QuadroControle controle;
 
 	public QuadroAcaoBotoes(PrincipalFrm frm) {
 
@@ -23,7 +22,6 @@ public class QuadroAcaoBotoes implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		this.controle = frm.getQuadroControle();
 
 		if (event.getSource() == frm.getBtnExcluirQuadro()) {
 
@@ -31,6 +29,7 @@ public class QuadroAcaoBotoes implements ActionListener {
 			Quadro quadro = frm.getQuadroControle().getQuadro();
 			fonte.getQuadros().remove(quadro);
 			QuadroService.remove(quadro);
+			quadro.getCircuitos().clear();
 
 			frm.getQuadroControle().setTabelaSelecao(-1);
 			frm.getQuadroControle().iniciaTabelaQuadros(Numero.stringToInteger(frm.getLblIdFonte().getText()));
@@ -42,7 +41,7 @@ public class QuadroAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frm.getBtnCopiarQuadro()) {
 
-			frm.getLblIdQuadro().setText("0");
+			frm.getLblIdQuadro().repaint();
 			this.salvar();
 		}
 	}
@@ -56,19 +55,18 @@ public class QuadroAcaoBotoes implements ActionListener {
 
 	private void salvar() {
 
-		if (controle.getIdFonte() > 0) {
-			Fonte fonte = FonteService.getById(controle.getIdFonte());
-			Quadro quadro = controle.getDadosFrm();
-			if (!(quadro.equals(null))) {
-				if (controle.getIdQuadro() == 0) {
-					fonte.getQuadros().add(quadro);
-					FonteService.salva(fonte);
-				} else {
-					QuadroService.salva(quadro);
-				}
+		if (Numero.stringToInteger(frm.getLblIdFonte().getText()) > 0) {
+			
+			Fonte fonte = FonteService.getById(Numero.stringToInteger(frm.getLblIdFonte().getText()));
+			Quadro quadro = frm.getQuadroControle().getDadosFrm();
+
+			if (Numero.stringToInteger(frm.getLblIdQuadro().getText()) == null) {
+				fonte.getQuadros().add(quadro);
+				FonteService.salva(fonte);
+			} else {
+				QuadroService.salva(quadro);
 			}
-			controle.iniciaTabelaQuadros(controle.getIdFonte());
-			controle.apagaDadosFrm();
+			frm.getQuadroControle().iniciaTabelaQuadros(Numero.stringToInteger(frm.getLblIdFonte().getText()));
 		}
 	}
 

@@ -4,37 +4,42 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import br.aplicacao.eletrica.calculo.ConversorPotencia;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
+import br.aplicacao.eletrica.uteis.tableModel.Column;
+import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 
 @Entity
+@Table(name = "Equipamento")
+@TableModel
 public class Equipamento implements Entidade<Equipamento> {
 
-	private String descricao;
-
-	private double fd = 1;
-	private double fp = 1;
-	private double fs = 1;
-	private double fSimu = 1;
-	private double fu = 1;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne()
-	@JoinColumn(name = "circuito_id")
 	private Circuito circuito;
 	private String ligacao;
 	private String ligacaoReal;
+	@Column(colName = "Nome", colPosition = 0)
 	private String nome;
 	private int nPolos;
 	private double perdasReator;
+	@Column(colName = "Potência", colPosition = 1)
 	private double potencia;
-	private int quantidade = 1;
-	private double rendimento = 1;
+	private int quantidade;
+	private double rendimento;
+	@Column(colName = "Tensão", colPosition = 2)
 	private double tensaoFN;
+	private String descricao;
+	private double fd;
+	private double fp;
+	private double fs;
+	private double fSimu;
+	private double fu;
 	private UnidadePontencia unidade;
 	private String usabilidade;
 

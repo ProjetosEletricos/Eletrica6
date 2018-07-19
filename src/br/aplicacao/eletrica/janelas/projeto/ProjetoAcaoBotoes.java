@@ -28,7 +28,8 @@ public class ProjetoAcaoBotoes implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 
 		if (event.getSource() == frm.getBtnExcluirProjeto()) {
-
+			
+			frm.getProjetoControle().getProjeto().getFontes().clear();
 			ProjetoService.remove(frm.getProjetoControle().getProjeto());
 
 			frm.getProjetoControle().setTabelaSelecao(-1);

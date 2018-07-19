@@ -92,6 +92,7 @@ public class JpaDAO<T extends Entidade<T>> {
 			entityManager.getTransaction().begin();
 			if (obj.getId() == null) {
 				entityManager.persist(obj);
+				
 			} else {
 				entityManager.merge(obj);
 			}

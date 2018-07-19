@@ -19,20 +19,19 @@ import br.aplicacao.eletrica.uteis.Numero;
 public class CircuitoAcaoBotoes implements ActionListener {
 
 	private PrincipalFrm frmPrincipal;
-	private CircuitoControle circuitoControle;
+	private CondutorFrm frmCondutor;
+	private CurtoFrm frmCurto;
 
-	private CondutorFrm frmCondutor = new CondutorFrm();
-	private CurtoFrm frmCurto = new CurtoFrm();
+	public CircuitoAcaoBotoes(PrincipalFrm frmPrincipal, CondutorFrm frmCondutor, CurtoFrm frmCurto) {
 
-	public CircuitoAcaoBotoes(PrincipalFrm frmPrincipal) {
 		this.frmPrincipal = frmPrincipal;
-
+		this.frmCondutor = frmCondutor;
+		this.frmCurto = frmCurto;
 		this.adicionaActionListener();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		this.circuitoControle = frmPrincipal.getCircuitoControle();
 
 		if (event.getSource() == frmPrincipal.getBtnExcluirCircuito()) {
 
@@ -40,6 +39,9 @@ public class CircuitoAcaoBotoes implements ActionListener {
 			Circuito circuito = frmPrincipal.getCircuitoControle().getCircuito();
 			quadro.getCircuitos().remove(circuito);
 			CircuitoService.remove(circuito);
+			circuito.setCondutor(null);
+			circuito.setCurto(null);
+			circuito.getEquipamentos().clear();
 
 			frmPrincipal.getCircuitoControle().setTabelaSelecao(-1);
 			frmPrincipal.getCircuitoControle()
@@ -47,15 +49,22 @@ public class CircuitoAcaoBotoes implements ActionListener {
 			frmPrincipal.getCircuitoControle().apagaDadosFrm();
 
 		} else if (event.getSource() == frmPrincipal.getBtnSalvarCircuito()) {
+
 			this.salvar();
+
 		} else if (event.getSource() == frmPrincipal.getBtnCopiarCircuito()) {
-			frmPrincipal.getLblIdQuadro().setText("0");
+
+			frmPrincipal.getLblIdCircuito().repaint();
 			this.salvar();
+
+			// ----------------------------------------------------------------------------------------------------------
+
 		} else if (event.getSource() == frmPrincipal.getBtnCondutorCircuito()) {
 
-			if (circuitoControle.getIdCircuito() > 0) {
+			if (Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText()) != null
+					&& frmPrincipal.getCircuitoControle().getCircuito().getCondutor().getId() > 0) {
 
-				Condutor condutor = CircuitoService.getById(circuitoControle.getIdCircuito()).getCondutor();
+				Condutor condutor = frmPrincipal.getCircuitoControle().getCircuito().getCondutor();
 
 				frmCondutor.getCondutorControle().abreFrm();
 				frmCondutor.getCondutorControle().iniciaCbs();
@@ -69,9 +78,10 @@ public class CircuitoAcaoBotoes implements ActionListener {
 			}
 		} else if (event.getSource() == frmPrincipal.getBtnCurtoCirCircuito()) {
 
-			if (circuitoControle.getIdCircuito() > 0) {
+			if (Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText()) != null
+					&& frmPrincipal.getCircuitoControle().getCircuito().getCurto().getId() > 0) {
 
-				Curto curto = CircuitoService.getById(circuitoControle.getIdCircuito()).getCurto();
+				Curto curto = frmPrincipal.getCircuitoControle().getCircuito().getCurto();
 
 				frmCurto.getCurtoControle().abreFrm();
 				frmCurto.getCurtoControle().preencheFrm(curto);
@@ -94,22 +104,25 @@ public class CircuitoAcaoBotoes implements ActionListener {
 
 	private void salvar() {
 
-		if (circuitoControle.getIdQuadro() > 0) {
-			Quadro quadro = QuadroService.getById(circuitoControle.getIdQuadro());
-			Circuito circuito = circuitoControle.getDadosFrm(frmCondutor.getCondutorControle(),
-					frmCurto.getCurtoControle());
-			if (!(circuito.equals(null))) {
+		if (Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()) > 0) {
 
-				if (circuitoControle.getIdCircuito() == 0) {
-					quadro.addCircuito(circuito);
-					QuadroService.salva(quadro);
-				} else {
-					CircuitoService.salva(circuito);
-					CondutorService.salva(frmCondutor.getCondutorControle().getCondutor());
-					CurtoService.salva(frmCurto.getCurtoControle().getCurto());
-				}
+			Quadro quadro = QuadroService.getById(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()));
+			Circuito circuito = frmPrincipal.getCircuitoControle().getDadosFrm();
+
+			if (Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText()) == null) {
+				CondutorService.salva(frmCondutor.getCondutorControle().getCondutor());
+				CurtoService.salva(frmCurto.getCurtoControle().getCurto());
+				quadro.addCircuito(circuito);
+				QuadroService.salva(quadro);
+			} else {
+
+				CondutorService.salva(frmCondutor.getCondutorControle().getCondutor());
+				CurtoService.salva(frmCurto.getCurtoControle().getCurto());
+				CircuitoService.salva(circuito);
 			}
-			circuitoControle.iniciaTabelaCircuitos(circuitoControle.getIdQuadro());
+
+			frmPrincipal.getCircuitoControle()
+					.iniciaTabelaCircuitos(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()));
 		}
 	}
 }

@@ -22,8 +22,13 @@ public class ProjetoAcaoAba implements ChangeListener {
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
-		frm.getProjetoControle().apagaDadosFrm();
-		frm.getProjetoControle().iniciaTabelaProjetos();
+
+		if (frm.getAbas().getSelectedComponent() == frm.getPanelProjeto()) {
+
+			frm.getProjetoControle().apagaDadosFrm();
+			frm.getProjetoControle().iniciaTabelaProjetos();
+
+		}
 	}
 
 }

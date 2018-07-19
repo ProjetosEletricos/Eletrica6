@@ -62,9 +62,13 @@ public class Curto implements Entidade<Curto>{
 	@Override
 	public Integer getId() {
 		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
 	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		String nome = "id:"+this.id;

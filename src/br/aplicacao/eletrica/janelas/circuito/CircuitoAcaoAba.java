@@ -3,40 +3,47 @@ package br.aplicacao.eletrica.janelas.circuito;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import br.aplicacao.eletrica.janelas.condutor.CondutorFrm;
+import br.aplicacao.eletrica.janelas.curto.CurtoFrm;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
+import br.aplicacao.eletrica.uteis.Numero;
 
 public class CircuitoAcaoAba implements ChangeListener {
 
-	private PrincipalFrm frm;
-	private CircuitoControle circuitoControle;
+	private PrincipalFrm frmPrincipal;
+	private CondutorFrm frmCondutor;
+	private CurtoFrm frmCurto;
 
-	public CircuitoAcaoAba(PrincipalFrm frm) {
+	public CircuitoAcaoAba(PrincipalFrm frmPrincipal, CondutorFrm frmCondutor, CurtoFrm frmCurto) {
 		
-		this.frm = frm;
-		
+		this.frmPrincipal = frmPrincipal;
+		this.frmCondutor = frmCondutor;
+		this.frmCurto = frmCurto;
 		this.adicionaChangeListener();
 	}
 
 	public void adicionaChangeListener() {
 
-		frm.getAbas().addChangeListener(this);
+		frmPrincipal.getAbas().addChangeListener(this);
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
 
-		if (frm.getAbas().getSelectedComponent() == frm.getPanelCircuito()) {
-			this.circuitoControle = frm.getCircuitoControle();
+		if (frmPrincipal.getAbas().getSelectedComponent() == frmPrincipal.getPanelCircuito()) {
 			
-			if (circuitoControle.getIdQuadro() > 0) {
-				circuitoControle.apagaDadosFrm();
-				circuitoControle.iniciaTabelaCircuitos(circuitoControle.getIdQuadro());
+			if (!(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()) == null)) {
+				frmPrincipal.getCircuitoControle().apagaDadosFrm();
+				frmCondutor.getCondutorControle().apagaDadosFrm();
+				frmCurto.getCurtoControle().apagaDadosFrm();
+				frmPrincipal.getCircuitoControle().iniciaTabelaCircuitos(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()));
 			} else {
-				circuitoControle.apagaDadosFrm();
-				circuitoControle.setTabelaSelecao(-1);
-				circuitoControle.iniciaTabelaCircuitos(0);
+				frmPrincipal.getCircuitoControle().apagaDadosFrm();
+				frmCondutor.getCondutorControle().apagaDadosFrm();
+				frmCurto.getCurtoControle().apagaDadosFrm();
+				frmPrincipal.getCircuitoControle().setTabelaSelecao(-1);
+				frmPrincipal.getCircuitoControle().iniciaTabelaCircuitos(0);
 			}
-			// CircuitoControle.iniciaCbs();
 		}
 	}
 }

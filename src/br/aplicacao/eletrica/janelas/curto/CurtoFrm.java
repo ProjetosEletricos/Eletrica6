@@ -76,7 +76,7 @@ public class CurtoFrm extends JInternalFrame {
 		txtTempoElimDef = new JTextField();
 		panel.add(txtTempoElimDef, "cell 1 3,growx");
 
-		lblIdCurto = new JLabel("0");
+		lblIdCurto = new JLabel("");
 		lblIdCurto.setName("lblIdCurto");
 		lblIdCurto.setBounds(433, 0, 70, 15);
 		panel_5.add(lblIdCurto);
@@ -89,14 +89,6 @@ public class CurtoFrm extends JInternalFrame {
 
 		curtoControle = new CurtoControle(this);
 
-	}
-
-	public JLabel getLblIdCondutor() {
-		return lblIdCurto;
-	}
-
-	public void setLblIdCondutor(JLabel lblIdCondutor) {
-		this.lblIdCurto = lblIdCondutor;
 	}
 
 	public JLabel getLblIdCurto() {
@@ -141,6 +133,14 @@ public class CurtoFrm extends JInternalFrame {
 
 	public CurtoControle getCurtoControle() {
 		return curtoControle;
+	}
+
+	public JLabel getLblCorrenteCurto() {
+		return lblCorrenteCurto;
+	}
+
+	public void setLblCorrenteCurto(JLabel lblCorrenteCurto) {
+		this.lblCorrenteCurto = lblCorrenteCurto;
 	}
 
 	public void setCurtoControle(CurtoControle curtoControle) {

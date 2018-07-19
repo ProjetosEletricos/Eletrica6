@@ -6,11 +6,9 @@ import javax.swing.event.InternalFrameListener;
 public class CurtoAcaoFechar implements InternalFrameListener {
 
 	private CurtoFrm frm;
-	private CurtoControle controle;
 
 	public CurtoAcaoFechar(CurtoFrm frm) {
 
-		
 		this.frm = frm;
 		this.addInternalFrameListener();
 	}
@@ -22,8 +20,7 @@ public class CurtoAcaoFechar implements InternalFrameListener {
 
 	@Override
 	public void internalFrameClosed(InternalFrameEvent e) {
-		this.controle = frm.getCurtoControle();
-		controle.atualizaDados();
+		frm.getCurtoControle().atualizaDados();
 	}
 
 	@Override

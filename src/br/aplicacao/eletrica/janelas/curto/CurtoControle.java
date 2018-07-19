@@ -9,15 +9,15 @@ import br.aplicacao.eletrica.uteis.Numero;
 public class CurtoControle {
 
 	private CurtoFrm frm;
-	private Curto curto;
+	private Curto curto =new Curto();
 
 	public CurtoControle(CurtoFrm frm) {
 		this.frm = frm;
 		this.adicionaInternalFrameListener();
-		this.curto = new Curto();
 	}
 
 	public void abreFrm() {
+		
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 			Base.desktopPane.add(frm);
@@ -37,13 +37,12 @@ public class CurtoControle {
 		frm.getTxtTempAdmissRegime().setText("");
 		frm.getTxtTempMaxCurto().setText("");
 		frm.getTxtTempoElimDef().setText("");
-		frm.getLblIdCurto().setText("0");
+		frm.getLblIdCurto().setText(null);
 	}
 
 	public Curto atualizaDados() {
 
-
-
+		curto.setId(Numero.stringToInteger(frm.getLblIdCurto().getText()));
 		curto.setCorrenteCurto(Numero.stringToDouble(frm.getTxtCorrenteCurto().getText()));
 		curto.setTempAdmissRegime(Numero.stringToDouble(frm.getTxtTempAdmissRegime().getText()));
 		curto.setTempMaxCurto(Numero.stringToDouble(frm.getTxtTempMaxCurto().getText()));
@@ -57,6 +56,7 @@ public class CurtoControle {
 		if (curto != null) {
 			this.curto = curto;
 
+			frm.getLblIdCurto().setText(curto.getId().toString());
 			frm.getTxtCorrenteCurto().setText(Numero.decimal(curto.getCorrenteCurto(), "##,00"));
 			frm.getTxtTempAdmissRegime().setText(Numero.decimal(curto.getTempAdmissRegime(), "##,00"));
 			frm.getTxtTempMaxCurto().setText(Numero.decimal(curto.getTempMaxCurto(), "##,00"));

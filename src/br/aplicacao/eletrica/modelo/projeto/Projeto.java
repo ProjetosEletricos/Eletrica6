@@ -29,7 +29,7 @@ public class Projeto implements Entidade<Projeto> {
 	private String data;
 	@Column
 	private String descricao;
-	@OneToMany(mappedBy = "projeto", targetEntity = Fonte.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Fonte> fontes;
 
 	public Projeto() {

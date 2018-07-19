@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -25,13 +24,12 @@ public class Quadro implements Entidade<Quadro> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne()
-	@JoinColumn(name = "fonte_id")
 	private Fonte fonte;
 	@OneToMany(mappedBy = "quadro", targetEntity = Circuito.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Circuito> circuitos;
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne()
 	private Condutor condutor;
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne()
 	private Curto dadosCurtoCircuito;
 	private String drGeral;
 	private double fd;
@@ -51,7 +49,6 @@ public class Quadro implements Entidade<Quadro> {
 	public void addCircuito(Circuito circuito) {
 		this.circuitos.add(circuito);
 	}
-
 
 	public List<Circuito> getCircuitos() {
 		return circuitos;
@@ -79,10 +76,11 @@ public class Quadro implements Entidade<Quadro> {
 			}
 		}
 
-/*		for (Quadro subQuadro : this.getQuadros()) {
-
-			total += subQuadro.getDemanda();
-		}*/
+		/*
+		 * for (Quadro subQuadro : this.getQuadros()) {
+		 * 
+		 * total += subQuadro.getDemanda(); }
+		 */
 
 		return total;
 	}
@@ -97,16 +95,13 @@ public class Quadro implements Entidade<Quadro> {
 			}
 		}
 
-/*		for (Quadro q : this.getQuadros()) {
-			for (Circuito c : q.getCircuitos()) {
-				for (Equipamento e : c.getEquipamento()) {
-					total += e.getQuantidade() * e.getDemanda();
-				}
-			}
-		}*/
+		/*
+		 * for (Quadro q : this.getQuadros()) { for (Circuito c : q.getCircuitos()) {
+		 * for (Equipamento e : c.getEquipamento()) { total += e.getQuantidade() *
+		 * e.getDemanda(); } } }
+		 */
 		return total;
 	}
-
 
 	public UnidadePontencia getUnidade() {
 		return unidade;
@@ -184,7 +179,6 @@ public class Quadro implements Entidade<Quadro> {
 	public void setPot100PercDem(double pot100PercDem) {
 		this.pot100PercDem = pot100PercDem;
 	}
-
 
 	public void setUnidade(UnidadePontencia unidade) {
 		this.unidade = unidade;

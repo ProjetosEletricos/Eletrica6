@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Condutor implements Entidade<Condutor>{
+public class Condutor implements Entidade<Condutor> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -156,12 +156,16 @@ public class Condutor implements Entidade<Condutor>{
 	@Override
 	public Integer getId() {
 		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
-	
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
-		String nome = "id:"+this.id;
+		String nome = "id:" + this.id;
 		return nome;
 	}
 

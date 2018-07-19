@@ -2,9 +2,11 @@ package br.aplicacao.eletrica.janelas.main;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,18 +24,17 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import br.aplicacao.eletrica.janelas.circuito.CircuitoControle;
+import br.aplicacao.eletrica.janelas.equipamento.EquipamentoControle;
 import br.aplicacao.eletrica.janelas.fonte.FonteControle;
 import br.aplicacao.eletrica.janelas.projeto.ProjetoControle;
 import br.aplicacao.eletrica.janelas.quadro.QuadroControle;
 import br.aplicacao.eletrica.modelo.projeto.Concessionaria;
 import br.aplicacao.eletrica.modelo.projeto.Quadro;
+import br.aplicacao.eletrica.servico.ConcessionariaService;
 import net.miginfocom.swing.MigLayout;
 
 public class PrincipalFrm extends JInternalFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private JTabbedPane abas;
@@ -42,7 +43,7 @@ public class PrincipalFrm extends JInternalFrame {
 	private JButton btnCopiarFonte;
 	private JButton btnCopiarProjeto;
 	private JButton btnCopiarQuadro;
-	private JButton btnDeletarEquipamento;
+	private JButton btnExcluirEquipamento;
 	private JButton btnExcluirCircuito;
 	private JButton btnExcluirFonte;
 	private JButton btnExcluirProjeto;
@@ -58,10 +59,9 @@ public class PrincipalFrm extends JInternalFrame {
 	private JComboBox<Concessionaria> cbConcessionaria;
 	private JComboBox<String> cbDrQuadro;
 	private JComboBox<Object> cbLigacaoEquipamento;
-	private JComboBox<String> cbPolos;
+	private JComboBox<String> cbPolosEquipamento;
 	private JComboBox<Quadro> cbQuadroPai;
-	private JComboBox<String> cbQuantidade;
-	private JComboBox<String> cbUnidadePotEquipa;
+	private JComboBox<String> cbUnidadePotEquipamento;
 	private JComboBox<String> cbUsabilidadeQuadro;
 	private JPanel contentPane;
 	private JLabel lblIdCircuito;
@@ -73,7 +73,7 @@ public class PrincipalFrm extends JInternalFrame {
 	private JPanel panelFonte;
 	private JPanel panelProjeto;
 	private JPanel panelQuadro;
-	private JTable tableEquipamentoGeral;
+	private JTable tableEquipamentos;
 	private JTable tableFontes;
 	private JTable tableProjetos;
 
@@ -86,9 +86,9 @@ public class PrincipalFrm extends JInternalFrame {
 
 	private JTextField txtFpEquipamento;
 	private JTextField txtFpQuadro;
-	private JTextField txtFServico;
-	private JTextField txtFSimutaneadade;
-	private JTextField txtFUtilizacao;
+	private JTextField txtFServicoEquipamento;
+	private JTextField txtFSimutaneadadeEquipamento;
+	private JTextField txtFUtilizacaoEquipamento;
 	private JTextField txtLocalEquipamento;
 	private JTextField txtLocalQuadro;
 	private JTextField txtNomeCircuito;
@@ -97,16 +97,22 @@ public class PrincipalFrm extends JInternalFrame {
 	private JTextField txtNomeProjeto;
 	private JTextField txtNomeQuadro;
 
-	private JTextField txtPerdas;
+	private JTextField txtPerdasEquipamento;
 	private JTextField txtPotenciaEquipamento;
-	private JTextField txtRendimento;
+	private JTextField txtRendimentoEquipamento;
 	private JTextField txtTensaoFonte;
 	private JScrollPane scrollPane_5;
 	private JTable tableCircuitos;
 	private ProjetoControle projetoControle;
 	private FonteControle fonteControle;
-	private QuadroControle quadroControle; 
+	private QuadroControle quadroControle;
 	private CircuitoControle circuitoControle;
+	private EquipamentoControle equipamentoControle;
+
+	private JLabel lblIdEquipamento;
+	private JTextField txtQuantidadeEquipamento;
+
+	private JPanel panelEquipamento;
 
 	public PrincipalFrm() {
 		setClosable(true);
@@ -270,15 +276,16 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_15.add(txtTensaoFonte);
 
 		cbConcessionaria = new JComboBox<Concessionaria>();
-		/*
-		 * cbConcessionaria.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) { if
-		 * (cbConcessionaria.getSelectedItem() != null) { //
-		 * System.out.println("Selected: " + cbConcessionaria.getSelectedIndex() + " - "
-		 * // + cbConcessionaria.getSelectedItem()); } //
-		 * FonteControle.iniciaCbConcessionaria(); } });
-		 */
+		cbConcessionaria.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				List<Concessionaria> lista = new ArrayList<Concessionaria>();
+				lista = ConcessionariaService.getAll();
+				cbConcessionaria.removeAllItems();
+				setConcessionaria(lista);
+			}
+		});
+
 		cbConcessionaria.setName("cbConcessionaria");
 		cbConcessionaria.setBounds(144, 77, 137, 24);
 		panel_15.add(cbConcessionaria);
@@ -459,7 +466,7 @@ public class PrincipalFrm extends JInternalFrame {
 		btnCopiarQuadro.setBackground(Color.GRAY);
 		panel_21.add(btnCopiarQuadro, "cell 2 0");
 
-		lblIdQuadro = new JLabel("0");
+		lblIdQuadro = new JLabel("");
 		lblIdQuadro.setName("lblIdQuadro");
 		lblIdQuadro.setBounds(146, 15, 55, 16);
 		panelQuadro.add(lblIdQuadro);
@@ -475,11 +482,11 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_6.setBounds(12, 153, 315, 178);
 		panelCircuito.add(panel_6);
 		panel_6.setLayout(null);
-		
+
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(12, 17, 291, 149);
 		panel_6.add(scrollPane_2);
-		
+
 		tableCircuitos = new JTable();
 		scrollPane_2.setViewportView(tableCircuitos);
 
@@ -539,7 +546,7 @@ public class PrincipalFrm extends JInternalFrame {
 		btnCopiarCircuito.setBackground(Color.GRAY);
 		panel_2.add(btnCopiarCircuito, "cell 2 0");
 
-		lblIdCircuito = new JLabel("0");
+		lblIdCircuito = new JLabel("");
 		lblIdCircuito.setBounds(146, 16, 70, 15);
 		panelCircuito.add(lblIdCircuito);
 
@@ -548,28 +555,29 @@ public class PrincipalFrm extends JInternalFrame {
 		lblIdCondutor.setBounds(226, 16, 70, 15);
 		panelCircuito.add(lblIdCondutor);
 
-		JPanel panel_5 = new JPanel();
-		abas.addTab("Equipamento", null, panel_5, null);
-		panel_5.setLayout(null);
+		panelEquipamento = new JPanel();
+		panelEquipamento.setName("panelEquipamento");
+		abas.addTab("Equipamento", null, panelEquipamento, null);
+		panelEquipamento.setLayout(null);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrados",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
 		panel_1.setBounds(469, 47, 206, 284);
-		panel_5.add(panel_1);
+		panelEquipamento.add(panel_1);
 		panel_1.setLayout(null);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(12, 17, 182, 255);
 		panel_1.add(scrollPane_1);
 
-		tableEquipamentoGeral = new JTable();
-		tableEquipamentoGeral.setName("tableEquipamentoGeral");
-		scrollPane_1.setViewportView(tableEquipamentoGeral);
+		tableEquipamentos = new JTable();
+		tableEquipamentos.setName("tableEquipamentos");
+		scrollPane_1.setViewportView(tableEquipamentos);
 
 		JPanel panel_22 = new JPanel();
 		panel_22.setBounds(12, 0, 116, 43);
-		panel_5.add(panel_22);
+		panelEquipamento.add(panel_22);
 		panel_22.setLayout(new MigLayout("", "[][][]", "[]"));
 
 		btnSalvarEquipamento = new JButton("");
@@ -580,13 +588,13 @@ public class PrincipalFrm extends JInternalFrame {
 		btnSalvarEquipamento.setBackground(Color.GRAY);
 		panel_22.add(btnSalvarEquipamento, "cell 0 0");
 
-		btnDeletarEquipamento = new JButton("");
-		btnDeletarEquipamento.setName("btnDeletarEquipamento");
-		btnDeletarEquipamento.setIcon(
+		btnExcluirEquipamento = new JButton("");
+		btnExcluirEquipamento.setName("btnExcluirEquipamento");
+		btnExcluirEquipamento.setIcon(
 				new ImageIcon(PrincipalFrm.class.getResource("/br/aplicacao/eletrica/janelas/images/close24.png")));
-		btnDeletarEquipamento.setMaximumSize(new Dimension(30, 30));
-		btnDeletarEquipamento.setBackground(Color.GRAY);
-		panel_22.add(btnDeletarEquipamento, "cell 1 0");
+		btnExcluirEquipamento.setMaximumSize(new Dimension(30, 30));
+		btnExcluirEquipamento.setBackground(Color.GRAY);
+		panel_22.add(btnExcluirEquipamento, "cell 1 0");
 
 		btnCopiarEquipamento = new JButton("");
 		btnCopiarEquipamento.setName("btnCopiarEquipamento");
@@ -600,13 +608,14 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_7.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informa\u00E7\u00F5es",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
 		panel_7.setBounds(12, 47, 451, 284);
-		panel_5.add(panel_7);
+		panelEquipamento.add(panel_7);
 		panel_7.setLayout(new MigLayout("", "[][grow][grow][][grow]", "[][][][][][][][]"));
 
 		JLabel lblNewLabel = new JLabel("Nome:");
 		panel_7.add(lblNewLabel, "cell 0 0,alignx left");
 
 		txtNomeEquipamento = new JTextField();
+		txtNomeEquipamento.setName("txtNomeEquipamento");
 		txtNomeEquipamento.setMaximumSize(new Dimension(120, 2147483647));
 		panel_7.add(txtNomeEquipamento, "cell 1 0,growx");
 		txtNomeEquipamento.setColumns(10);
@@ -615,6 +624,7 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_7.add(lblFp, "cell 3 0,alignx left");
 
 		txtFpEquipamento = new JTextField();
+		txtFpEquipamento.setName("txtFpEquipamento");
 		txtFpEquipamento.setMaximumSize(new Dimension(50, 2147483647));
 		txtFpEquipamento.setColumns(10);
 		panel_7.add(txtFpEquipamento, "cell 4 0,growx");
@@ -623,6 +633,7 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_7.add(lblLocal, "cell 0 1,alignx left");
 
 		txtLocalEquipamento = new JTextField();
+		txtLocalEquipamento.setName("txtLocalEquipamento");
 		txtLocalEquipamento.setMaximumSize(new Dimension(120, 2147483647));
 		txtLocalEquipamento.setColumns(10);
 		panel_7.add(txtLocalEquipamento, "cell 1 1,growx");
@@ -630,10 +641,11 @@ public class PrincipalFrm extends JInternalFrame {
 		JLabel lblRendimento = new JLabel("Rendimento:");
 		panel_7.add(lblRendimento, "cell 3 1,alignx left");
 
-		txtRendimento = new JTextField();
-		txtRendimento.setMaximumSize(new Dimension(50, 2147483647));
-		txtRendimento.setColumns(10);
-		panel_7.add(txtRendimento, "cell 4 1,growx");
+		txtRendimentoEquipamento = new JTextField();
+		txtRendimentoEquipamento.setName("txtRendimentoEquipamento");
+		txtRendimentoEquipamento.setMaximumSize(new Dimension(50, 2147483647));
+		txtRendimentoEquipamento.setColumns(10);
+		panel_7.add(txtRendimentoEquipamento, "cell 4 1,growx");
 
 		JLabel lblNewLabel_1 = new JLabel("Usabilidade:");
 		panel_7.add(lblNewLabel_1, "cell 0 2,alignx left");
@@ -642,38 +654,40 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_7.add(lblFd, "cell 3 2,alignx left");
 
 		txtFdEquipamento = new JTextField();
+		txtFdEquipamento.setName("txtFdEquipamento");
 		txtFdEquipamento.setMaximumSize(new Dimension(50, 2147483647));
 		txtFdEquipamento.setColumns(10);
 		panel_7.add(txtFdEquipamento, "cell 4 2,growx");
 
 		JLabel lblQuantidade_1 = new JLabel("Quantidade:");
-		panel_7.add(lblQuantidade_1, "cell 0 3,alignx left");
+		panel_7.add(lblQuantidade_1, "cell 0 3,alignx trailing");
 
-		cbQuantidade = new JComboBox<>();
-		cbQuantidade.setMaximumSize(new Dimension(100, 32767));
-		panel_7.add(cbQuantidade, "cell 1 3");
-		cbQuantidade.setModel(
-				new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+		txtQuantidadeEquipamento = new JTextField();
+		txtQuantidadeEquipamento.setName("txtQuantidadeEquipamento");
+		panel_7.add(txtQuantidadeEquipamento, "cell 1 3,growx");
+		txtQuantidadeEquipamento.setColumns(10);
 
 		JLabel lblFutil = new JLabel("FUtil:");
 		panel_7.add(lblFutil, "cell 3 3,alignx left");
 
-		txtFUtilizacao = new JTextField();
-		txtFUtilizacao.setMaximumSize(new Dimension(50, 2147483647));
-		txtFUtilizacao.setColumns(10);
-		panel_7.add(txtFUtilizacao, "cell 4 3,growx");
+		txtFUtilizacaoEquipamento = new JTextField();
+		txtFUtilizacaoEquipamento.setName("txtFUtilizacaoEquipamento");
+		txtFUtilizacaoEquipamento.setMaximumSize(new Dimension(50, 2147483647));
+		txtFUtilizacaoEquipamento.setColumns(10);
+		panel_7.add(txtFUtilizacaoEquipamento, "cell 4 3,growx");
 
 		JLabel lblQuantidade = new JLabel("Pot\u00EAncia:");
 		panel_7.add(lblQuantidade, "cell 0 4,alignx left");
 
 		txtPotenciaEquipamento = new JTextField();
+		txtPotenciaEquipamento.setName("txtPotenciaEquipamento");
 		txtPotenciaEquipamento.setMaximumSize(new Dimension(120, 2147483647));
 		txtPotenciaEquipamento.setColumns(10);
 		panel_7.add(txtPotenciaEquipamento, "cell 1 4,growx");
 
-		cbUnidadePotEquipa = new JComboBox<>();
-		cbUnidadePotEquipa.setModel(new DefaultComboBoxModel<>(new String[] { "W", "VA", "CV", "HP", "BTU" }));
-		panel_7.add(cbUnidadePotEquipa, "cell 2 4,growx");
+		cbUnidadePotEquipamento = new JComboBox<>();
+		cbUnidadePotEquipamento.setName("cbUnidadePotEquipamento");
+		panel_7.add(cbUnidadePotEquipamento, "cell 2 4,growx");
 
 		JLabel lblTotal = new JLabel("Total:");
 		panel_7.add(lblTotal, "cell 3 4,aligny baseline");
@@ -684,47 +698,51 @@ public class PrincipalFrm extends JInternalFrame {
 		JLabel lblPlos = new JLabel("P\u00F3los:");
 		panel_7.add(lblPlos, "cell 0 5,alignx left");
 
-		cbPolos = new JComboBox<>();
-		cbPolos.setModel(new DefaultComboBoxModel<>(new String[] { "2", "4" }));
-		cbPolos.setMaximumSize(new Dimension(45, 32767));
-		panel_7.add(cbPolos, "cell 1 5,growx");
+		cbPolosEquipamento = new JComboBox<>();
+		cbPolosEquipamento.setName("cbPolosEquipamento");
+		cbPolosEquipamento.setMaximumSize(new Dimension(45, 32767));
+		panel_7.add(cbPolosEquipamento, "cell 1 5,growx");
 
 		JLabel lblFserv = new JLabel("FServ:");
 		panel_7.add(lblFserv, "cell 3 5,alignx left");
 
-		txtFServico = new JTextField();
-		txtFServico.setMaximumSize(new Dimension(50, 2147483647));
-		txtFServico.setColumns(10);
-		panel_7.add(txtFServico, "cell 4 5,growx");
+		txtFServicoEquipamento = new JTextField();
+		txtFServicoEquipamento.setName("txtFServicoEquipamento");
+		txtFServicoEquipamento.setMaximumSize(new Dimension(50, 2147483647));
+		txtFServicoEquipamento.setColumns(10);
+		panel_7.add(txtFServicoEquipamento, "cell 4 5,growx");
 
 		JLabel lblLigao = new JLabel("Liga\u00E7\u00E3o:");
 		panel_7.add(lblLigao, "cell 0 6,alignx left");
 
 		cbLigacaoEquipamento = new JComboBox<Object>();
+		cbLigacaoEquipamento.setName("cbLigacaoEquipamento");
 		cbLigacaoEquipamento.setMinimumSize(new Dimension(40, 24));
-		cbLigacaoEquipamento.setModel(new DefaultComboBoxModel<>(new String[] { "FN", "FF", "FFN", "FFF", "FFFN" }));
 		cbLigacaoEquipamento.setMaximumSize(new Dimension(60, 32767));
 		panel_7.add(cbLigacaoEquipamento, "cell 1 6,growx");
 
 		JLabel lblFsimu = new JLabel("FSimu:");
 		panel_7.add(lblFsimu, "cell 3 6,alignx left");
 
-		txtFSimutaneadade = new JTextField();
-		txtFSimutaneadade.setMaximumSize(new Dimension(50, 2147483647));
-		txtFSimutaneadade.setColumns(10);
-		panel_7.add(txtFSimutaneadade, "cell 4 6,growx");
+		txtFSimutaneadadeEquipamento = new JTextField();
+		txtFSimutaneadadeEquipamento.setName("txtFSimutaneadadeEquipamento");
+		txtFSimutaneadadeEquipamento.setMaximumSize(new Dimension(50, 2147483647));
+		txtFSimutaneadadeEquipamento.setColumns(10);
+		panel_7.add(txtFSimutaneadadeEquipamento, "cell 4 6,growx");
 
 		JLabel lblPerdasw = new JLabel("Perdas (W):");
 		panel_7.add(lblPerdasw, "cell 0 7,alignx left");
 
-		txtPerdas = new JTextField();
-		txtPerdas.setMaximumSize(new Dimension(120, 2147483647));
-		txtPerdas.setColumns(10);
-		panel_7.add(txtPerdas, "cell 1 7,growx");
+		txtPerdasEquipamento = new JTextField();
+		txtPerdasEquipamento.setName("txtPerdasEquipamento");
+		txtPerdasEquipamento.setMaximumSize(new Dimension(120, 2147483647));
+		txtPerdasEquipamento.setColumns(10);
+		panel_7.add(txtPerdasEquipamento, "cell 1 7,growx");
 
-		JLabel lblIdEquipamento = new JLabel("0");
+		lblIdEquipamento = new JLabel("");
+		lblIdEquipamento.setName("lblIdEquipamento");
 		lblIdEquipamento.setBounds(146, 20, 70, 15);
-		panel_5.add(lblIdEquipamento);
+		panelEquipamento.add(lblIdEquipamento);
 
 		JPanel panel = new JPanel();
 		abas.addTab("Resultados", null, panel, null);
@@ -735,13 +753,14 @@ public class PrincipalFrm extends JInternalFrame {
 	}
 
 	private void Listen() {
-		
+
 		projetoControle = new ProjetoControle(this);
 		fonteControle = new FonteControle(this);
 		quadroControle = new QuadroControle(this);
 		circuitoControle = new CircuitoControle(this);
+		equipamentoControle = new EquipamentoControle(this);
 	}
-	
+
 	public JButton getBtnCopiarCircuito() {
 		return btnCopiarCircuito;
 	}
@@ -762,8 +781,8 @@ public class PrincipalFrm extends JInternalFrame {
 		return btnCopiarQuadro;
 	}
 
-	public JButton getBtnDeletarEquipamento() {
-		return btnDeletarEquipamento;
+	public JButton getBtnExcluirEquipamento() {
+		return btnExcluirEquipamento;
 	}
 
 	public JButton getBtnExcluirCircuito() {
@@ -815,19 +834,11 @@ public class PrincipalFrm extends JInternalFrame {
 	}
 
 	public JComboBox<String> getCbPolos() {
-		return cbPolos;
+		return cbPolosEquipamento;
 	}
 
 	public JComboBox<Quadro> getCbQuadroPai() {
 		return cbQuadroPai;
-	}
-
-	public JComboBox<String> getCbQuantidade() {
-		return cbQuantidade;
-	}
-
-	public JComboBox<String> getCbUnidadePotEquipa() {
-		return cbUnidadePotEquipa;
 	}
 
 	public JComboBox<String> getCbUsabilidadeQuadro() {
@@ -870,8 +881,8 @@ public class PrincipalFrm extends JInternalFrame {
 		return panelQuadro;
 	}
 
-	public JTable getTableEquipamentoGeral() {
-		return tableEquipamentoGeral;
+	public JTable getTableEquipamentos() {
+		return tableEquipamentos;
 	}
 
 	public JTable getTableFontes() {
@@ -918,18 +929,6 @@ public class PrincipalFrm extends JInternalFrame {
 		return txtFpQuadro;
 	}
 
-	public JTextField getTxtFServico() {
-		return txtFServico;
-	}
-
-	public JTextField getTxtFSimutaneadade() {
-		return txtFSimutaneadade;
-	}
-
-	public JTextField getTxtFUtilizacao() {
-		return txtFUtilizacao;
-	}
-
 	public JTextField getTxtLocalEquipamento() {
 		return txtLocalEquipamento;
 	}
@@ -958,20 +957,20 @@ public class PrincipalFrm extends JInternalFrame {
 		return txtNomeQuadro;
 	}
 
-	public JTextField getTxtPerdas() {
-		return txtPerdas;
-	}
-
 	public JTextField getTxtPotenciaEquipamento() {
 		return txtPotenciaEquipamento;
 	}
 
-	public JTextField getTxtRendimento() {
-		return txtRendimento;
-	}
-
 	public JTextField getTxtTensaoFonte() {
 		return txtTensaoFonte;
+	}
+
+	public JComboBox<String> getCbUnidadePotEquipamento() {
+		return cbUnidadePotEquipamento;
+	}
+
+	public void setCbUnidadePotEquipamento(JComboBox<String> cbUnidadePotEquipamento) {
+		this.cbUnidadePotEquipamento = cbUnidadePotEquipamento;
 	}
 
 	public JTable getTableCircuitos() {
@@ -984,6 +983,54 @@ public class PrincipalFrm extends JInternalFrame {
 
 	public void setBtnCurtoCirCircuito(JButton btnCurtoCirCircuito) {
 		this.btnCurtoCirCircuito = btnCurtoCirCircuito;
+	}
+
+	public JTextField getTxtFServicoEquipamento() {
+		return txtFServicoEquipamento;
+	}
+
+	public void setTxtFServicoEquipamento(JTextField txtFServicoEquipamento) {
+		this.txtFServicoEquipamento = txtFServicoEquipamento;
+	}
+
+	public JTextField getTxtFSimutaneadadeEquipamento() {
+		return txtFSimutaneadadeEquipamento;
+	}
+
+	public void setTxtFSimutaneadadeEquipamento(JTextField txtFSimutaneadadeEquipamento) {
+		this.txtFSimutaneadadeEquipamento = txtFSimutaneadadeEquipamento;
+	}
+
+	public JTextField getTxtFUtilizacaoEquipamento() {
+		return txtFUtilizacaoEquipamento;
+	}
+
+	public void setTxtFUtilizacaoEquipamento(JTextField txtFUtilizacaoEquipamento) {
+		this.txtFUtilizacaoEquipamento = txtFUtilizacaoEquipamento;
+	}
+
+	public JTextField getTxtQuantidadeEquipamento() {
+		return txtQuantidadeEquipamento;
+	}
+
+	public void setTxtQuantidadeEquipamento(JTextField txtQuantidadeEquipamento) {
+		this.txtQuantidadeEquipamento = txtQuantidadeEquipamento;
+	}
+
+	public JTextField getTxtRendimentoEquipamento() {
+		return txtRendimentoEquipamento;
+	}
+
+	public void setTxtRendimentoEquipamento(JTextField txtRendimentoEquipamento) {
+		this.txtRendimentoEquipamento = txtRendimentoEquipamento;
+	}
+
+	public JPanel getPanelEquipamento() {
+		return panelEquipamento;
+	}
+
+	public void setPanelEquipamento(JPanel panelEquipamento) {
+		this.panelEquipamento = panelEquipamento;
 	}
 
 	public JButton getBtnCondutorCircuito() {
@@ -1006,6 +1053,38 @@ public class PrincipalFrm extends JInternalFrame {
 		return abas;
 	}
 
+	public JComboBox<String> getCbPolosEquipamento() {
+		return cbPolosEquipamento;
+	}
+
+	public void setCbPolosEquipamento(JComboBox<String> cbPolosEquipamento) {
+		this.cbPolosEquipamento = cbPolosEquipamento;
+	}
+
+	public JTextField getTxtPerdasEquipamento() {
+		return txtPerdasEquipamento;
+	}
+
+	public void setTxtPerdasEquipamento(JTextField txtPerdasEquipamento) {
+		this.txtPerdasEquipamento = txtPerdasEquipamento;
+	}
+
+	public EquipamentoControle getEquipamentoControle() {
+		return equipamentoControle;
+	}
+
+	public void setEquipamentoControle(EquipamentoControle equipamentoControle) {
+		this.equipamentoControle = equipamentoControle;
+	}
+
+	public JLabel getLblIdEquipamento() {
+		return lblIdEquipamento;
+	}
+
+	public void setLblIdEquipamento(JLabel lblIdEquipamento) {
+		this.lblIdEquipamento = lblIdEquipamento;
+	}
+
 	public void setBtnCopiarCircuito(JButton btnCopiarCircuito) {
 		this.btnCopiarCircuito = btnCopiarCircuito;
 	}
@@ -1026,8 +1105,8 @@ public class PrincipalFrm extends JInternalFrame {
 		this.btnCopiarQuadro = btnCopiarQuadro;
 	}
 
-	public void setBtnDeletarEquipamento(JButton btnDeletarEquipamento) {
-		this.btnDeletarEquipamento = btnDeletarEquipamento;
+	public void setBtnExcluirEquipamento(JButton btnExcluirEquipamento) {
+		this.btnExcluirEquipamento = btnExcluirEquipamento;
 	}
 
 	public void setBtnExcluirCircuito(JButton btnExcluirCircuito) {
@@ -1078,20 +1157,8 @@ public class PrincipalFrm extends JInternalFrame {
 		this.cbLigacaoEquipamento = cbLigacaoEquipamento;
 	}
 
-	public void setCbPolos(JComboBox<String> cbPolos) {
-		this.cbPolos = cbPolos;
-	}
-
 	public void setCbQuadroPai(JComboBox<Quadro> cbQuadroPai) {
 		this.cbQuadroPai = cbQuadroPai;
-	}
-
-	public void setCbQuantidade(JComboBox<String> cbQuantidade) {
-		this.cbQuantidade = cbQuantidade;
-	}
-
-	public void setCbUnidadePotEquipa(JComboBox<String> cbUnidadePotEquipa) {
-		this.cbUnidadePotEquipa = cbUnidadePotEquipa;
 	}
 
 	public void setCbUsabilidadeQuadro(JComboBox<String> cbUsabilidadeQuadro) {
@@ -1134,8 +1201,8 @@ public class PrincipalFrm extends JInternalFrame {
 		this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
 	}
 
-	public void setTableEquipamentoGeral(JTable tableEquipamentoGeral) {
-		this.tableEquipamentoGeral = tableEquipamentoGeral;
+	public void setTableEquipamentos(JTable tableEquipamentos) {
+		this.tableEquipamentos = tableEquipamentos;
 	}
 
 	public void setTxtAutor(JTextField txtAutor) {
@@ -1167,15 +1234,7 @@ public class PrincipalFrm extends JInternalFrame {
 	}
 
 	public void setTxtFServico(JTextField txtFServico) {
-		this.txtFServico = txtFServico;
-	}
-
-	public void setTxtFSimutaneadade(JTextField txtFSimutaneadade) {
-		this.txtFSimutaneadade = txtFSimutaneadade;
-	}
-
-	public void setTxtFUtilizacao(JTextField txtFUtilizacao) {
-		this.txtFUtilizacao = txtFUtilizacao;
+		this.txtFServicoEquipamento = txtFServico;
 	}
 
 	public void setTxtLocalEquipamento(JTextField txtLocalEquipamento) {
@@ -1206,16 +1265,8 @@ public class PrincipalFrm extends JInternalFrame {
 		this.txtNomeQuadro = txtNomeQuadro;
 	}
 
-	public void setTxtPerdas(JTextField txtPerdas) {
-		this.txtPerdas = txtPerdas;
-	}
-
 	public void setTxtPotenciaEquipamento(JTextField txtPotenciaEquipamento) {
 		this.txtPotenciaEquipamento = txtPotenciaEquipamento;
-	}
-
-	public void setTxtRendimento(JTextField txtRendimento) {
-		this.txtRendimento = txtRendimento;
 	}
 
 	public void setTxtTensaoFonte(JTextField txtTensaoFonte) {

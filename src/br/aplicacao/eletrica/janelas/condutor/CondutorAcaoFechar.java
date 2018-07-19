@@ -6,13 +6,11 @@ import javax.swing.event.InternalFrameListener;
 public class CondutorAcaoFechar implements InternalFrameListener {
 
 	private CondutorFrm frm;
-	private CondutorControle controle;
 
 	public CondutorAcaoFechar(CondutorFrm frm) {
 
 		
 		this.frm = frm;
-		
 		this.addInternalFrameListener();
 	}
 
@@ -23,8 +21,9 @@ public class CondutorAcaoFechar implements InternalFrameListener {
 
 	@Override
 	public void internalFrameClosed(InternalFrameEvent e) {
-		this.controle = frm.getCondutorControle();
-		controle.atualizaDados();
+
+		frm.getCondutorControle().atualizaDados();
+
 	}
 
 	@Override

@@ -29,6 +29,7 @@ public class FonteAcaoBotoes implements ActionListener {
 			Fonte fonte = frm.getFonteControle().getFonte();
 			projeto.getFontes().remove(fonte);
 			FonteService.remove(fonte);
+			fonte.getQuadros().clear();
 
 			frm.getFonteControle().setTabelaSelecao(-1);
 			frm.getFonteControle().iniciaTabelaFontes(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
@@ -42,6 +43,7 @@ public class FonteAcaoBotoes implements ActionListener {
 
 			frm.getLblIdFonte().repaint();
 			this.salvar();
+			
 		}
 	}
 
@@ -50,6 +52,7 @@ public class FonteAcaoBotoes implements ActionListener {
 		frm.getBtnCopiarFonte().addActionListener(this);
 		frm.getBtnExcluirFonte().addActionListener(this);
 		frm.getBtnSalvarFonte().addActionListener(this);
+		frm.getCbConcessionaria().addActionListener(this);
 
 	}
 

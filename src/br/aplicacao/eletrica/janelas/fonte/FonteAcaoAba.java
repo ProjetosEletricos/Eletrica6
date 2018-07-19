@@ -13,7 +13,6 @@ public class FonteAcaoAba implements ChangeListener {
 	public FonteAcaoAba(PrincipalFrm frm) {
 
 		this.frm = frm;
-
 		this.adicionaChangeListener();
 	}
 
@@ -26,7 +25,7 @@ public class FonteAcaoAba implements ChangeListener {
 	public void stateChanged(ChangeEvent arg0) {
 
 		if (frm.getAbas().getSelectedComponent() == frm.getPanelFonte()) {
-			frm.getFonteControle().iniciaCbConcessionaria();
+
 			if (!(Numero.stringToInteger(frm.getLblIdProjeto().getText()) == null)) {
 				frm.getFonteControle().apagaDadosFrm();
 				frm.getFonteControle().iniciaTabelaFontes(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
@@ -35,9 +34,6 @@ public class FonteAcaoAba implements ChangeListener {
 				frm.getFonteControle().setTabelaSelecao(-1);
 				frm.getFonteControle().iniciaTabelaFontes(0);
 			}
-
 		}
-
 	}
-
 }

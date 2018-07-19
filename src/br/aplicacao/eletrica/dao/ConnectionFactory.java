@@ -9,6 +9,7 @@ public class ConnectionFactory {
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("EletricaPU");
 
 	public static EntityManager getEntityManager() {
+
 		return factory.createEntityManager();
 	}
 }

@@ -10,7 +10,6 @@ public class QuadroAcaoDigitar implements KeyListener {
 
 	private PrincipalFrm frm;
 	@SuppressWarnings("unused")
-	private QuadroControle controle;
 
 	public QuadroAcaoDigitar(PrincipalFrm frm) {
 		
@@ -36,8 +35,7 @@ public class QuadroAcaoDigitar implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent event) {
-		this.controle = frm.getQuadroControle();
-		
+
 		ApenasNumero.campo(event, "txtFdQuadro");
 		ApenasNumero.campo(event, "txtFpQuadro");
 

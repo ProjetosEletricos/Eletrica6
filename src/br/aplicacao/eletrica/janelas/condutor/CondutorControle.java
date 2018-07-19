@@ -10,19 +10,21 @@ import br.aplicacao.eletrica.uteis.Numero;
 public class CondutorControle {
 
 	private CondutorFrm frm;
-	private Condutor condutor;
+	private Condutor condutor = new Condutor();
 
 	public CondutorControle(CondutorFrm frm) {
 		this.frm = frm;
 		this.adicionaInternalFrameListener();
-		this.condutor = new Condutor();
+
 	}
 
 	public void abreFrm() {
+
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 			Base.desktopPane.add(frm);
 			frm.setVisible(true);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -140,12 +142,12 @@ public class CondutorControle {
 		frm.getCbBitolSucessCondutor().setSelectedIndex(-1);
 		frm.getCbNcirAgrupadosCondutor().setSelectedIndex(-1);
 		frm.getCbNCamadasCondutor().setSelectedIndex(-1);
-		frm.getLblIdCondutor().setText("0");
+		frm.getLblIdCondutor().setText(null);
 	}
 
 	public Condutor atualizaDados() {
 
-
+		condutor.setId(Numero.stringToInteger(frm.getLblIdCondutor().getText()));
 		condutor.setQuedaTensao(Numero.stringToDouble(frm.getTxtQuedaTensaoCondutor().getText()));
 		condutor.setResistiTermica(Numero.stringToDouble(frm.getTxtResistTermicaCondutor().getText()));
 		condutor.setTemperatura(
@@ -171,6 +173,7 @@ public class CondutorControle {
 		if (condutor != null) {
 			this.condutor = condutor;
 
+			frm.getLblIdCondutor().setText(condutor.getId().toString());
 			frm.getTxtQuedaTensaoCondutor().setText(Numero.decimal(condutor.getQuedaTensao(), "##,00"));
 			frm.getTxtResistTermicaCondutor().setText(Numero.decimal(condutor.getResistiTermica(), "##,00"));
 			frm.getCbTempAmbienteCondutor().getModel()

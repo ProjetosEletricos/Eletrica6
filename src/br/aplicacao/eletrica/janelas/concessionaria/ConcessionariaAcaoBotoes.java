@@ -9,29 +9,27 @@ import br.aplicacao.eletrica.servico.ConcessionariaService;
 public class ConcessionariaAcaoBotoes implements ActionListener {
 
 	private ConcessionariaFrm frm;
-	private ConcessionariaControle controle;
 
 	public ConcessionariaAcaoBotoes(ConcessionariaFrm frm) {
 
 		this.frm = frm;
-		
 		this.adicionaActionListener();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		this.controle = frm.getControle();
 		
 		if (event.getSource() == frm.getBtnExcluirConcessionaria()) {
-			int row = controle.getTabelaSelecao();
+			
+			int row = frm.getControle().getTabelaSelecao();
 
 			if (row >= 0) {
 
-				ConcessionariaService.removeById(controle.getIdConcessionaria());
+				ConcessionariaService.removeById(frm.getControle().getIdConcessionaria());
 
-				controle.setTabelaSelecao(-1);
-				controle.iniciaTabelaConcessionarias();
-				controle.apagaDadosFrm();
+				frm.getControle().setTabelaSelecao(-1);
+				frm.getControle().iniciaTabelaConcessionarias();
+				frm.getControle().apagaDadosFrm();
 			}
 
 		} else if (event.getSource() == frm.getBtnSalvarConcessionaria()) {
@@ -54,10 +52,10 @@ public class ConcessionariaAcaoBotoes implements ActionListener {
 
 	private void salvar() {
 
-		Concessionaria concessionaria = controle.getDadosFrm();
+		Concessionaria concessionaria = frm.getControle().getDadosFrm();
 		ConcessionariaService.salva(concessionaria);
-		controle.iniciaTabelaConcessionarias();
-		controle.apagaDadosFrm();
+		frm.getControle().iniciaTabelaConcessionarias();
+		frm.getControle().apagaDadosFrm();
 	}
 
 }

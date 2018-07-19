@@ -10,14 +10,13 @@ import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Fonte;
 import br.aplicacao.eletrica.modelo.projeto.Quadro;
 import br.aplicacao.eletrica.servico.FonteService;
-import br.aplicacao.eletrica.servico.QuadroService;
 import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
 public class QuadroControle {
 
 	private PrincipalFrm frm;
-	private Quadro quadro;
+	private Quadro quadro = new Quadro();
 	private GenericTableModel<Quadro> tabela;
 	private int tabelaSelecao = -1;
 
@@ -54,17 +53,12 @@ public class QuadroControle {
 		frm.getTxtNomeQuadro().setText("");
 		frm.getCbUsabilidadeQuadro().setSelectedIndex(-1);
 		frm.getCbDrQuadro().setSelectedIndex(-1);
-		frm.getLblIdQuadro().setText("0");
+		frm.getLblIdQuadro().setText(null);
 	}
 
 	public Quadro getDadosFrm() {
 
-		Quadro quadro = new Quadro();
-
-		if (!(frm.getLblIdQuadro().getText().equals("0"))) {
-			quadro = QuadroService.getById(Integer.valueOf(frm.getLblIdQuadro().getText()));
-			quadro.setId(Integer.parseInt(frm.getLblIdQuadro().getText()));
-		}
+		quadro.setId(Numero.stringToInteger(frm.getLblIdQuadro().getText()));
 		quadro.setFd(Numero.stringToDouble(frm.getTxtFdQuadro().getText()));
 		quadro.setFp(Numero.stringToDouble(frm.getTxtFpQuadro().getText()));
 		quadro.setLocal(frm.getTxtLocalQuadro().getText());
@@ -142,14 +136,6 @@ public class QuadroControle {
 
 	public void setQuadro(Quadro quadro) {
 		this.quadro = quadro;
-	}
-
-	public Integer getIdFonte() {
-		return Integer.valueOf(frm.getLblIdFonte().getText());
-	}
-
-	public Integer getIdQuadro() {
-		return Integer.valueOf(frm.getLblIdQuadro().getText());
 	}
 
 	public GenericTableModel<Quadro> getTabela() {

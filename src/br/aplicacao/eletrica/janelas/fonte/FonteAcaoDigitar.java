@@ -9,16 +9,14 @@ import br.aplicacao.eletrica.uteis.ApenasNumero;
 public class FonteAcaoDigitar implements KeyListener {
 
 	private PrincipalFrm frm;
-	@SuppressWarnings("unused")
-	private FonteControle controle;
 
 	public FonteAcaoDigitar(PrincipalFrm frm) {
-		this.frm = frm;
 		
+		this.frm = frm;
 		this.adicionarKeyListener();
 	}
 
-	protected void adicionarKeyListener() {
+	private void adicionarKeyListener() {
 
 		frm.getTxtTensaoFonte().addKeyListener(this);
 	}
@@ -35,7 +33,7 @@ public class FonteAcaoDigitar implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent event) {
-		this.controle = frm.getFonteControle();
+
 		ApenasNumero.campo(event, "txtTensaoFonte");
 
 	}

@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -27,7 +26,6 @@ public class Fonte implements Entidade<Fonte> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@ManyToOne()
-	@JoinColumn(name = "projeto_id")
 	private Projeto projeto;
 	@OneToOne()
 	@Column(colName = "Concessionária", colPosition = 2)
@@ -37,7 +35,7 @@ public class Fonte implements Entidade<Fonte> {
 	@Column(colName = "Nome", colPosition = 0)
 	private String nome;
 	@Column(colName = "TensãoFN", colPosition = 1)
-	private double tensaoFN;
+	private double tensaoFN = 0;
 
 	public Fonte() {
 		quadros = new ArrayList<>();
@@ -50,7 +48,6 @@ public class Fonte implements Entidade<Fonte> {
 	public Concessionaria getConcessionaria() {
 		return concessionaria;
 	}
-
 
 	public double getTensaoFN() {
 		return tensaoFN;

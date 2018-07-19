@@ -28,10 +28,10 @@ public class Circuito implements Entidade<Circuito> {
 	@ManyToOne()
 	@JoinColumn(name = "quadro_id")
 	private Quadro quadro;
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade = CascadeType.ALL)
 	@Column(colName = "Condutor", colPosition = 1)
 	private Condutor condutor;
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade = CascadeType.ALL)
 	@Column(colName = "Dados CC", colPosition = 2)
 	private Curto dadosCurtoCircuito;
 	@OneToMany(mappedBy = "circuito", targetEntity = Equipamento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
