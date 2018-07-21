@@ -6,6 +6,8 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
+import br.aplicacao.eletrica.janelas.condutor.CondutorFrm;
+import br.aplicacao.eletrica.janelas.curto.CurtoFrm;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Fonte;
 import br.aplicacao.eletrica.modelo.projeto.Quadro;
@@ -15,13 +17,15 @@ import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
 public class QuadroControle {
 
-	private PrincipalFrm frm;
+	private PrincipalFrm frmPrincipal;
 	private Quadro quadro = new Quadro();
+	private CondutorFrm frmCondutor = new CondutorFrm();
+	private CurtoFrm frmCurto = new CurtoFrm();
 	private GenericTableModel<Quadro> tabela;
 	private int tabelaSelecao = -1;
 
 	public QuadroControle(PrincipalFrm frm) {
-		this.frm = frm;
+		this.frmPrincipal = frm;
 		adicionaActionListener();
 		adicionaListSelectionListener();
 		adicionaChangeListener();
@@ -30,58 +34,62 @@ public class QuadroControle {
 	}
 
 	private void adicionaActionListener() {
-		new QuadroAcaoBotoes(frm);
+		new QuadroAcaoBotoes(frmPrincipal,frmCondutor,frmCurto);
 	}
 
 	private void adicionaChangeListener() {
-		new QuadroAcaoAba(frm);
+		new QuadroAcaoAba(frmPrincipal,frmCondutor,frmCurto);
 	}
 
 	private void adicionaKeyListener() {
-		new QuadroAcaoDigitar(frm);
+		new QuadroAcaoDigitar(frmPrincipal);
 	}
 
 	private void adicionaListSelectionListener() {
-		new QuadroAcaoSelecao(frm);
+		new QuadroAcaoSelecao(frmPrincipal);
 	}
 
 	public void apagaDadosFrm() {
 
-		frm.getTxtFdQuadro().setText("");
-		frm.getTxtFpQuadro().setText("");
-		frm.getTxtLocalQuadro().setText("");
-		frm.getTxtNomeQuadro().setText("");
-		frm.getCbUsabilidadeQuadro().setSelectedIndex(-1);
-		frm.getCbDrQuadro().setSelectedIndex(-1);
-		frm.getLblIdQuadro().setText(null);
+		frmPrincipal.getTxtFdQuadro().setText("");
+		frmPrincipal.getTxtFpQuadro().setText("");
+		frmPrincipal.getTxtLocalQuadro().setText("");
+		frmPrincipal.getTxtNomeQuadro().setText("");
+		frmPrincipal.getCbUsabilidadeQuadro().setSelectedIndex(-1);
+		frmPrincipal.getCbDrQuadro().setSelectedIndex(-1);
+		frmPrincipal.getLblIdQuadro().setText(null);
+		frmCondutor.getCondutorControle().apagaDadosFrm();
+		frmCurto.getCurtoControle().apagaDadosFrm();
 	}
 
 	public Quadro getDadosFrm() {
 
-		quadro.setId(Numero.stringToInteger(frm.getLblIdQuadro().getText()));
-		quadro.setFd(Numero.stringToDouble(frm.getTxtFdQuadro().getText()));
-		quadro.setFp(Numero.stringToDouble(frm.getTxtFpQuadro().getText()));
-		quadro.setLocal(frm.getTxtLocalQuadro().getText());
-		quadro.setNome(frm.getTxtNomeQuadro().getText());
-		quadro.setUsabilidade(frm.getCbUsabilidadeQuadro().getModel().getSelectedItem().toString());
-		quadro.setDrGeral(frm.getCbDrQuadro().getModel().getSelectedItem().toString());
-		quadro.setFonte(frm.getFonteControle().getFonte());
+		quadro.setId(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()));
+		quadro.setFd(Numero.stringToDouble(frmPrincipal.getTxtFdQuadro().getText()));
+		quadro.setFp(Numero.stringToDouble(frmPrincipal.getTxtFpQuadro().getText()));
+		quadro.setLocal(frmPrincipal.getTxtLocalQuadro().getText());
+		quadro.setNome(frmPrincipal.getTxtNomeQuadro().getText());
+		quadro.setUsabilidade(frmPrincipal.getCbUsabilidadeQuadro().getModel().getSelectedItem().toString());
+		quadro.setDrGeral(frmPrincipal.getCbDrQuadro().getModel().getSelectedItem().toString());
+		quadro.setCondutor(frmCondutor.getCondutorControle().getCondutor());
+		quadro.setCurto(frmCurto.getCurtoControle().getCurto());
+		quadro.setFonte(frmPrincipal.getFonteControle().getFonte());
 
 		return quadro;
 	}
 
 	private void iniciaCbUsabilidade() {
-		frm.getCbUsabilidadeQuadro().setModel(new DefaultComboBoxModel<>());
-		frm.getCbUsabilidadeQuadro().addItem("Iluminação");
-		frm.getCbUsabilidadeQuadro().addItem("Motor");
-		frm.getCbUsabilidadeQuadro().setSelectedIndex(0);
+		frmPrincipal.getCbUsabilidadeQuadro().setModel(new DefaultComboBoxModel<>());
+		frmPrincipal.getCbUsabilidadeQuadro().addItem("Iluminação");
+		frmPrincipal.getCbUsabilidadeQuadro().addItem("Motor");
+		frmPrincipal.getCbUsabilidadeQuadro().setSelectedIndex(0);
 	}
 
 	private void iniciaCbDrQuadro() {
-		frm.getCbDrQuadro().setModel(new DefaultComboBoxModel<>());
-		frm.getCbDrQuadro().addItem("Sim");
-		frm.getCbDrQuadro().addItem("Não");
-		frm.getCbDrQuadro().setSelectedIndex(0);
+		frmPrincipal.getCbDrQuadro().setModel(new DefaultComboBoxModel<>());
+		frmPrincipal.getCbDrQuadro().addItem("Sim");
+		frmPrincipal.getCbDrQuadro().addItem("Não");
+		frmPrincipal.getCbDrQuadro().setSelectedIndex(0);
 	}
 
 	public void iniciaCbs() {
@@ -104,14 +112,14 @@ public class QuadroControle {
 
 		if (!(lista.isEmpty() || lista == null)) {
 			tabela = new GenericTableModel<Quadro>(lista, Quadro.class);
-			frm.getTableQuadros().repaint();
-			frm.getTableQuadros().setModel(tabela);
+			frmPrincipal.getTableQuadros().repaint();
+			frmPrincipal.getTableQuadros().setModel(tabela);
 			if (tabelaSelecao >= 0) {
-				frm.getTableQuadros().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+				frmPrincipal.getTableQuadros().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
 			}
 		} else {
-			frm.getTableQuadros().repaint();
-			frm.getTableQuadros().setModel(new DefaultTableModel());
+			frmPrincipal.getTableQuadros().repaint();
+			frmPrincipal.getTableQuadros().setModel(new DefaultTableModel());
 		}
 	}
 
@@ -120,13 +128,15 @@ public class QuadroControle {
 		if (quadro != null) {
 			this.quadro = quadro;
 
-			frm.getTxtFdQuadro().setText(Numero.decimal(quadro.getFd(), "##,00"));
-			frm.getTxtFpQuadro().setText(Numero.decimal(quadro.getFp(), "##,00"));
-			frm.getTxtLocalQuadro().setText(quadro.getLocal());
-			frm.getTxtNomeQuadro().setText(quadro.getNome());
-			frm.getCbUsabilidadeQuadro().getModel().setSelectedItem(quadro.getUsabilidade());
-			frm.getCbDrQuadro().getModel().setSelectedItem(quadro.getDrGeral());
-			frm.getLblIdQuadro().setText(Integer.toString(quadro.getId()));
+			frmPrincipal.getTxtFdQuadro().setText(Numero.decimal(quadro.getFd(), "##,00"));
+			frmPrincipal.getTxtFpQuadro().setText(Numero.decimal(quadro.getFp(), "##,00"));
+			frmPrincipal.getTxtLocalQuadro().setText(quadro.getLocal());
+			frmPrincipal.getTxtNomeQuadro().setText(quadro.getNome());
+			frmPrincipal.getCbUsabilidadeQuadro().getModel().setSelectedItem(quadro.getUsabilidade());
+			frmPrincipal.getCbDrQuadro().getModel().setSelectedItem(quadro.getDrGeral());
+			frmPrincipal.getLblIdQuadro().setText(Integer.toString(quadro.getId()));
+			frmCondutor.getCondutorControle().preencheFrm(quadro.getCondutor());
+			frmCurto.getCurtoControle().preencheFrm(quadro.getCurto());
 		}
 	}
 

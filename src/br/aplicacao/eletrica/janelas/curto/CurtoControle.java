@@ -14,6 +14,7 @@ public class CurtoControle {
 	public CurtoControle(CurtoFrm frm) {
 		this.frm = frm;
 		this.adicionaInternalFrameListener();
+		this.adicionarKeyListener();
 	}
 
 	public void abreFrm() {
@@ -30,13 +31,16 @@ public class CurtoControle {
 	private void adicionaInternalFrameListener() {
 		new CurtoAcaoFechar(frm);
 	}
+	private void adicionarKeyListener() {
+		new CurtoAcaoDigitar(frm);
+	}
 
 	public void apagaDadosFrm() {
 
 		frm.getTxtCorrenteCurto().setText("");
-		frm.getTxtTempAdmissRegime().setText("");
+		frm.getTxtTempAdmissRegimeCurto().setText("");
 		frm.getTxtTempMaxCurto().setText("");
-		frm.getTxtTempoElimDef().setText("");
+		frm.getTxtTempoElimDefCurto().setText("");
 		frm.getLblIdCurto().setText(null);
 	}
 
@@ -44,9 +48,9 @@ public class CurtoControle {
 
 		curto.setId(Numero.stringToInteger(frm.getLblIdCurto().getText()));
 		curto.setCorrenteCurto(Numero.stringToDouble(frm.getTxtCorrenteCurto().getText()));
-		curto.setTempAdmissRegime(Numero.stringToDouble(frm.getTxtTempAdmissRegime().getText()));
+		curto.setTempAdmissRegime(Numero.stringToDouble(frm.getTxtTempAdmissRegimeCurto().getText()));
 		curto.setTempMaxCurto(Numero.stringToDouble(frm.getTxtTempMaxCurto().getText()));
-		curto.setTempoElimDef(Numero.stringToDouble(frm.getTxtTempoElimDef().getText()));
+		curto.setTempoElimDef(Numero.stringToDouble(frm.getTxtTempoElimDefCurto().getText()));
 
 		return curto;
 	}
@@ -58,9 +62,9 @@ public class CurtoControle {
 
 			frm.getLblIdCurto().setText(curto.getId().toString());
 			frm.getTxtCorrenteCurto().setText(Numero.decimal(curto.getCorrenteCurto(), "##,00"));
-			frm.getTxtTempAdmissRegime().setText(Numero.decimal(curto.getTempAdmissRegime(), "##,00"));
+			frm.getTxtTempAdmissRegimeCurto().setText(Numero.decimal(curto.getTempAdmissRegime(), "##,00"));
 			frm.getTxtTempMaxCurto().setText(Numero.decimal(curto.getTempMaxCurto(), "##,00"));
-			frm.getTxtTempoElimDef().setText(Numero.decimal(curto.getTempoElimDef(), "##,00"));
+			frm.getTxtTempoElimDefCurto().setText(Numero.decimal(curto.getTempoElimDef(), "##,00"));
 		}
 	}
 

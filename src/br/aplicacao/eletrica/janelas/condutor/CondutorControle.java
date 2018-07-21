@@ -15,7 +15,7 @@ public class CondutorControle {
 	public CondutorControle(CondutorFrm frm) {
 		this.frm = frm;
 		this.adicionaInternalFrameListener();
-
+		this.adicionarKeyListener();
 	}
 
 	public void abreFrm() {
@@ -32,6 +32,9 @@ public class CondutorControle {
 
 	private void adicionaInternalFrameListener() {
 		new CondutorAcaoFechar(frm);
+	}
+	private void adicionarKeyListener() {
+		new CondutorAcaoDigitar(frm);
 	}
 
 	private void iniciaCbInstalacaoCondutor() {

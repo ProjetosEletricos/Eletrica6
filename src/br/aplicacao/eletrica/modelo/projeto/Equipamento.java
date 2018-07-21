@@ -121,7 +121,7 @@ public class Equipamento implements Entidade<Equipamento> {
 			total = 1.8 * ((this.getPotenciaEmW() * this.getFd()) + (this.getPerdasReator() / this.getFp()));
 		}
 
-		if (this.getUsabilidade().equals("Geral") || this.getUsabilidade().equals("Ilumina��o incandescente")) {
+		if (this.getUsabilidade().equals("Geral") || this.getUsabilidade().equals("Iluminacao incandescente")) {
 
 			total = this.getPotenciaEmVA() * this.getFu() * this.getFd() / this.getRendimento();
 		}

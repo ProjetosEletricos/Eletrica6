@@ -14,9 +14,6 @@ import net.miginfocom.swing.MigLayout;
 
 public class CurtoFrm extends JInternalFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private CurtoControle curtoControle;
@@ -25,9 +22,9 @@ public class CurtoFrm extends JInternalFrame {
 	private JLabel lblIdCurto;
 	private JLabel lblCorrenteCurto;
 	private JTextField txtCorrenteCurto;
-	private JTextField txtTempAdmissRegime;
+	private JTextField txtTempAdmissRegimeCurto;
 	private JTextField txtTempMaxCurto;
-	private JTextField txtTempoElimDef;
+	private JTextField txtTempoElimDefCurto;
 
 	public CurtoFrm() {
 		setTitle("Curto");
@@ -56,25 +53,29 @@ public class CurtoFrm extends JInternalFrame {
 		panel.add(lblCorrenteCurto, "cell 0 0,alignx left");
 
 		txtCorrenteCurto = new JTextField();
+		txtCorrenteCurto.setName("txtCorrenteCurto");
 		panel.add(txtCorrenteCurto, "cell 1 0,growx");
 
 		JLabel lblTempoAdmissivelDeregime = new JLabel("Tempo admissivel de regime:");
 		panel.add(lblTempoAdmissivelDeregime, "cell 0 1,alignx left");
 
-		txtTempAdmissRegime = new JTextField();
-		panel.add(txtTempAdmissRegime, "cell 1 1,growx");
+		txtTempAdmissRegimeCurto = new JTextField();
+		txtTempAdmissRegimeCurto.setName("txtTempAdmissRegimeCurto");
+		panel.add(txtTempAdmissRegimeCurto, "cell 1 1,growx");
 
 		JLabel lblTempoMCurto = new JLabel("Tempo máximo de curto:");
 		panel.add(lblTempoMCurto, "cell 0 2,alignx left");
 
 		txtTempMaxCurto = new JTextField();
+		txtTempMaxCurto.setName("txtTempMaxCurto");
 		panel.add(txtTempMaxCurto, "cell 1 2,growx");
 
 		JLabel lblTempoDeEliminao = new JLabel("Tempo de eliminação de defeito:");
 		panel.add(lblTempoDeEliminao, "cell 0 3,alignx left");
 
-		txtTempoElimDef = new JTextField();
-		panel.add(txtTempoElimDef, "cell 1 3,growx");
+		txtTempoElimDefCurto = new JTextField();
+		txtTempoElimDefCurto.setName("txtTempoElimDefCurto");
+		panel.add(txtTempoElimDefCurto, "cell 1 3,growx");
 
 		lblIdCurto = new JLabel("");
 		lblIdCurto.setName("lblIdCurto");
@@ -107,12 +108,12 @@ public class CurtoFrm extends JInternalFrame {
 		this.txtCorrenteCurto = txtCorrenteCurto;
 	}
 
-	public JTextField getTxtTempAdmissRegime() {
-		return txtTempAdmissRegime;
+	public JTextField getTxtTempAdmissRegimeCurto() {
+		return txtTempAdmissRegimeCurto;
 	}
 
-	public void setTxtTempAdmissRegime(JTextField txtTempAdmissRegime) {
-		this.txtTempAdmissRegime = txtTempAdmissRegime;
+	public void setTxtTempAdmissRegimeCurto(JTextField txtTempAdmissRegimeCurto) {
+		this.txtTempAdmissRegimeCurto = txtTempAdmissRegimeCurto;
 	}
 
 	public JTextField getTxtTempMaxCurto() {
@@ -123,12 +124,12 @@ public class CurtoFrm extends JInternalFrame {
 		this.txtTempMaxCurto = txtTempMaxCurto;
 	}
 
-	public JTextField getTxtTempoElimDef() {
-		return txtTempoElimDef;
+	public JTextField getTxtTempoElimDefCurto() {
+		return txtTempoElimDefCurto;
 	}
 
-	public void setTxtTempoElimDef(JTextField txtTempoElimDef) {
-		this.txtTempoElimDef = txtTempoElimDef;
+	public void setTxtTempoElimDefCurto(JTextField txtTempoElimDefCurto) {
+		this.txtTempoElimDefCurto = txtTempoElimDefCurto;
 	}
 
 	public CurtoControle getCurtoControle() {

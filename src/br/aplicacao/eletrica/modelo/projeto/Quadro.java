@@ -12,12 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
 import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 
 @Entity
+@Table(name = "Quadro")
 @TableModel
 public class Quadro implements Entidade<Quadro> {
 	@Id
@@ -27,9 +29,11 @@ public class Quadro implements Entidade<Quadro> {
 	private Fonte fonte;
 	@OneToMany(mappedBy = "quadro", targetEntity = Circuito.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Circuito> circuitos;
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL)
+	@Column(colName = "Condutor", colPosition = 2)
 	private Condutor condutor;
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL)
+	@Column(colName = "Dados CC", colPosition = 3)
 	private Curto dadosCurtoCircuito;
 	private String drGeral;
 	private double fd;
@@ -168,11 +172,11 @@ public class Quadro implements Entidade<Quadro> {
 		this.condutor = condutor;
 	}
 
-	public Curto getDadosCurtoCircuito() {
+	public Curto getCurto() {
 		return dadosCurtoCircuito;
 	}
 
-	public void setDadosCurtoCircuito(Curto dadosCurtoCircuito) {
+	public void setCurto(Curto dadosCurtoCircuito) {
 		this.dadosCurtoCircuito = dadosCurtoCircuito;
 	}
 

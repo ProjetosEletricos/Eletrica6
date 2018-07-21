@@ -55,7 +55,7 @@ public class ConversorPotencia {
 		}
 
 		throw new RuntimeException(
-				"N�o foi poss�vel converter a pot�ncia de " + unidadeOrigem + " para " + unidadeDestino);
+				"Nao foi possivel converter a potencia de " + unidadeOrigem + " para " + unidadeDestino);
 	}
 
 	public ConversorPotencia withFatorPotencia(Double fatorPotencia) {

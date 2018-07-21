@@ -3,37 +3,47 @@ package br.aplicacao.eletrica.janelas.quadro;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import br.aplicacao.eletrica.janelas.condutor.CondutorFrm;
+import br.aplicacao.eletrica.janelas.curto.CurtoFrm;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.uteis.Numero;
 
 public class QuadroAcaoAba implements ChangeListener {
 
-	private PrincipalFrm frm;
+	private PrincipalFrm frmPrincipal;
+	private CondutorFrm frmCondutor;
+	private CurtoFrm frmCurto;
 
-	public QuadroAcaoAba(PrincipalFrm frm) {
+	public QuadroAcaoAba(PrincipalFrm frmPrincipal, CondutorFrm frmCondutor, CurtoFrm frmCurto) {
 
 		
-		this.frm = frm;
+		this.frmPrincipal = frmPrincipal;
+		this.frmCondutor = frmCondutor;
+		this.frmCurto = frmCurto;
 		this.adicionaChangeListener();
 	}
 
 	public void adicionaChangeListener() {
 
-		frm.getAbas().addChangeListener(this);
+		frmPrincipal.getAbas().addChangeListener(this);
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
 		
-		if (frm.getAbas().getSelectedComponent() == frm.getPanelQuadro()) {
+		if (frmPrincipal.getAbas().getSelectedComponent() == frmPrincipal.getPanelQuadro()) {
 
-			if (!(Numero.stringToInteger(frm.getLblIdFonte().getText()) == null)) {
-				frm.getQuadroControle().apagaDadosFrm();
-				frm.getQuadroControle().iniciaTabelaQuadros(Numero.stringToInteger(frm.getLblIdFonte().getText()));
+			if (!(Numero.stringToInteger(frmPrincipal.getLblIdFonte().getText()) == null)) {
+				frmPrincipal.getQuadroControle().apagaDadosFrm();
+				frmCondutor.getCondutorControle().apagaDadosFrm();
+				frmCurto.getCurtoControle().apagaDadosFrm();
+				frmPrincipal.getQuadroControle().iniciaTabelaQuadros(Numero.stringToInteger(frmPrincipal.getLblIdFonte().getText()));
 			} else {
-				frm.getQuadroControle().apagaDadosFrm();
-				frm.getQuadroControle().setTabelaSelecao(-1);
-				frm.getQuadroControle().iniciaTabelaQuadros(0);
+				frmPrincipal.getQuadroControle().apagaDadosFrm();
+				frmCondutor.getCondutorControle().apagaDadosFrm();
+				frmCurto.getCurtoControle().apagaDadosFrm();
+				frmPrincipal.getQuadroControle().setTabelaSelecao(-1);
+				frmPrincipal.getQuadroControle().iniciaTabelaQuadros(0);
 			}
 
 		}

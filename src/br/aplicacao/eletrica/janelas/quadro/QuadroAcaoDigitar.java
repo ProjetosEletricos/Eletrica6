@@ -9,7 +9,6 @@ import br.aplicacao.eletrica.uteis.ApenasNumero;
 public class QuadroAcaoDigitar implements KeyListener {
 
 	private PrincipalFrm frm;
-	@SuppressWarnings("unused")
 
 	public QuadroAcaoDigitar(PrincipalFrm frm) {
 		

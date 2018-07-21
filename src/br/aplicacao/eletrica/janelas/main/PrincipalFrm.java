@@ -23,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.janelas.circuito.CircuitoControle;
 import br.aplicacao.eletrica.janelas.equipamento.EquipamentoControle;
 import br.aplicacao.eletrica.janelas.fonte.FonteControle;
@@ -61,11 +62,10 @@ public class PrincipalFrm extends JInternalFrame {
 	private JComboBox<Object> cbLigacaoEquipamento;
 	private JComboBox<String> cbPolosEquipamento;
 	private JComboBox<Quadro> cbQuadroPai;
-	private JComboBox<String> cbUnidadePotEquipamento;
+	private JComboBox<UnidadePontencia> cbUnidadePotEquipamento;
 	private JComboBox<String> cbUsabilidadeQuadro;
 	private JPanel contentPane;
 	private JLabel lblIdCircuito;
-	private JLabel lblIdCondutor;
 	private JLabel lblIdFonte;
 	private JLabel lblIdProjeto;
 	private JLabel lblIdQuadro;
@@ -113,6 +113,10 @@ public class PrincipalFrm extends JInternalFrame {
 	private JTextField txtQuantidadeEquipamento;
 
 	private JPanel panelEquipamento;
+
+	private JButton btnCondutorQuadro;
+
+	private JButton btnCurtoCirQuadro;
 
 	public PrincipalFrm() {
 		setClosable(true);
@@ -358,7 +362,7 @@ public class PrincipalFrm extends JInternalFrame {
 		JPanel panel_16 = new JPanel();
 		panel_16.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Descri\u00E7\u00E3o",
 				TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
-		panel_16.setBounds(12, 43, 411, 288);
+		panel_16.setBounds(12, 43, 411, 165);
 		panelQuadro.add(panel_16);
 		panel_16.setLayout(new MigLayout("", "[][grow][][grow]", "[][][][]"));
 
@@ -470,6 +474,16 @@ public class PrincipalFrm extends JInternalFrame {
 		lblIdQuadro.setName("lblIdQuadro");
 		lblIdQuadro.setBounds(146, 15, 55, 16);
 		panelQuadro.add(lblIdQuadro);
+		
+		btnCondutorQuadro = new JButton("Condutor");
+		btnCondutorQuadro.setName("btnCondutorQuadro");
+		btnCondutorQuadro.setBounds(178, 211, 100, 21);
+		panelQuadro.add(btnCondutorQuadro);
+		
+		btnCurtoCirQuadro = new JButton("Curto cir.");
+		btnCurtoCirQuadro.setName("btnCurtoCirQuadro");
+		btnCurtoCirQuadro.setBounds(178, 236, 100, 19);
+		panelQuadro.add(btnCurtoCirQuadro);
 
 		panelCircuito = new JPanel();
 		abas.addTab("Circuito", null, panelCircuito, null);
@@ -507,20 +521,20 @@ public class PrincipalFrm extends JInternalFrame {
 		txtNomeCircuito.setColumns(3);
 		panel_8.add(txtNomeCircuito);
 
-		btnCondutorCircuito = new JButton("Condutor");
-		btnCondutorCircuito.setName("btnCondutorCircuito");
-		btnCondutorCircuito.setBounds(72, 53, 100, 19);
-		panel_8.add(btnCondutorCircuito);
-
 		btnCurtoCirCircuito = new JButton("Curto cir.");
 		btnCurtoCirCircuito.setName("btnCurtoCirCircuito");
 		btnCurtoCirCircuito.setBounds(72, 77, 100, 19);
 		panel_8.add(btnCurtoCirCircuito);
+		
+				btnCondutorCircuito = new JButton("Condutor");
+				btnCondutorCircuito.setBounds(72, 52, 100, 21);
+				panel_8.add(btnCondutorCircuito);
+				btnCondutorCircuito.setName("btnCondutorCircuito");
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(12, 0, 116, 43);
+		panel_2.setBounds(12, 0, 118, 43);
 		panelCircuito.add(panel_2);
-		panel_2.setLayout(new MigLayout("", "[][][]", "[]"));
+		panel_2.setLayout(new MigLayout("", "[30px][30px][30px][]", "[30px]"));
 
 		btnSalvarCircuito = new JButton("");
 		btnSalvarCircuito.setName("btnSalvarCircuito");
@@ -528,7 +542,7 @@ public class PrincipalFrm extends JInternalFrame {
 				new ImageIcon(PrincipalFrm.class.getResource("/br/aplicacao/eletrica/janelas/images/add1-24.png")));
 		btnSalvarCircuito.setMaximumSize(new Dimension(30, 30));
 		btnSalvarCircuito.setBackground(Color.GRAY);
-		panel_2.add(btnSalvarCircuito, "cell 0 0");
+		panel_2.add(btnSalvarCircuito, "cell 0 0,grow");
 
 		btnExcluirCircuito = new JButton("");
 		btnExcluirCircuito.setName("btnExcluirCircuito");
@@ -536,24 +550,20 @@ public class PrincipalFrm extends JInternalFrame {
 				new ImageIcon(PrincipalFrm.class.getResource("/br/aplicacao/eletrica/janelas/images/close24.png")));
 		btnExcluirCircuito.setMaximumSize(new Dimension(30, 30));
 		btnExcluirCircuito.setBackground(Color.GRAY);
-		panel_2.add(btnExcluirCircuito, "cell 1 0");
+		panel_2.add(btnExcluirCircuito, "cell 1 0,grow");
 
 		btnCopiarCircuito = new JButton("");
+		btnCopiarCircuito.setSize(30, 19);
 		btnCopiarCircuito.setName("btnCopiarCircuito");
 		btnCopiarCircuito.setIcon(
 				new ImageIcon(PrincipalFrm.class.getResource("/br/aplicacao/eletrica/janelas/images/copy24.png")));
 		btnCopiarCircuito.setMaximumSize(new Dimension(30, 30));
 		btnCopiarCircuito.setBackground(Color.GRAY);
-		panel_2.add(btnCopiarCircuito, "cell 2 0");
+		panel_2.add(btnCopiarCircuito, "cell 2 0,grow");
 
 		lblIdCircuito = new JLabel("");
-		lblIdCircuito.setBounds(146, 16, 70, 15);
+		lblIdCircuito.setBounds(426, 16, 70, 15);
 		panelCircuito.add(lblIdCircuito);
-
-		lblIdCondutor = new JLabel("");
-		lblIdCondutor.setName("lblIdCondutor");
-		lblIdCondutor.setBounds(226, 16, 70, 15);
-		panelCircuito.add(lblIdCondutor);
 
 		panelEquipamento = new JPanel();
 		panelEquipamento.setName("panelEquipamento");
@@ -686,6 +696,19 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_7.add(txtPotenciaEquipamento, "cell 1 4,growx");
 
 		cbUnidadePotEquipamento = new JComboBox<>();
+		cbUnidadePotEquipamento.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				List<UnidadePontencia> lista = new ArrayList<UnidadePontencia>();
+				cbUnidadePotEquipamento.removeAllItems();
+				lista.add(UnidadePontencia.BTU);
+				lista.add(UnidadePontencia.CV);
+				lista.add(UnidadePontencia.HP);
+				lista.add(UnidadePontencia.VA);
+				lista.add(UnidadePontencia.W);
+				setUnidadeEquipamento(lista);
+			}
+		});
 		cbUnidadePotEquipamento.setName("cbUnidadePotEquipamento");
 		panel_7.add(cbUnidadePotEquipamento, "cell 2 4,growx");
 
@@ -849,10 +872,6 @@ public class PrincipalFrm extends JInternalFrame {
 		return lblIdCircuito;
 	}
 
-	public JLabel getLblIdCondutor() {
-		return lblIdCondutor;
-	}
-
 	public JLabel getLblIdFonte() {
 		return lblIdFonte;
 	}
@@ -965,11 +984,11 @@ public class PrincipalFrm extends JInternalFrame {
 		return txtTensaoFonte;
 	}
 
-	public JComboBox<String> getCbUnidadePotEquipamento() {
+	public JComboBox<UnidadePontencia> getCbUnidadePotEquipamento() {
 		return cbUnidadePotEquipamento;
 	}
 
-	public void setCbUnidadePotEquipamento(JComboBox<String> cbUnidadePotEquipamento) {
+	public void setCbUnidadePotEquipamento(JComboBox<UnidadePontencia> cbUnidadePotEquipamento) {
 		this.cbUnidadePotEquipamento = cbUnidadePotEquipamento;
 	}
 
@@ -1051,6 +1070,22 @@ public class PrincipalFrm extends JInternalFrame {
 
 	public JTabbedPane getAbas() {
 		return abas;
+	}
+
+	public JButton getBtnCondutorQuadro() {
+		return btnCondutorQuadro;
+	}
+
+	public void setBtnCondutorQuadro(JButton btnCondutorQuadro) {
+		this.btnCondutorQuadro = btnCondutorQuadro;
+	}
+
+	public JButton getBtnCurtoCirQuadro() {
+		return btnCurtoCirQuadro;
+	}
+
+	public void setBtnCurtoCirQuadro(JButton btnCurtoCirQuadro) {
+		this.btnCurtoCirQuadro = btnCurtoCirQuadro;
 	}
 
 	public JComboBox<String> getCbPolosEquipamento() {
@@ -1171,14 +1206,18 @@ public class PrincipalFrm extends JInternalFrame {
 			this.getCbConcessionaria().addItem(con);
 		}
 	}
+	
+	public void setUnidadeEquipamento(List<UnidadePontencia> lista) {
+
+		for (UnidadePontencia con : lista) {
+			this.getCbUnidadePotEquipamento().addItem(con);
+		}
+	}
 
 	public void setLblIdCircuito(JLabel lblIdCircuito) {
 		this.lblIdCircuito = lblIdCircuito;
 	}
 
-	public void setLblIdCondutor(JLabel lblIdCondutor) {
-		this.lblIdCondutor = lblIdCondutor;
-	}
 
 	public void setLblIdFonte(JLabel lblIdFonte) {
 		this.lblIdFonte = lblIdFonte;

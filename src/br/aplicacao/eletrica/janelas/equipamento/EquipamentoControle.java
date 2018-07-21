@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
+import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Circuito;
 import br.aplicacao.eletrica.modelo.projeto.Equipamento;
@@ -78,7 +79,7 @@ public class EquipamentoControle {
 		equipamento.setPotencia(Numero.stringToDouble(frm.getTxtPotenciaEquipamento().getText()));
 		equipamento.setRendimento(Numero.stringToDouble(frm.getTxtRendimentoEquipamento().getText()));
 		equipamento.setQuantidade(Numero.stringToInteger(frm.getTxtQuantidadeEquipamento().getText()));
-
+		equipamento.setUnidade((UnidadePontencia) frm.getCbUnidadePotEquipamento().getSelectedItem());
 		equipamento.setLigacao(frm.getCbLigacaoEquipamento().getModel().getSelectedItem().toString());
 		equipamento
 				.setnPolos(Numero.stringToInteger(frm.getCbPolosEquipamento().getModel().getSelectedItem().toString()));
@@ -105,13 +106,15 @@ public class EquipamentoControle {
 	}
 
 	private void iniciaCbUnidadePotEquipamento() {
-		frm.getCbUnidadePotEquipamento().removeAllItems();
-		frm.getCbUnidadePotEquipamento().addItem("VA");
-		frm.getCbUnidadePotEquipamento().addItem("W");
-		frm.getCbUnidadePotEquipamento().addItem("CV");
-		frm.getCbUnidadePotEquipamento().addItem("HP");
-		frm.getCbUnidadePotEquipamento().addItem("BTU");
-		frm.getCbUnidadePotEquipamento().setSelectedIndex(0);
+		/*
+		 * frm.getCbUnidadePotEquipamento().removeAllItems();
+		 * frm.getCbUnidadePotEquipamento().addItem("VA");
+		 * frm.getCbUnidadePotEquipamento().addItem("W");
+		 * frm.getCbUnidadePotEquipamento().addItem("CV");
+		 * frm.getCbUnidadePotEquipamento().addItem("HP");
+		 * frm.getCbUnidadePotEquipamento().addItem("BTU");
+		 * frm.getCbUnidadePotEquipamento().setSelectedIndex(0);
+		 */
 	}
 
 	public void iniciaCbs() {
@@ -164,7 +167,7 @@ public class EquipamentoControle {
 
 			frm.getCbLigacaoEquipamento().getModel().setSelectedItem(equipamento.getLigacao());
 			frm.getCbPolosEquipamento().getModel().setSelectedItem(equipamento.getnPolos());
-
+			frm.getCbUnidadePotEquipamento().getModel().setSelectedItem(equipamento.getUnidade());
 			frm.getLblIdEquipamento().setText(equipamento.getId().toString());
 		}
 	}

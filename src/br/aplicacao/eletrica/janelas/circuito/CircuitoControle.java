@@ -17,14 +17,14 @@ import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 public class CircuitoControle {
 
 	private Circuito circuito = new Circuito();
-	private PrincipalFrm frmCircuito;
+	private PrincipalFrm frmPrincipal;
 	private CondutorFrm frmCondutor = new CondutorFrm();
 	private CurtoFrm frmCurto = new CurtoFrm();
 	private GenericTableModel<Circuito> tabela;
 	private int tabelaSelecao = -1;
 
 	public CircuitoControle(PrincipalFrm frm) {
-		this.frmCircuito = frm;
+		this.frmPrincipal = frm;
 		adicionaActionListener();
 		adicionaListSelectionListener();
 		adicionaChangeListener();
@@ -33,36 +33,36 @@ public class CircuitoControle {
 	}
 
 	private void adicionaActionListener() {
-		new CircuitoAcaoBotoes(frmCircuito,frmCondutor,frmCurto);
+		new CircuitoAcaoBotoes(frmPrincipal,frmCondutor,frmCurto);
 	}
 
 	private void adicionaChangeListener() {
-		new CircuitoAcaoAba(frmCircuito,frmCondutor,frmCurto);
+		new CircuitoAcaoAba(frmPrincipal,frmCondutor,frmCurto);
 	}
 
 	private void adicionaKeyListener() {
-		new CircuitoAcaoDigitar(frmCircuito);
+		new CircuitoAcaoDigitar(frmPrincipal);
 	}
 
 	private void adicionaListSelectionListener() {
-		new CircuitoAcaoSelecao(frmCircuito);
+		new CircuitoAcaoSelecao(frmPrincipal);
 	}
 
 	public void apagaDadosFrm() {
 
-		frmCircuito.getTxtNomeCircuito().setText("");
-		frmCircuito.getLblIdCircuito().setText(null);
+		frmPrincipal.getTxtNomeCircuito().setText("");
+		frmPrincipal.getLblIdCircuito().setText(null);
 		frmCondutor.getCondutorControle().apagaDadosFrm();
 		frmCurto.getCurtoControle().apagaDadosFrm();
 	}
 
 	public Circuito getDadosFrm() {
 
-		circuito.setId(Numero.stringToInteger(frmCircuito.getLblIdCircuito().getText()));
-		circuito.setNome(frmCircuito.getTxtNomeCircuito().getText());
+		circuito.setId(Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText()));
+		circuito.setNome(frmPrincipal.getTxtNomeCircuito().getText());
 		circuito.setCondutor(frmCondutor.getCondutorControle().getCondutor());
 		circuito.setCurto(frmCurto.getCurtoControle().getCurto());
-		circuito.setQuadro(frmCircuito.getQuadroControle().getQuadro());
+		circuito.setQuadro(frmPrincipal.getQuadroControle().getQuadro());
 
 		return circuito;
 	}
@@ -81,14 +81,14 @@ public class CircuitoControle {
 		}
 		if (!(lista.isEmpty() || lista == null)) {
 			tabela = new GenericTableModel<Circuito>(lista, Circuito.class);
-			frmCircuito.getTableCircuitos().repaint();
-			frmCircuito.getTableCircuitos().setModel(tabela);
+			frmPrincipal.getTableCircuitos().repaint();
+			frmPrincipal.getTableCircuitos().setModel(tabela);
 			if (tabelaSelecao >= 0) {
-				frmCircuito.getTableCircuitos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+				frmPrincipal.getTableCircuitos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
 			}
 		} else {
-			frmCircuito.getTableCircuitos().repaint();
-			frmCircuito.getTableCircuitos().setModel(new DefaultTableModel());
+			frmPrincipal.getTableCircuitos().repaint();
+			frmPrincipal.getTableCircuitos().setModel(new DefaultTableModel());
 		}
 	}
 
@@ -97,8 +97,8 @@ public class CircuitoControle {
 		if (circuito != null) {
 			this.circuito = circuito;
 
-			frmCircuito.getTxtNomeCircuito().setText(circuito.getNome());
-			frmCircuito.getLblIdCircuito().setText(Integer.toString(circuito.getId()));
+			frmPrincipal.getTxtNomeCircuito().setText(circuito.getNome());
+			frmPrincipal.getLblIdCircuito().setText(Integer.toString(circuito.getId()));
 			frmCondutor.getCondutorControle().preencheFrm(circuito.getCondutor());
 			frmCurto.getCurtoControle().preencheFrm(circuito.getCurto());
 		}
