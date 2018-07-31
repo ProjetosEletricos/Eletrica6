@@ -16,21 +16,25 @@ public class ConcessionariaAcaoBotoes implements ActionListener {
 		this.adicionaActionListener();
 	}
 
+	private void adicionaActionListener() {
+
+		frm.getBtnCopiarConcessionaria().addActionListener(this);
+		frm.getBtnExcluirConcessionaria().addActionListener(this);
+		frm.getBtnSalvarConcessionaria().addActionListener(this);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		
+
 		if (event.getSource() == frm.getBtnExcluirConcessionaria()) {
-			
-			int row = frm.getControle().getTabelaSelecao();
 
-			if (row >= 0) {
+			Concessionaria concessionaria = frm.getControle().getConcessionaria();
+			ConcessionariaService.remove(concessionaria);
+			concessionaria.apagar();
 
-				ConcessionariaService.removeById(frm.getControle().getIdConcessionaria());
-
-				frm.getControle().setTabelaSelecao(-1);
-				frm.getControle().iniciaTabelaConcessionarias();
-				frm.getControle().apagaDadosFrm();
-			}
+			frm.getTableConcessionarias().clearSelection();
+			frm.getControle().iniciaTabelaConcessionarias();
+			frm.getControle().apagaDadosFrm();
 
 		} else if (event.getSource() == frm.getBtnSalvarConcessionaria()) {
 
@@ -41,13 +45,6 @@ public class ConcessionariaAcaoBotoes implements ActionListener {
 			frm.getLblIdConcessionaria().setText("0");
 			this.salvar();
 		}
-	}
-
-	private void adicionaActionListener() {
-
-		frm.getBtnCopiarConcessionaria().addActionListener(this);
-		frm.getBtnExcluirConcessionaria().addActionListener(this);
-		frm.getBtnSalvarConcessionaria().addActionListener(this);
 	}
 
 	private void salvar() {

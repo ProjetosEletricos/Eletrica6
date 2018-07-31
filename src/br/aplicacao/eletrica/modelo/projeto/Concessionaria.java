@@ -179,4 +179,22 @@ public class Concessionaria implements Entidade<Concessionaria> {
 	public String toString() {
 		return nome;
 	}
+
+	@Override
+	public void apagar() {
+
+		id = null;
+		carga = 0;
+		disjuntorTM = 0;
+		eletroduto = "";
+		fase = 0;
+		fornecimento = "";
+		local = "";
+		metodo = "";
+		neutro = 0;
+		nome = "";
+		tensaoFN = 0;
+		terra = 0;
+
+	}
 }

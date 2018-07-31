@@ -1,15 +1,10 @@
 package br.aplicacao.eletrica.janelas.fonte;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.table.DefaultTableModel;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Concessionaria;
 import br.aplicacao.eletrica.modelo.projeto.Fonte;
-import br.aplicacao.eletrica.modelo.projeto.Projeto;
-import br.aplicacao.eletrica.servico.ProjetoService;
 import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
@@ -46,7 +41,7 @@ public class FonteControle {
 	}
 
 	private void adicionaMouseListener() {
-		new FonteAcaoClicarItem(frm);
+		// new FonteAcaoClicarItem(frm);
 	}
 
 	public void apagaDadosFrm() {
@@ -58,6 +53,9 @@ public class FonteControle {
 	}
 
 	public Fonte getDadosFrm() {
+
+		Fonte fonte = new Fonte();
+		fonte = this.fonte;
 
 		fonte.setId(Numero.stringToInteger(frm.getLblIdFonte().getText()));
 		fonte.setConcessionaria((Concessionaria) frm.getCbConcessionaria().getModel().getSelectedItem());
@@ -80,38 +78,34 @@ public class FonteControle {
 		iniciaCbConcessionaria();
 	}
 
-	public void iniciaTabelaFontes(Integer idProjeto) {
+	public void iniciaTabelaFontes(List<Fonte> lista) {
 
-		List<Fonte> lista = new ArrayList<Fonte>();
-
-		if (!(idProjeto == 0)) {
-
-			Projeto projeto = ProjetoService.getById(idProjeto);
-
-			for (Fonte f : projeto.getFontes()) {
-				lista.add(f);
-			}
-		}
-		if (!(lista.isEmpty() || lista == null)) {
+		/*
+		 * List<Fonte> lista = new ArrayList<Fonte>();
+		 * 
+		 * if (!(idProjeto == 0)) {
+		 * 
+		 * Projeto projeto = ProjetoService.getById(idProjeto);
+		 * 
+		 * for (Fonte f : projeto.getFontes()) { lista.add(f); } }
+		 */
+		try {
 			tabela = new GenericTableModel<Fonte>(lista, Fonte.class);
-			frm.getTableFontes().repaint();
 			frm.getTableFontes().setModel(tabela);
-			if (tabelaSelecao >= 0) {
-				frm.getTableFontes().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
-			}
-		} else {
-			frm.getTableFontes().repaint();
-			frm.getTableFontes().setModel(new DefaultTableModel());
+			frm.getTableFontes().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+
+		} catch (Exception e) {
+
 		}
 	}
 
 	public void preencheFrm(Fonte fonte) {
-		
+
 		if (fonte != null) {
 			this.fonte = fonte;
 
 			frm.getLblIdFonte().setText(Integer.toString(fonte.getId()));
-			frm.getTxtTensaoFonte().setText(Numero.decimal(fonte.getTensaoFN(), "0"));
+			frm.getTxtTensaoFonte().setText(Numero.decimal(fonte.getTensaoFN(), "##,00"));
 			frm.getCbConcessionaria().getModel().setSelectedItem(fonte.getConcessionaria());
 			frm.getTxtNomeFonte().setText(fonte.getNome());
 		}

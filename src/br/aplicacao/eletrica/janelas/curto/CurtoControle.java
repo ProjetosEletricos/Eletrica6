@@ -45,6 +45,9 @@ public class CurtoControle {
 	}
 
 	public Curto atualizaDados() {
+		
+		Curto curto = new Curto();
+		curto = this.curto;
 
 		curto.setId(Numero.stringToInteger(frm.getLblIdCurto().getText()));
 		curto.setCorrenteCurto(Numero.stringToDouble(frm.getTxtCorrenteCurto().getText()));

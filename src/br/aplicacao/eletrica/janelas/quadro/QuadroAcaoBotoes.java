@@ -18,7 +18,7 @@ import br.aplicacao.eletrica.uteis.Numero;
 
 public class QuadroAcaoBotoes implements ActionListener {
 
-	private PrincipalFrm frmPrincipal;;
+	private PrincipalFrm frmPrincipal;
 	private CondutorFrm frmCondutor;
 	private CurtoFrm frmCurto;
 
@@ -30,6 +30,15 @@ public class QuadroAcaoBotoes implements ActionListener {
 		this.adicionaActionListener();
 	}
 
+	private void adicionaActionListener() {
+
+		frmPrincipal.getBtnCopiarQuadro().addActionListener(this);
+		frmPrincipal.getBtnExcluirQuadro().addActionListener(this);
+		frmPrincipal.getBtnSalvarQuadro().addActionListener(this);
+		frmPrincipal.getBtnCondutorQuadro().addActionListener(this);
+		frmPrincipal.getBtnCurtoCirQuadro().addActionListener(this);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 
@@ -37,15 +46,16 @@ public class QuadroAcaoBotoes implements ActionListener {
 
 			Fonte fonte = frmPrincipal.getFonteControle().getFonte();
 			Quadro quadro = frmPrincipal.getQuadroControle().getQuadro();
+			Quadro quadroPai = (Quadro) frmPrincipal.getCbQuadroPai().getSelectedItem();
 			fonte.getQuadros().remove(quadro);
 			QuadroService.remove(quadro);
-			quadro.setCondutor(null);
-			quadro.setCurto(null);
-			quadro.getCircuitos().clear();
+			quadro.apagar();
+			if (quadroPai != null) {
+				quadroPai.getQuadros().remove(quadro);
+			}
 
-			frmPrincipal.getQuadroControle().setTabelaSelecao(-1);
-			frmPrincipal.getQuadroControle()
-					.iniciaTabelaQuadros(Numero.stringToInteger(frmPrincipal.getLblIdFonte().getText()));
+			frmPrincipal.getTableQuadros().clearSelection();
+			frmPrincipal.getQuadroControle().iniciaTabelaQuadros(fonte.getQuadros());
 			frmPrincipal.getQuadroControle().apagaDadosFrm();
 
 		} else if (event.getSource() == frmPrincipal.getBtnSalvarQuadro()) {
@@ -54,7 +64,7 @@ public class QuadroAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frmPrincipal.getBtnCopiarQuadro()) {
 
-			frmPrincipal.getLblIdQuadro().repaint();
+			frmPrincipal.getLblIdQuadro().setText(null);
 			this.salvar();
 
 			// ----------------------------------------
@@ -93,35 +103,37 @@ public class QuadroAcaoBotoes implements ActionListener {
 		}
 	}
 
-	private void adicionaActionListener() {
-
-		frmPrincipal.getBtnCopiarQuadro().addActionListener(this);
-		frmPrincipal.getBtnExcluirQuadro().addActionListener(this);
-		frmPrincipal.getBtnSalvarQuadro().addActionListener(this);
-		frmPrincipal.getBtnCondutorQuadro().addActionListener(this);
-		frmPrincipal.getBtnCurtoCirQuadro().addActionListener(this);
-	}
-
 	private void salvar() {
 
 		if (Numero.stringToInteger(frmPrincipal.getLblIdFonte().getText()) > 0) {
 
 			Fonte fonte = FonteService.getById(Numero.stringToInteger(frmPrincipal.getLblIdFonte().getText()));
 			Quadro quadro = frmPrincipal.getQuadroControle().getDadosFrm();
+			Quadro quadroPai = (Quadro) frmPrincipal.getCbQuadroPai().getSelectedItem();
+			Integer idQuadro = Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText());
+			//Integer idFonte = Numero.stringToInteger(frmPrincipal.getLblIdFonte().getText());
 
-			if (Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()) == null) {
+			if (idQuadro == null) {
 				CondutorService.salva(frmCondutor.getCondutorControle().getCondutor());
 				CurtoService.salva(frmCurto.getCurtoControle().getCurto());
 				fonte.getQuadros().add(quadro);
 				FonteService.salva(fonte);
+				if (quadroPai != null) {
+					quadroPai.getQuadros().add(quadro);
+				}
+
 			} else {
 
 				CondutorService.salva(frmCondutor.getCondutorControle().getCondutor());
 				CurtoService.salva(frmCurto.getCurtoControle().getCurto());
 				QuadroService.salva(quadro);
+				if (quadroPai != null) {
+					quadroPai.getQuadros().add(quadro);
+				}
 			}
-			frmPrincipal.getQuadroControle()
-					.iniciaTabelaQuadros(Numero.stringToInteger(frmPrincipal.getLblIdFonte().getText()));
+			frmPrincipal.getQuadroControle().apagaDadosFrm();
+			frmPrincipal.getQuadroControle().setTabelaSelecao(-1);
+			frmPrincipal.getQuadroControle().iniciaTabelaQuadros(fonte.getQuadros());
 		}
 	}
 

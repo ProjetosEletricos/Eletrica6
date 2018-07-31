@@ -9,6 +9,7 @@ import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 public class ConcessionariaControle {
 
 	private ConcessionariaFrm frm;
+	private Concessionaria concessionaria = new Concessionaria();
 	private GenericTableModel<Concessionaria> tabela;
 	private int tabelaSelecao = -1;
 
@@ -31,21 +32,14 @@ public class ConcessionariaControle {
 
 		frm.getTxtNomeConcessionaria().setText("");
 		frm.getTxtLocalConcessionaria().setText("");
-		frm.getLblIdConcessionaria().setText("0");
-	}
-	
-	public Integer getIdConcessionaria() {
-		return Integer.valueOf(frm.getLblIdConcessionaria().getText());
+		frm.getLblIdConcessionaria().setText(null);
 	}
 
 	public Concessionaria getDadosFrm() {
 
 		Concessionaria concessionaria = new Concessionaria();
 
-		if (!(frm.getLblIdConcessionaria().getText().equals("0"))) {
-			concessionaria = ConcessionariaService.getById(Integer.valueOf(frm.getLblIdConcessionaria().getText()));
-			concessionaria.setId(Integer.parseInt(frm.getLblIdConcessionaria().getText()));
-		}
+		concessionaria.setId(Integer.parseInt(frm.getLblIdConcessionaria().getText()));
 		concessionaria.setNome(frm.getTxtNomeConcessionaria().getText());
 		concessionaria.setLocal(frm.getTxtLocalConcessionaria().getText());
 
@@ -54,22 +48,28 @@ public class ConcessionariaControle {
 
 	public void iniciaTabelaConcessionarias() {
 
-		List<Concessionaria> lista = ConcessionariaService.getAll();
-		tabela = new GenericTableModel<Concessionaria>(lista, Concessionaria.class);
-		frm.getTableConcessionarias().repaint();
-		frm.getTableConcessionarias().setModel(tabela);
-		if (tabelaSelecao >= 0) {
-			frm.getTableConcessionarias().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+		try {
+			List<Concessionaria> lista = ConcessionariaService.getAll();
+			frm.getTableConcessionarias().clearSelection();
+			tabela = new GenericTableModel<Concessionaria>(lista, Concessionaria.class);
+
+			frm.getTableConcessionarias().setModel(tabela);
+		} catch (Exception e) {
+			frm.getTableConcessionarias().removeAll();
 		}
 	}
 
 	public void preencheFrm(Concessionaria concessionaria) {
+		
 		if (concessionaria != null) {
+			this.setConcessionaria(concessionaria);
+			
 			frm.getLblIdConcessionaria().setText(Integer.toString(concessionaria.getId()));
 			frm.getTxtNomeConcessionaria().setText(concessionaria.getNome());
 			frm.getTxtLocalConcessionaria().setText(concessionaria.getLocal());
 		}
 	}
+
 
 	public GenericTableModel<Concessionaria> getTabela() {
 		return tabela;
@@ -85,6 +85,14 @@ public class ConcessionariaControle {
 
 	public void setTabelaSelecao(int tabelaSelecao) {
 		this.tabelaSelecao = tabelaSelecao;
+	}
+
+	public Concessionaria getConcessionaria() {
+		return concessionaria;
+	}
+
+	public void setConcessionaria(Concessionaria concessionaria) {
+		this.concessionaria = concessionaria;
 	}
 
 }

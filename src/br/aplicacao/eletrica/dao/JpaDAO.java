@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.hibernate.PersistentObjectException;
-
 import br.aplicacao.eletrica.modelo.projeto.Entidade;
 
 public class JpaDAO<T extends Entidade<T>> {
@@ -92,12 +90,12 @@ public class JpaDAO<T extends Entidade<T>> {
 			entityManager.getTransaction().begin();
 			if (obj.getId() == null) {
 				entityManager.persist(obj);
-				
+
 			} else {
 				entityManager.merge(obj);
 			}
 			entityManager.getTransaction().commit();
-		} catch (PersistentObjectException e) {
+		} catch (Exception e) {
 			System.out.println("NÃO SALVOU!!: ");
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();

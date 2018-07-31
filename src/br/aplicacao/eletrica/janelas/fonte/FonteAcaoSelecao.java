@@ -5,7 +5,6 @@ import javax.swing.event.ListSelectionListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Fonte;
-import br.aplicacao.eletrica.uteis.Numero;
 
 public class FonteAcaoSelecao implements ListSelectionListener {
 
@@ -24,16 +23,13 @@ public class FonteAcaoSelecao implements ListSelectionListener {
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		
-		int firstIndex = e.getFirstIndex();
-		
 
-		if (firstIndex >= 0 && !(Numero.stringToInteger(frm.getLblIdProjeto().getText()) == null)) {
-			
-			Fonte fonte = frm.getFonteControle().getTabela().loadItem(firstIndex);
+		if (e.getFirstIndex() >= 0 && e.getValueIsAdjusting() == true && frm.getTableFontes().getSelectedRow() >= 0) {
+
+			int linha = frm.getTableFontes().getSelectedRow();
+			Fonte fonte = frm.getFonteControle().getTabela().loadItem(linha);
 			frm.getFonteControle().preencheFrm(fonte);
-			frm.getFonteControle().setTabelaSelecao(firstIndex);
+			frm.getFonteControle().setTabelaSelecao(linha);
 		}
 	}
-
 }

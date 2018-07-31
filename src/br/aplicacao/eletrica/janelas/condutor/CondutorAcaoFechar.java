@@ -22,7 +22,7 @@ public class CondutorAcaoFechar implements InternalFrameListener {
 	@Override
 	public void internalFrameClosed(InternalFrameEvent e) {
 
-		frm.getCondutorControle().atualizaDados();
+		frm.getCondutorControle().getDadosFrm();
 
 	}
 

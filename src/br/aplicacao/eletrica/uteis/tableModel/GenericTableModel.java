@@ -220,8 +220,9 @@ public class GenericTableModel<T> extends AbstractTableModel {
 		}
 	}
 
-	public void addItem() {
+	public void addItem(T item) {
 		int line = list.size() - 1;
+		list.add(line, item);
 		fireTableRowsInserted(line, line);
 	}
 
@@ -232,6 +233,12 @@ public class GenericTableModel<T> extends AbstractTableModel {
 	public void deleteItem(int row) {
 		fireTableRowsDeleted(row, row);
 		list.remove(row);
+	}
+	
+	public void deleteAll() {
+		//fireTableRowsDeleted(row, row);
+		list.clear();
+		fireTableDataChanged();
 	}
 
 	public String getName() {

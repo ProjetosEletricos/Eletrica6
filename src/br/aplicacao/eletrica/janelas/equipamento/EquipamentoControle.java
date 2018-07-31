@@ -1,15 +1,10 @@
 package br.aplicacao.eletrica.janelas.equipamento;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.table.DefaultTableModel;
 
 import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.modelo.projeto.Circuito;
 import br.aplicacao.eletrica.modelo.projeto.Equipamento;
-import br.aplicacao.eletrica.servico.CircuitoService;
 import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
@@ -68,6 +63,9 @@ public class EquipamentoControle {
 
 	public Equipamento getDadosFrm() {
 
+		Equipamento equipamento = new Equipamento();
+		equipamento = this.equipamento;
+
 		equipamento.setFd(Numero.stringToDouble(frm.getTxtFdEquipamento().getText()));
 		equipamento.setFp(Numero.stringToDouble(frm.getTxtFpEquipamento().getText()));
 		equipamento.setFs(Numero.stringToDouble(frm.getTxtFServicoEquipamento().getText()));
@@ -123,28 +121,24 @@ public class EquipamentoControle {
 		iniciaCbUnidadePotEquipamento();
 	}
 
-	public void iniciaTabelaEquipamento(Integer idCircuito) {
+	public void iniciaTabelaEquipamento(List<Equipamento> lista) {
 
-		List<Equipamento> lista = new ArrayList<Equipamento>();
-
-		if (!(idCircuito == 0)) {
-
-			Circuito circuito = CircuitoService.getById(idCircuito);
-
-			for (Equipamento f : circuito.getEquipamentos()) {
-				lista.add(f);
-			}
-		}
-		if (!(lista.isEmpty() || lista == null)) {
+		/*
+		 * List<Equipamento> lista = new ArrayList<Equipamento>();
+		 * 
+		 * if (!(idCircuito == 0)) {
+		 * 
+		 * Circuito circuito = CircuitoService.getById(idCircuito);
+		 * 
+		 * for (Equipamento f : circuito.getEquipamentos()) { lista.add(f); } }
+		 */
+		try {
 			tabela = new GenericTableModel<Equipamento>(lista, Equipamento.class);
-			frm.getTableEquipamentos().repaint();
 			frm.getTableEquipamentos().setModel(tabela);
-			if (tabelaSelecao >= 0) {
-				frm.getTableEquipamentos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
-			}
-		} else {
-			frm.getTableEquipamentos().repaint();
-			frm.getTableEquipamentos().setModel(new DefaultTableModel());
+			frm.getTableEquipamentos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+		
+		} catch (Exception e) {
+
 		}
 	}
 
@@ -168,7 +162,7 @@ public class EquipamentoControle {
 			frm.getCbLigacaoEquipamento().getModel().setSelectedItem(equipamento.getLigacao());
 			frm.getCbPolosEquipamento().getModel().setSelectedItem(equipamento.getnPolos());
 			frm.getCbUnidadePotEquipamento().getModel().setSelectedItem(equipamento.getUnidade());
-			frm.getLblIdEquipamento().setText(equipamento.getId().toString());
+			frm.getLblIdEquipamento().setText(Integer.toString(equipamento.getId()));
 		}
 	}
 

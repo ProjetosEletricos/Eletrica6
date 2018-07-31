@@ -28,12 +28,12 @@ public class ProjetoAcaoBotoes implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 
 		if (event.getSource() == frm.getBtnExcluirProjeto()) {
-			
-			frm.getProjetoControle().getProjeto().getFontes().clear();
-			ProjetoService.remove(frm.getProjetoControle().getProjeto());
 
-			frm.getProjetoControle().setTabelaSelecao(-1);
-			frm.getProjetoControle().iniciaTabelaProjetos();
+			ProjetoService.remove(frm.getProjetoControle().getProjeto());
+			frm.getProjetoControle().getProjeto().apagar();
+
+			frm.getTableProjetos().clearSelection();
+			frm.getProjetoControle().iniciaTabelaProjetos(ProjetoService.getAll());
 			frm.getProjetoControle().apagaDadosFrm();
 
 		} else if (event.getSource() == frm.getBtnSalvarProjeto()) {
@@ -42,15 +42,19 @@ public class ProjetoAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frm.getBtnCopiarProjeto()) {
 
-			frm.getLblIdProjeto().repaint();
+			frm.getLblIdProjeto().setText(null);
 			this.salvar();
+
 		}
 	}
 
 	private void salvar() {
 
+		
 		ProjetoService.salva(frm.getProjetoControle().getDadosFrm());
-		frm.getProjetoControle().iniciaTabelaProjetos();
+		frm.getProjetoControle().apagaDadosFrm();
+		frm.getProjetoControle().setTabelaSelecao(-1);
+		frm.getProjetoControle().iniciaTabelaProjetos(ProjetoService.getAll());
 
 	}
 

@@ -325,4 +325,29 @@ public class Equipamento implements Entidade<Equipamento> {
 	public String toString() {
 		return nome;
 	}
+
+	@Override
+	public void apagar() {
+
+		id = null;
+		circuito = null;
+		ligacao = "";
+		ligacaoReal = "";
+		nome = "";
+		nPolos = 0;
+		perdasReator = 0;
+		potencia = 0;
+		quantidade = 0;
+		rendimento = 0;
+		tensaoFN = 0;
+		descricao = "";
+		fd = 0;
+		fp = 0;
+		fs = 0;
+		fSimu = 0;
+		fu = 0;
+		unidade = null;
+		usabilidade = "";
+
+	}
 }

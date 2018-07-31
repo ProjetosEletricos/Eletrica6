@@ -20,6 +20,14 @@ public class EquipamentoAcaoBotoes implements ActionListener {
 		this.adicionaActionListener();
 	}
 
+	private void adicionaActionListener() {
+
+		frm.getBtnCopiarEquipamento().addActionListener(this);
+		frm.getBtnExcluirEquipamento().addActionListener(this);
+		frm.getBtnSalvarEquipamento().addActionListener(this);
+
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 
@@ -29,10 +37,11 @@ public class EquipamentoAcaoBotoes implements ActionListener {
 			Equipamento equipamento = frm.getEquipamentoControle().getEquipamento();
 			circuito.getEquipamentos().remove(equipamento);
 			EquipamentoService.remove(equipamento);
+			equipamento.apagar();
 
-			frm.getEquipamentoControle().setTabelaSelecao(-1);
+			frm.getTableEquipamentos().clearSelection();
 			frm.getEquipamentoControle()
-					.iniciaTabelaEquipamento(Numero.stringToInteger(frm.getLblIdCircuito().getText()));
+					.iniciaTabelaEquipamento(circuito.getEquipamentos());
 			frm.getEquipamentoControle().apagaDadosFrm();
 
 		} else if (event.getSource() == frm.getBtnSalvarEquipamento()) {
@@ -41,34 +50,28 @@ public class EquipamentoAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frm.getBtnCopiarEquipamento()) {
 
-			frm.getLblIdEquipamento().repaint();
+			frm.getLblIdEquipamento().setText(null);
 			this.salvar();
 
 		}
 	}
 
-	private void adicionaActionListener() {
-
-		frm.getBtnCopiarEquipamento().addActionListener(this);
-		frm.getBtnExcluirEquipamento().addActionListener(this);
-		frm.getBtnSalvarEquipamento().addActionListener(this);
-
-	}
-
 	private void salvar() {
 
-		if (Numero.stringToInteger(frm.getLblIdProjeto().getText()) > 0) {
+		if (Numero.stringToInteger(frm.getLblIdCircuito().getText()) > 0) {
 			Circuito circuito = CircuitoService.getById(Numero.stringToInteger(frm.getLblIdCircuito().getText()));
 			Equipamento equipamento = frm.getEquipamentoControle().getDadosFrm();
-
-			if (Numero.stringToInteger(frm.getLblIdEquipamento().getText()) == null) {
+			Integer idEquipamento = Numero.stringToInteger(frm.getLblIdEquipamento().getText());
+			//Integer IdCircuito = Numero.stringToInteger(frm.getLblIdCircuito().getText());
+			if (idEquipamento == null) {
 				circuito.getEquipamentos().add(equipamento);
 				EquipamentoService.salva(equipamento);
 			} else {
 				EquipamentoService.salva(equipamento);
 			}
-			frm.getEquipamentoControle()
-					.iniciaTabelaEquipamento(Numero.stringToInteger(frm.getLblIdCircuito().getText()));
+			frm.getEquipamentoControle().apagaDadosFrm();
+			frm.getEquipamentoControle().setTabelaSelecao(-1);
+			frm.getEquipamentoControle().iniciaTabelaEquipamento(circuito.getEquipamentos());
 		}
 	}
 }

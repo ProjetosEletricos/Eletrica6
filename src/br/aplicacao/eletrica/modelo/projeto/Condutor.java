@@ -169,4 +169,25 @@ public class Condutor implements Entidade<Condutor> {
 		return nome;
 	}
 
+	@Override
+	public void apagar() {
+
+		id = null;
+		bitolaSucessiva = "";
+		enterrado = "";
+		espacoCabos = "";
+		formaAgrupa = "";
+		isolacao = "";
+		material = "";
+		modoInstalacao = "";
+		multipolar = "";
+		nCamadas = 0;
+		nCirAgrupa = 0;
+		quedaTensao = 0;
+		resistiTermica = 0;
+		temperatura = 0;
+		comprimento = 0;
+
+	}
+
 }

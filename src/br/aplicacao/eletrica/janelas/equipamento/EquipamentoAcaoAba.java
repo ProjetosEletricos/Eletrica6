@@ -4,7 +4,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.uteis.Numero;
 
 public class EquipamentoAcaoAba implements ChangeListener {
 
@@ -18,23 +17,17 @@ public class EquipamentoAcaoAba implements ChangeListener {
 
 	public void adicionaChangeListener() {
 
-		frm.getAbas().addChangeListener(this);
+		frm.getAbas().getModel().addChangeListener(this);
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
 
-		if (frm.getAbas().getSelectedComponent() == frm.getPanelEquipamento()) {
+		if (frm.getAbas().getModel().getSelectedIndex() == 4) {
 
-			if (!(Numero.stringToInteger(frm.getLblIdCircuito().getText()) == null)) {
-				frm.getEquipamentoControle().apagaDadosFrm();
-				frm.getEquipamentoControle()
-						.iniciaTabelaEquipamento(Numero.stringToInteger(frm.getLblIdCircuito().getText()));
-			} else {
-				frm.getEquipamentoControle().apagaDadosFrm();
-				frm.getEquipamentoControle().setTabelaSelecao(-1);
-				frm.getEquipamentoControle().iniciaTabelaEquipamento(0);
-			}
+			frm.getEquipamentoControle()
+					.iniciaTabelaEquipamento(frm.getCircuitoControle().getCircuito().getEquipamentos());
+
 		}
 	}
 }

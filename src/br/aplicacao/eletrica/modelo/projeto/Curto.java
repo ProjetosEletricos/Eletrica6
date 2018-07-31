@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Curto implements Entidade<Curto>{
+public class Curto implements Entidade<Curto> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -64,14 +64,24 @@ public class Curto implements Entidade<Curto>{
 		// TODO Auto-generated method stub
 		return id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	@Override
 	public String toString() {
-		String nome = "id:"+this.id;
+		String nome = "id:" + this.id;
 		return nome;
+	}
+
+	@Override
+	public void apagar() {
+
+		id = null;
+		correnteCurto = 0;
+		tempAdmissRegime = 0;
+		tempMaxCurto = 0;
+		tempoElimDef = 0;
 	}
 }

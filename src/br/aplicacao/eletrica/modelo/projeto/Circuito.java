@@ -53,7 +53,7 @@ public class Circuito implements Entidade<Circuito> {
 	public Circuito clonarSemID() {
 		Circuito c = copiar();
 		c.setId(null);
-		return this;
+		return c;
 	}
 
 	@Override
@@ -64,10 +64,10 @@ public class Circuito implements Entidade<Circuito> {
 		c.setCondutor(condutor);
 		c.setCurto(dadosCurtoCircuito);
 
-		for (Equipamento e : c.equipamentos) {
-			equipamentos.add(e.copiar());
+		for (Equipamento e : equipamentos) {
+			c.equipamentos.add(e);
 		}
-		return this;
+		return c;
 	}
 
 	@Override
@@ -305,9 +305,7 @@ public class Circuito implements Entidade<Circuito> {
 		return dadosCurtoCircuito;
 	}
 
-	public List<Equipamento> getEquipamento() {
-		return equipamentos;
-	}
+
 
 	@Override
 	public Integer getId() {
@@ -344,7 +342,6 @@ public class Circuito implements Entidade<Circuito> {
 
 	public void setEquipamentos(List<Equipamento> equipamentosLista) {
 		this.equipamentos.clear();
-		;
 		this.equipamentos.addAll(equipamentosLista);
 	}
 
@@ -359,5 +356,17 @@ public class Circuito implements Entidade<Circuito> {
 	@Override
 	public String toString() {
 		return nome;
+	}
+
+	@Override
+	public void apagar() {
+
+		id = null;
+		quadro = null;
+		condutor = null;
+		dadosCurtoCircuito = null;
+		equipamentos.clear();
+		nome = "";
+
 	}
 }

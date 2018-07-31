@@ -10,26 +10,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import br.aplicacao.eletrica.uteis.tableModel.Column;
 import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 
 @Entity
+@Table(name = "Projeto")
 @TableModel
 public class Projeto implements Entidade<Projeto> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	@Column
+	@Column(colName = "Nome", colPosition = 0)
 	private String nome;
-	@Column
 	private String autor;
-	@Column
+	@Column(colName = "Data", colPosition = 1)
 	private String data;
-	@Column
 	private String descricao;
-	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "projeto", targetEntity = Fonte.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Fonte> fontes;
 
 	public Projeto() {
@@ -86,7 +86,7 @@ public class Projeto implements Entidade<Projeto> {
 	public Projeto clonarSemID() {
 		Projeto p = copiar();
 		p.setId(null);
-		return this;
+		return p;
 	}
 
 	@Override
@@ -98,11 +98,11 @@ public class Projeto implements Entidade<Projeto> {
 		p.setAutor(autor);
 		p.setData(data);
 		p.setDescricao(descricao);
-		for (Fonte f : p.fontes) {
-			fontes.add(f.copiar());
+		for (Fonte f : fontes) {
+			p.fontes.add(f);
 		}
 
-		return this;
+		return p;
 	}
 
 	@Override
@@ -141,4 +141,13 @@ public class Projeto implements Entidade<Projeto> {
 		return nome;
 	}
 
+	@Override
+	public void apagar() {
+
+		id = null;
+		nome = "";
+		autor = "";
+		descricao = "";
+		fontes.clear();
+	}
 }

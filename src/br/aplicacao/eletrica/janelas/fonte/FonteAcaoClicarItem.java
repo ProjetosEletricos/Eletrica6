@@ -4,43 +4,34 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
+import br.aplicacao.eletrica.uteis.Numero;
 
 public class FonteAcaoClicarItem implements MouseListener {
 
 	private PrincipalFrm frm;
-	@SuppressWarnings("unused")
-	private FonteControle controle;
 
 	public FonteAcaoClicarItem(PrincipalFrm frm) {
 
 		this.frm = frm;
-		
 		this.adicionarMouseListener();
 	}
 
 	protected void adicionarMouseListener() {
 
-		frm.getTableFontes().addMouseListener(this);
+		frm.getAbas().addMouseListener(this);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
-		if (e.getClickCount() == 2) {
-
-			/*this.controle = frm.getFonteControle();
-			 * Integer id =
-			 * Integer.valueOf(frm.getTableFontes().getValueAt(frm.getTableFontes().
-			 * getSelectedRow(), 0).toString()); Fonte fonte = FonteService.getById(id);
-			 * 
-			 * FonteFrm fonteFrm = new FonteFrm(fonte.getId());
-			 * 
-			 * Principal.desktopPane.add(fonteFrm); fonteFrm.setVisible(true);
-			 * fonteFrm.setPosicao();
-			 * 
-			 * this.frm.dispose();
-			 */
-
+		if (frm.getAbas().getSelectedComponent() == frm.getPanelFonte()) {
+			if (e.getClickCount() == 1) {
+				Integer idProjeto = Numero.stringToInteger(frm.getLblIdProjeto().getText());
+				if (idProjeto != null) {
+					//frm.getFonteControle().apagaDadosFrm();
+					frm.getFonteControle().iniciaTabelaFontes(frm.getProjetoControle().getProjeto().getFontes());
+				}
+			}
 		}
 	}
 

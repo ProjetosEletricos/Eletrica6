@@ -20,33 +20,6 @@ public class FonteAcaoBotoes implements ActionListener {
 		this.adicionaActionListener();
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent event) {
-
-		if (event.getSource() == frm.getBtnExcluirFonte()) {
-
-			Projeto projeto = frm.getProjetoControle().getProjeto();
-			Fonte fonte = frm.getFonteControle().getFonte();
-			projeto.getFontes().remove(fonte);
-			FonteService.remove(fonte);
-			fonte.getQuadros().clear();
-
-			frm.getFonteControle().setTabelaSelecao(-1);
-			frm.getFonteControle().iniciaTabelaFontes(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
-			frm.getFonteControle().apagaDadosFrm();
-
-		} else if (event.getSource() == frm.getBtnSalvarFonte()) {
-
-			this.salvar();
-
-		} else if (event.getSource() == frm.getBtnCopiarFonte()) {
-
-			frm.getLblIdFonte().repaint();
-			this.salvar();
-			
-		}
-	}
-
 	private void adicionaActionListener() {
 
 		frm.getBtnCopiarFonte().addActionListener(this);
@@ -56,19 +29,50 @@ public class FonteAcaoBotoes implements ActionListener {
 
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent event) {
+
+		if (event.getSource() == frm.getBtnExcluirFonte()) {
+
+			Projeto projeto = frm.getProjetoControle().getProjeto();
+			Fonte fonte = frm.getFonteControle().getFonte();
+			projeto.getFontes().remove(fonte);
+			FonteService.remove(fonte);
+			fonte.apagar();
+
+			frm.getTableFontes().clearSelection();
+			frm.getFonteControle().iniciaTabelaFontes(projeto.getFontes());
+			frm.getFonteControle().apagaDadosFrm();
+
+		} else if (event.getSource() == frm.getBtnSalvarFonte()) {
+
+			this.salvar();
+
+		} else if (event.getSource() == frm.getBtnCopiarFonte()) {
+
+			frm.getLblIdFonte().setText(null);
+			this.salvar();
+
+		}
+	}
+
 	private void salvar() {
 
 		if (Numero.stringToInteger(frm.getLblIdProjeto().getText()) > 0) {
 			Projeto projeto = ProjetoService.getById(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
 			Fonte fonte = frm.getFonteControle().getDadosFrm();
-
-			if (Numero.stringToInteger(frm.getLblIdFonte().getText()) == null) {
+			Integer idFonte = Numero.stringToInteger(frm.getLblIdFonte().getText());
+			//Integer idProjeto = Numero.stringToInteger(frm.getLblIdProjeto().getText());
+			
+			if (idFonte == null) {
 				projeto.getFontes().add(fonte);
 				FonteService.salva(fonte);
 			} else {
 				FonteService.salva(fonte);
 			}
-			frm.getFonteControle().iniciaTabelaFontes(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
+			frm.getFonteControle().apagaDadosFrm();
+			frm.getFonteControle().setTabelaSelecao(-1);
+			frm.getFonteControle().iniciaTabelaFontes(projeto.getFontes());
 		}
 	}
 }

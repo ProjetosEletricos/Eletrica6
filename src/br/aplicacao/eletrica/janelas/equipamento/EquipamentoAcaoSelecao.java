@@ -5,7 +5,6 @@ import javax.swing.event.ListSelectionListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Equipamento;
-import br.aplicacao.eletrica.uteis.Numero;
 
 public class EquipamentoAcaoSelecao implements ListSelectionListener {
 
@@ -25,14 +24,12 @@ public class EquipamentoAcaoSelecao implements ListSelectionListener {
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 
-		int firstIndex = e.getFirstIndex();
+		if (e.getFirstIndex() >= 0 && e.getValueIsAdjusting() == true && frm.getTableEquipamentos().getSelectedRow() >= 0) {
 
-		if (firstIndex >= 0 && !(Numero.stringToInteger(frm.getLblIdProjeto().getText()) == null)) {
-
-			Equipamento equipamento = frm.getEquipamentoControle().getTabela().loadItem(firstIndex);
+			int linha = frm.getTableEquipamentos().getSelectedRow();
+			Equipamento equipamento = frm.getEquipamentoControle().getTabela().loadItem(linha);
 			frm.getEquipamentoControle().preencheFrm(equipamento);
-			frm.getEquipamentoControle().setTabelaSelecao(firstIndex);
+			frm.getEquipamentoControle().setTabelaSelecao(linha);
 		}
 	}
-
 }

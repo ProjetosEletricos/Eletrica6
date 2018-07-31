@@ -32,6 +32,7 @@ import br.aplicacao.eletrica.janelas.quadro.QuadroControle;
 import br.aplicacao.eletrica.modelo.projeto.Concessionaria;
 import br.aplicacao.eletrica.modelo.projeto.Quadro;
 import br.aplicacao.eletrica.servico.ConcessionariaService;
+import br.aplicacao.eletrica.servico.QuadroService;
 import net.miginfocom.swing.MigLayout;
 
 public class PrincipalFrm extends JInternalFrame {
@@ -61,7 +62,7 @@ public class PrincipalFrm extends JInternalFrame {
 	private JComboBox<String> cbDrQuadro;
 	private JComboBox<Object> cbLigacaoEquipamento;
 	private JComboBox<String> cbPolosEquipamento;
-	private JComboBox<Quadro> cbQuadroPai;
+	private JComboBox<Quadro> cbQuadroPaiQuadro;
 	private JComboBox<UnidadePontencia> cbUnidadePotEquipamento;
 	private JComboBox<String> cbUsabilidadeQuadro;
 	private JPanel contentPane;
@@ -138,6 +139,7 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_3.add(abas);
 
 		panelProjeto = new JPanel();
+		panelProjeto.setName("panelProjeto");
 		abas.addTab("Projeto", null, panelProjeto, null);
 		panelProjeto.setLayout(null);
 
@@ -408,9 +410,19 @@ public class PrincipalFrm extends JInternalFrame {
 		JLabel label_14 = new JLabel("Quadro pai:");
 		panel_16.add(label_14, "cell 2 2,alignx trailing");
 
-		cbQuadroPai = new JComboBox<Quadro>();
-		cbQuadroPai.setName("cbQuadroPai");
-		panel_16.add(cbQuadroPai, "cell 3 2,growx");
+		cbQuadroPaiQuadro = new JComboBox<Quadro>();
+		cbQuadroPaiQuadro.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				List<Quadro> lista = new ArrayList<Quadro>();
+				lista.add(null);
+				lista = QuadroService.getAll();
+				cbQuadroPaiQuadro.removeAllItems();
+				setQuadros(lista);
+			}
+		});
+		cbQuadroPaiQuadro.setName("cbQuadroPaiQuadro");
+		panel_16.add(cbQuadroPaiQuadro, "cell 3 2,growx");
 
 		JLabel label_15 = new JLabel("FP:");
 		panel_16.add(label_15, "cell 0 3,alignx trailing");
@@ -861,7 +873,7 @@ public class PrincipalFrm extends JInternalFrame {
 	}
 
 	public JComboBox<Quadro> getCbQuadroPai() {
-		return cbQuadroPai;
+		return cbQuadroPaiQuadro;
 	}
 
 	public JComboBox<String> getCbUsabilidadeQuadro() {
@@ -1193,7 +1205,7 @@ public class PrincipalFrm extends JInternalFrame {
 	}
 
 	public void setCbQuadroPai(JComboBox<Quadro> cbQuadroPai) {
-		this.cbQuadroPai = cbQuadroPai;
+		this.cbQuadroPaiQuadro = cbQuadroPai;
 	}
 
 	public void setCbUsabilidadeQuadro(JComboBox<String> cbUsabilidadeQuadro) {
@@ -1211,6 +1223,13 @@ public class PrincipalFrm extends JInternalFrame {
 
 		for (UnidadePontencia con : lista) {
 			this.getCbUnidadePotEquipamento().addItem(con);
+		}
+	}
+	
+	public void setQuadros(List<Quadro> lista) {
+
+		for (Quadro con : lista) {
+			this.getCbQuadroPai().addItem(con);
 		}
 	}
 

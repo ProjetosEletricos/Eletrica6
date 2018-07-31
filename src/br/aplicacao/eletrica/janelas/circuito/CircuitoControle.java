@@ -1,16 +1,11 @@
 package br.aplicacao.eletrica.janelas.circuito;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.table.DefaultTableModel;
 
 import br.aplicacao.eletrica.janelas.condutor.CondutorFrm;
 import br.aplicacao.eletrica.janelas.curto.CurtoFrm;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Circuito;
-import br.aplicacao.eletrica.modelo.projeto.Quadro;
-import br.aplicacao.eletrica.servico.QuadroService;
 import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
@@ -33,11 +28,11 @@ public class CircuitoControle {
 	}
 
 	private void adicionaActionListener() {
-		new CircuitoAcaoBotoes(frmPrincipal,frmCondutor,frmCurto);
+		new CircuitoAcaoBotoes(frmPrincipal, frmCondutor, frmCurto);
 	}
 
 	private void adicionaChangeListener() {
-		new CircuitoAcaoAba(frmPrincipal,frmCondutor,frmCurto);
+		new CircuitoAcaoAba(frmPrincipal);
 	}
 
 	private void adicionaKeyListener() {
@@ -52,11 +47,12 @@ public class CircuitoControle {
 
 		frmPrincipal.getTxtNomeCircuito().setText("");
 		frmPrincipal.getLblIdCircuito().setText(null);
-		frmCondutor.getCondutorControle().apagaDadosFrm();
-		frmCurto.getCurtoControle().apagaDadosFrm();
 	}
 
 	public Circuito getDadosFrm() {
+
+		Circuito circuito = new Circuito();
+		circuito = this.circuito;
 
 		circuito.setId(Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText()));
 		circuito.setNome(frmPrincipal.getTxtNomeCircuito().getText());
@@ -67,28 +63,23 @@ public class CircuitoControle {
 		return circuito;
 	}
 
-	public void iniciaTabelaCircuitos(Integer idQuadro) {
+	public void iniciaTabelaCircuitos(List<Circuito> lista) {
 
-		List<Circuito> lista = new ArrayList<Circuito>();
-
-		if (!(idQuadro == 0)) {
-
-			Quadro quadro = QuadroService.getById(idQuadro);
-
-			for (Circuito c : quadro.getCircuitos()) {
-				lista.add(c);
-			}
-		}
-		if (!(lista.isEmpty() || lista == null)) {
+		/*
+		 * List<Circuito> lista = new ArrayList<Circuito>();
+		 * 
+		 * if (!(idQuadro == 0)) {
+		 * 
+		 * Quadro quadro = QuadroService.getById(idQuadro);
+		 * 
+		 * for (Circuito c : quadro.getCircuitos()) { lista.add(c); } }
+		 */
+		try {
 			tabela = new GenericTableModel<Circuito>(lista, Circuito.class);
-			frmPrincipal.getTableCircuitos().repaint();
 			frmPrincipal.getTableCircuitos().setModel(tabela);
-			if (tabelaSelecao >= 0) {
-				frmPrincipal.getTableCircuitos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
-			}
-		} else {
-			frmPrincipal.getTableCircuitos().repaint();
-			frmPrincipal.getTableCircuitos().setModel(new DefaultTableModel());
+			frmPrincipal.getTableCircuitos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+		} catch (Exception e) {
+			
 		}
 	}
 

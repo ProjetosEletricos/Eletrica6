@@ -1,17 +1,13 @@
 package br.aplicacao.eletrica.janelas.quadro;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.table.DefaultTableModel;
 
 import br.aplicacao.eletrica.janelas.condutor.CondutorFrm;
 import br.aplicacao.eletrica.janelas.curto.CurtoFrm;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.modelo.projeto.Fonte;
 import br.aplicacao.eletrica.modelo.projeto.Quadro;
-import br.aplicacao.eletrica.servico.FonteService;
 import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
@@ -34,11 +30,11 @@ public class QuadroControle {
 	}
 
 	private void adicionaActionListener() {
-		new QuadroAcaoBotoes(frmPrincipal,frmCondutor,frmCurto);
+		new QuadroAcaoBotoes(frmPrincipal, frmCondutor, frmCurto);
 	}
 
 	private void adicionaChangeListener() {
-		new QuadroAcaoAba(frmPrincipal,frmCondutor,frmCurto);
+		new QuadroAcaoAba(frmPrincipal);
 	}
 
 	private void adicionaKeyListener() {
@@ -58,11 +54,13 @@ public class QuadroControle {
 		frmPrincipal.getCbUsabilidadeQuadro().setSelectedIndex(-1);
 		frmPrincipal.getCbDrQuadro().setSelectedIndex(-1);
 		frmPrincipal.getLblIdQuadro().setText(null);
-		frmCondutor.getCondutorControle().apagaDadosFrm();
-		frmCurto.getCurtoControle().apagaDadosFrm();
+		frmPrincipal.getCbQuadroPai().setSelectedIndex(-1);
 	}
 
 	public Quadro getDadosFrm() {
+
+		Quadro quadro = new Quadro();
+		quadro = this.quadro;
 
 		quadro.setId(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()));
 		quadro.setFd(Numero.stringToDouble(frmPrincipal.getTxtFdQuadro().getText()));
@@ -74,6 +72,8 @@ public class QuadroControle {
 		quadro.setCondutor(frmCondutor.getCondutorControle().getCondutor());
 		quadro.setCurto(frmCurto.getCurtoControle().getCurto());
 		quadro.setFonte(frmPrincipal.getFonteControle().getFonte());
+		quadro.setQuadroPaiQuadro((Quadro) frmPrincipal.getCbQuadroPai().getModel().getSelectedItem());
+		// quadro.setQuadro(frmPrincipal.getQuadroControle().getQuadro());
 
 		return quadro;
 	}
@@ -97,29 +97,24 @@ public class QuadroControle {
 		iniciaCbUsabilidade();
 	}
 
-	public void iniciaTabelaQuadros(Integer idFonte) {
+	public void iniciaTabelaQuadros(List<Quadro> lista) {
 
-		List<Quadro> lista = new ArrayList<Quadro>();
-
-		if (!(idFonte == 0)) {
-
-			Fonte fonte = FonteService.getById(idFonte);
-
-			for (Quadro q : fonte.getQuadros()) {
-				lista.add(q);
-			}
-		}
-
-		if (!(lista.isEmpty() || lista == null)) {
+		/*
+		 * List<Quadro> lista = new ArrayList<Quadro>();
+		 * 
+		 * if (!(idFonte == 0)) {
+		 * 
+		 * Fonte fonte = FonteService.getById(idFonte);
+		 * 
+		 * for (Quadro q : fonte.getQuadros()) { lista.add(q); } }
+		 */
+		try {
 			tabela = new GenericTableModel<Quadro>(lista, Quadro.class);
-			frmPrincipal.getTableQuadros().repaint();
 			frmPrincipal.getTableQuadros().setModel(tabela);
-			if (tabelaSelecao >= 0) {
-				frmPrincipal.getTableQuadros().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
-			}
-		} else {
-			frmPrincipal.getTableQuadros().repaint();
-			frmPrincipal.getTableQuadros().setModel(new DefaultTableModel());
+			frmPrincipal.getTableQuadros().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+
+		} catch (Exception e) {
+
 		}
 	}
 
@@ -135,6 +130,7 @@ public class QuadroControle {
 			frmPrincipal.getCbUsabilidadeQuadro().getModel().setSelectedItem(quadro.getUsabilidade());
 			frmPrincipal.getCbDrQuadro().getModel().setSelectedItem(quadro.getDrGeral());
 			frmPrincipal.getLblIdQuadro().setText(Integer.toString(quadro.getId()));
+			frmPrincipal.getCbQuadroPai().getModel().setSelectedItem(quadro.getQuadroPaiQuadro());
 			frmCondutor.getCondutorControle().preencheFrm(quadro.getCondutor());
 			frmCurto.getCurtoControle().preencheFrm(quadro.getCurto());
 		}

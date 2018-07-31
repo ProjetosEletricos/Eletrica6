@@ -30,6 +30,15 @@ public class CircuitoAcaoBotoes implements ActionListener {
 		this.adicionaActionListener();
 	}
 
+	private void adicionaActionListener() {
+
+		frmPrincipal.getBtnCopiarCircuito().addActionListener(this);
+		frmPrincipal.getBtnExcluirCircuito().addActionListener(this);
+		frmPrincipal.getBtnSalvarCircuito().addActionListener(this);
+		frmPrincipal.getBtnCondutorCircuito().addActionListener(this);
+		frmPrincipal.getBtnCurtoCirCircuito().addActionListener(this);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 
@@ -39,13 +48,11 @@ public class CircuitoAcaoBotoes implements ActionListener {
 			Circuito circuito = frmPrincipal.getCircuitoControle().getCircuito();
 			quadro.getCircuitos().remove(circuito);
 			CircuitoService.remove(circuito);
-			circuito.setCondutor(null);
-			circuito.setCurto(null);
-			circuito.getEquipamentos().clear();
+			circuito.apagar();
 
-			frmPrincipal.getCircuitoControle().setTabelaSelecao(-1);
+			frmPrincipal.getTableCircuitos().clearSelection();
 			frmPrincipal.getCircuitoControle()
-					.iniciaTabelaCircuitos(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()));
+					.iniciaTabelaCircuitos(quadro.getCircuitos());
 			frmPrincipal.getCircuitoControle().apagaDadosFrm();
 
 		} else if (event.getSource() == frmPrincipal.getBtnSalvarCircuito()) {
@@ -54,7 +61,7 @@ public class CircuitoAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frmPrincipal.getBtnCopiarCircuito()) {
 
-			frmPrincipal.getLblIdCircuito().repaint();
+			frmPrincipal.getLblIdCircuito().setText(null);
 			this.salvar();
 
 			// ----------------------------------------------------------------------------------------------------------
@@ -93,23 +100,16 @@ public class CircuitoAcaoBotoes implements ActionListener {
 		}
 	}
 
-	private void adicionaActionListener() {
-
-		frmPrincipal.getBtnCopiarCircuito().addActionListener(this);
-		frmPrincipal.getBtnExcluirCircuito().addActionListener(this);
-		frmPrincipal.getBtnSalvarCircuito().addActionListener(this);
-		frmPrincipal.getBtnCondutorCircuito().addActionListener(this);
-		frmPrincipal.getBtnCurtoCirCircuito().addActionListener(this);
-	}
-
 	private void salvar() {
 
 		if (Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()) > 0) {
 
 			Quadro quadro = QuadroService.getById(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()));
 			Circuito circuito = frmPrincipal.getCircuitoControle().getDadosFrm();
+			Integer idCircuito = Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText());
+			//Integer idQuadro = Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText());
 
-			if (Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText()) == null) {
+			if (idCircuito == null) {
 				CondutorService.salva(frmCondutor.getCondutorControle().getCondutor());
 				CurtoService.salva(frmCurto.getCurtoControle().getCurto());
 				quadro.addCircuito(circuito);
@@ -121,8 +121,9 @@ public class CircuitoAcaoBotoes implements ActionListener {
 				CircuitoService.salva(circuito);
 			}
 
-			frmPrincipal.getCircuitoControle()
-					.iniciaTabelaCircuitos(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()));
+			frmPrincipal.getCircuitoControle().apagaDadosFrm();
+			frmPrincipal.getCircuitoControle().setTabelaSelecao(-1);
+			frmPrincipal.getCircuitoControle().iniciaTabelaCircuitos(quadro.getCircuitos());
 		}
 	}
 }

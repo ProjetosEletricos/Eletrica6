@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
@@ -34,7 +35,7 @@ public class Quadro implements Entidade<Quadro> {
 	private Condutor condutor;
 	@OneToOne(cascade = CascadeType.ALL)
 	@Column(colName = "Dados CC", colPosition = 3)
-	private Curto dadosCurtoCircuito;
+	private Curto curto;
 	private String drGeral;
 	private double fd;
 	private double fp;
@@ -45,6 +46,10 @@ public class Quadro implements Entidade<Quadro> {
 	private double pot100PercDem;
 	private String usabilidade;
 	private UnidadePontencia unidade;
+	@Transient
+	private Quadro quadroPaiQuadro;
+	@OneToMany(targetEntity = Quadro.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Quadro> quadros;
 
 	public Quadro() {
 		circuitos = new ArrayList<Circuito>();
@@ -75,7 +80,7 @@ public class Quadro implements Entidade<Quadro> {
 		double total = 0;
 
 		for (Circuito c : this.getCircuitos()) {
-			for (Equipamento e : c.getEquipamento()) {
+			for (Equipamento e : c.getEquipamentos()) {
 				total += e.getQuantidade() * e.getDemanda() * e.getfSimu();
 			}
 		}
@@ -94,7 +99,7 @@ public class Quadro implements Entidade<Quadro> {
 		double total = 0;
 
 		for (Circuito c : this.getCircuitos()) {
-			for (Equipamento e : c.getEquipamento()) {
+			for (Equipamento e : c.getEquipamentos()) {
 				total += e.getQuantidade() * e.getDemanda();
 			}
 		}
@@ -135,6 +140,14 @@ public class Quadro implements Entidade<Quadro> {
 		this.fonte = fonte;
 	}
 
+	public Quadro getQuadroPaiQuadro() {
+		return quadroPaiQuadro;
+	}
+
+	public void setQuadroPaiQuadro(Quadro quadroPaiQuadro) {
+		this.quadroPaiQuadro = quadroPaiQuadro;
+	}
+
 	public void setCircuitos(List<Circuito> circuitos) {
 		this.circuitos.clear();
 		this.circuitos.addAll(circuitos);
@@ -173,11 +186,11 @@ public class Quadro implements Entidade<Quadro> {
 	}
 
 	public Curto getCurto() {
-		return dadosCurtoCircuito;
+		return curto;
 	}
 
 	public void setCurto(Curto dadosCurtoCircuito) {
-		this.dadosCurtoCircuito = dadosCurtoCircuito;
+		this.curto = dadosCurtoCircuito;
 	}
 
 	public void setPot100PercDem(double pot100PercDem) {
@@ -192,11 +205,25 @@ public class Quadro implements Entidade<Quadro> {
 		this.usabilidade = usabilidade;
 	}
 
+	public List<Quadro> getQuadros() {
+		return quadros;
+	}
+
+	public void setQuadros(List<Quadro> quadros) {
+		this.quadros = quadros;
+	}
+
+	/*
+	 * public Quadro getQuadro() { return quadro; }
+	 * 
+	 * public void setQuadro(Quadro quadro) { this.quadro = quadro; }
+	 */
+
 	@Override
 	public Quadro clonarSemID() {
 		Quadro q = copiar();
 		q.setId(null);
-		return this;
+		return q;
 	}
 
 	@Override
@@ -206,10 +233,10 @@ public class Quadro implements Entidade<Quadro> {
 		q.setNome(nome);
 		q.setUnidade(unidade);
 
-		for (Circuito c : q.circuitos) {
-			circuitos.add(c.copiar());
+		for (Circuito c : circuitos) {
+			q.circuitos.add(c);
 		}
-		return this;
+		return q;
 	}
 
 	@Override
@@ -248,4 +275,23 @@ public class Quadro implements Entidade<Quadro> {
 		return nome;
 	}
 
+	@Override
+	public void apagar() {
+
+		id = null;
+		fonte = null;
+		circuitos.clear();
+		condutor = null;
+		curto = null;
+		drGeral = "";
+		fd = 0;
+		fp = 0;
+		local = "";
+		nome = "";
+		pot100PercDem = 0;
+		usabilidade = null;
+		unidade = null;
+		quadroPaiQuadro = null;
+		quadros.clear();
+	}
 }

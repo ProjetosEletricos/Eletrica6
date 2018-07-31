@@ -1,5 +1,7 @@
 package br.aplicacao.eletrica.janelas.projeto;
 
+import java.util.List;
+
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Projeto;
 import br.aplicacao.eletrica.servico.ProjetoService;
@@ -16,7 +18,7 @@ public class ProjetoControle {
 
 	public ProjetoControle(PrincipalFrm frm) {
 		this.frm = frm;
-		iniciaTabelaProjetos();
+		iniciaTabelaProjetos(ProjetoService.getAll());
 		adicionaActionListener();
 		adicionaListSelectionListener();
 		adicionaMouseListener();
@@ -29,7 +31,7 @@ public class ProjetoControle {
 	}
 
 	private void adicionaChangeListener() {
-		// new ProjetoAcaoAba(frm);
+		new ProjetoAcaoAba(frm);
 	}
 
 	private void adicionaListSelectionListener() {
@@ -47,6 +49,7 @@ public class ProjetoControle {
 		frm.getTxtDescricaoProjeto().setText("");
 		frm.getTxtData().setText(DataUtil.Atual());
 		frm.getLblIdProjeto().setText(null);
+
 	}
 
 	private void dataAtual() {
@@ -54,6 +57,9 @@ public class ProjetoControle {
 	}
 
 	public Projeto getDadosFrm() {
+
+		Projeto projeto = new Projeto();
+		projeto = this.projeto;
 
 		projeto.setId(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
 		projeto.setNome(frm.getTxtNomeProjeto().getText());
@@ -64,19 +70,22 @@ public class ProjetoControle {
 		return projeto;
 	}
 
-	public void iniciaTabelaProjetos() {
+	public void iniciaTabelaProjetos(List<Projeto> lista) {
 
-		tabela = new GenericTableModel<Projeto>(ProjetoService.getAll(), Projeto.class);
-		frm.getTableProjetos().repaint();
-		frm.getTableProjetos().setModel(tabela);
-		if (tabelaSelecao >= 0) {
+		try {
+			tabela = new GenericTableModel<Projeto>(lista, Projeto.class);
+			frm.getTableProjetos().setModel(tabela);
 			frm.getTableProjetos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
+
+		} catch (Exception e) {
+
 		}
 	}
 
 	public void preencheFrm(Projeto projeto) {
 		if (projeto != null) {
 			this.projeto = projeto;
+
 			frm.getTxtAutor().setText(projeto.getAutor());
 			frm.getTxtNomeProjeto().setText(projeto.getNome());
 			frm.getTxtDescricaoProjeto().setText(projeto.getDescricao());
@@ -97,16 +106,16 @@ public class ProjetoControle {
 		return tabela;
 	}
 
-	public void setTabela(GenericTableModel<Projeto> tabela) {
-		this.tabela = tabela;
-	}
-
 	public int getTabelaSelecao() {
 		return tabelaSelecao;
 	}
 
 	public void setTabelaSelecao(int tabelaSelecao) {
 		this.tabelaSelecao = tabelaSelecao;
+	}
+
+	public void setTabela(GenericTableModel<Projeto> tabela) {
+		this.tabela = tabela;
 	}
 
 }

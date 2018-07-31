@@ -148,7 +148,10 @@ public class CondutorControle {
 		frm.getLblIdCondutor().setText(null);
 	}
 
-	public Condutor atualizaDados() {
+	public Condutor getDadosFrm() {
+		
+		Condutor condutor = new Condutor();
+		condutor = this.condutor;
 
 		condutor.setId(Numero.stringToInteger(frm.getLblIdCondutor().getText()));
 		condutor.setQuedaTensao(Numero.stringToDouble(frm.getTxtQuedaTensaoCondutor().getText()));

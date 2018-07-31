@@ -10,10 +10,8 @@ public class ProjetoAcaoSelecao implements ListSelectionListener {
 
 	private PrincipalFrm frm;
 
-
 	public ProjetoAcaoSelecao(PrincipalFrm frm) {
 
-		
 		this.frm = frm;
 		this.AdicionarListSelectionListener();
 	}
@@ -21,21 +19,17 @@ public class ProjetoAcaoSelecao implements ListSelectionListener {
 	private void AdicionarListSelectionListener() {
 
 		frm.getTableProjetos().getSelectionModel().addListSelectionListener(this);
-
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		
-		int firstIndex = e.getFirstIndex();
-		int row = frm.getTableProjetos().getSelectedRow();
 
-		if (firstIndex >= 0 && row >= 0) {
+		if (e.getFirstIndex() >= 0 && e.getValueIsAdjusting() == true && frm.getTableProjetos().getSelectedRow() >= 0) {
 
-			Projeto projeto = frm.getProjetoControle().getTabela().loadItem(row);
+			int linha = frm.getTableProjetos().getSelectedRow();
+			Projeto projeto = frm.getProjetoControle().getTabela().loadItem(linha);
 			frm.getProjetoControle().preencheFrm(projeto);
-			frm.getProjetoControle().setTabelaSelecao(row);
+			frm.getProjetoControle().setTabelaSelecao(linha);
 		}
 	}
-
 }

@@ -5,14 +5,13 @@ import javax.swing.event.ListSelectionListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Circuito;
-import br.aplicacao.eletrica.uteis.Numero;
 
 public class CircuitoAcaoSelecao implements ListSelectionListener {
 
 	private PrincipalFrm frm;
 
 	public CircuitoAcaoSelecao(PrincipalFrm frm) {
-		
+
 		this.frm = frm;
 		this.AdicionarListSelectionListener();
 	}
@@ -24,15 +23,13 @@ public class CircuitoAcaoSelecao implements ListSelectionListener {
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		
-		int firstIndex = e.getFirstIndex();
 
+		if (e.getFirstIndex() >= 0 && e.getValueIsAdjusting() == true && frm.getTableCircuitos().getSelectedRow() >= 0) {
 
-		if (firstIndex >= 0 && !(Numero.stringToInteger(frm.getLblIdQuadro().getText()) == null)) {
-
-			Circuito circuito = frm.getCircuitoControle().getTabela().loadItem(firstIndex);
+			int linha = frm.getTableCircuitos().getSelectedRow();
+			Circuito circuito = frm.getCircuitoControle().getTabela().loadItem(linha);
 			frm.getCircuitoControle().preencheFrm(circuito);
-			frm.getCircuitoControle().setTabelaSelecao(firstIndex);
+			frm.getCircuitoControle().setTabelaSelecao(linha);
 		}
 
 	}

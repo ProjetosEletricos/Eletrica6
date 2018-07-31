@@ -4,6 +4,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
+import br.aplicacao.eletrica.servico.ProjetoService;
 
 public class ProjetoAcaoAba implements ChangeListener {
 
@@ -17,17 +18,15 @@ public class ProjetoAcaoAba implements ChangeListener {
 
 	public void adicionaChangeListener() {
 
-		frm.getAbas().addChangeListener(this);
+		frm.getAbas().getModel().addChangeListener(this);
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
 
-		if (frm.getAbas().getSelectedComponent() == frm.getPanelProjeto()) {
+			if (frm.getAbas().getModel().getSelectedIndex() == 0) {
 
-			frm.getProjetoControle().apagaDadosFrm();
-			frm.getProjetoControle().iniciaTabelaProjetos();
-
+			frm.getProjetoControle().iniciaTabelaProjetos(ProjetoService.getAll());
 		}
 	}
 

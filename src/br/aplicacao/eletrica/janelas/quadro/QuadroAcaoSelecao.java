@@ -5,36 +5,31 @@ import javax.swing.event.ListSelectionListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Quadro;
-import br.aplicacao.eletrica.uteis.Numero;
 
 public class QuadroAcaoSelecao implements ListSelectionListener {
 
-	private PrincipalFrm frm;
+	private PrincipalFrm frmPrincipal;
 
 	public QuadroAcaoSelecao(PrincipalFrm frm) {
 
-		
-		this.frm = frm;
+		this.frmPrincipal = frm;
 		this.AdicionarListSelectionListener();
 	}
 
 	private void AdicionarListSelectionListener() {
 
-		frm.getTableQuadros().getSelectionModel().addListSelectionListener(this);
+		frmPrincipal.getTableQuadros().getSelectionModel().addListSelectionListener(this);
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		
-		int firstIndex = e.getFirstIndex();
 
-
-		if (firstIndex >= 0 && !(Numero.stringToInteger(frm.getLblIdFonte().getText()) == null)) {
-
-			Quadro quadro = frm.getQuadroControle().getTabela().loadItem(firstIndex);
-			frm.getQuadroControle().preencheFrm(quadro);
-			frm.getQuadroControle().setTabelaSelecao(firstIndex);
+		if (e.getFirstIndex() >= 0 && e.getValueIsAdjusting() == true && frmPrincipal.getTableQuadros().getSelectedRow() >= 0) {
+			
+			int linha = frmPrincipal.getTableQuadros().getSelectedRow();
+			Quadro quadro = frmPrincipal.getQuadroControle().getTabela().loadItem(linha);
+			frmPrincipal.getQuadroControle().preencheFrm(quadro);
+			frmPrincipal.getQuadroControle().setTabelaSelecao(linha);
 		}
 	}
-
 }

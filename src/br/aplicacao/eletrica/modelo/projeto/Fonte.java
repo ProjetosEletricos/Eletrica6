@@ -92,7 +92,7 @@ public class Fonte implements Entidade<Fonte> {
 	public Fonte clonarSemID() {
 		Fonte f = copiar();
 		f.setId(null);
-		return this;
+		return f;
 	}
 
 	@Override
@@ -103,11 +103,11 @@ public class Fonte implements Entidade<Fonte> {
 		f.setConcessionaria(concessionaria);
 		f.setTensaoFN(tensaoFN);
 
-		for (Quadro q : f.quadros) {
-			quadros.add(q.copiar());
+		for (Quadro q : quadros) {
+			f.quadros.add(q);
 		}
 
-		return this;
+		return f;
 	}
 
 	@Override
@@ -152,6 +152,17 @@ public class Fonte implements Entidade<Fonte> {
 
 	public void setProjeto(Projeto projeto) {
 		this.projeto = projeto;
+	}
+
+	@Override
+	public void apagar() {
+
+		id = null;
+		projeto = null;
+		concessionaria = null;
+		quadros.clear();
+		nome = "";
+		tensaoFN = 0;
 	}
 
 }

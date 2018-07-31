@@ -4,7 +4,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.uteis.Numero;
 
 public class FonteAcaoAba implements ChangeListener {
 
@@ -18,22 +17,15 @@ public class FonteAcaoAba implements ChangeListener {
 
 	public void adicionaChangeListener() {
 
-		frm.getAbas().addChangeListener(this);
+		frm.getAbas().getModel().addChangeListener(this);
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
 
-		if (frm.getAbas().getSelectedComponent() == frm.getPanelFonte()) {
+		if (frm.getAbas().getModel().getSelectedIndex() == 1) {
 
-			if (!(Numero.stringToInteger(frm.getLblIdProjeto().getText()) == null)) {
-				frm.getFonteControle().apagaDadosFrm();
-				frm.getFonteControle().iniciaTabelaFontes(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
-			} else {
-				frm.getFonteControle().apagaDadosFrm();
-				frm.getFonteControle().setTabelaSelecao(-1);
-				frm.getFonteControle().iniciaTabelaFontes(0);
-			}
+			frm.getFonteControle().iniciaTabelaFontes(frm.getProjetoControle().getProjeto().getFontes());
 		}
 	}
 }
