@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.aplicacao.eletrica.calculo.ConversorPotencia;
+import br.aplicacao.eletrica.calculo.Corrente;
 import br.aplicacao.eletrica.enums.Ligacao;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.enums.Usabilidade;
@@ -35,7 +36,7 @@ public class Equipamento implements Entidade<Equipamento> {
 	private int quantidade;
 	private double rendimento;
 	@Column(colName = "Tensão", colPosition = 2)
-	private double tensaoFN;
+	// private double tensaoFN;
 	private String descricao;
 	private double fd;
 	private double fp;
@@ -52,18 +53,12 @@ public class Equipamento implements Entidade<Equipamento> {
 	}
 
 	public double getCorrente() {
-		double valor = 0;
-
-		if (this.ligacao.equals("FFF") || this.ligacao.equals("FFFN")) {
-			valor = getPotenciaEmVA() / (this.tensaoFN);
-		}
-		if (this.ligacao.equals("FF") || this.ligacao.equals("FFN")) {
-			valor = getPotenciaEmVA() / (Math.sqrt(3) * this.tensaoFN);
-		}
-		if (this.ligacao.equals("FN")) {
-			valor = getPotenciaEmVA() / (this.tensaoFN);
-		}
-		return valor;
+		return new Corrente()//
+				.withLigacao(getLigacao())//
+				.withPotencia(this.getPotencia())//
+				.withTensao(this.getTensaoFN())//
+				.withUnidade(this.getUnidade())//
+				.valor();
 	}
 
 	public Double getDemanda() {
@@ -174,7 +169,7 @@ public class Equipamento implements Entidade<Equipamento> {
 	}
 
 	public double getTensaoFN() {
-		return tensaoFN;
+		return getCircuito().getQuadro().getFonte().getTensaoFN();
 	}
 
 	public UnidadePontencia getUnidade() {
@@ -253,10 +248,6 @@ public class Equipamento implements Entidade<Equipamento> {
 		this.rendimento = rendimento;
 	}
 
-	public void setTensaoFN(double tensaoFN) {
-		this.tensaoFN = tensaoFN;
-	}
-
 	public void setUnidade(UnidadePontencia unidade) {
 		this.unidade = unidade;
 	}
@@ -290,7 +281,6 @@ public class Equipamento implements Entidade<Equipamento> {
 		e.setPotencia(potencia);
 		e.setQuantidade(quantidade);
 		e.setRendimento(rendimento);
-		e.setTensaoFN(tensaoFN);
 		e.setUnidade(unidade);
 		e.setUsabilidade(usabilidade);
 
@@ -346,7 +336,6 @@ public class Equipamento implements Entidade<Equipamento> {
 		potencia = 0;
 		quantidade = 0;
 		rendimento = 0;
-		tensaoFN = 0;
 		descricao = "";
 		fd = 0;
 		fp = 0;

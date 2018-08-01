@@ -7,7 +7,6 @@ public class ConversorPotencia {
 	private Double fatorPotencia;
 	private Double potencia;
 	private UnidadePontencia unidadeDestino;
-
 	private UnidadePontencia unidadeOrigem;
 	private final Double WATT_BTU = 0.29307107;
 	private final Double WATT_CV = 735.499;

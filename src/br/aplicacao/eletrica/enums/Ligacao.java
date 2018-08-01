@@ -2,7 +2,7 @@ package br.aplicacao.eletrica.enums;
 
 public enum Ligacao {
 
-	TRIFASICO_FFF("FFF"), TRIFASICO_FFFN("FFFN"), MONOFASICO_FN("FN"), BIFASICO_FF("FF"), BIFASICO_FFN("FFN");
+	FFF("FFF"), FFFN("FFFN"), FN("FN"), FF("FF"), FFN("FFN");
 
 	private String sigla;
 

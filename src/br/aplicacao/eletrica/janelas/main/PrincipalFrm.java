@@ -126,19 +126,19 @@ public class PrincipalFrm extends JInternalFrame {
 		setClosable(true);
 		setIconifiable(true);
 		setMaximizable(true);
-		setBounds(100, 100, 700, 399);
+		setBounds(100, 100, 700, 521);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(0, 0, 690, 367);
+		panel_3.setBounds(0, 0, 690, 491);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 
 		abas = new JTabbedPane(SwingConstants.TOP);
-		abas.setBounds(0, 0, 692, 370);
+		abas.setBounds(0, 0, 692, 491);
 		panel_3.add(abas);
 
 		panelProjeto = new JPanel();
@@ -599,12 +599,12 @@ public class PrincipalFrm extends JInternalFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrados",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
-		panel_1.setBounds(469, 47, 206, 284);
+		panel_1.setBounds(351, 47, 324, 405);
 		panelEquipamento.add(panel_1);
 		panel_1.setLayout(null);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(12, 17, 182, 255);
+		scrollPane_1.setBounds(12, 17, 300, 371);
 		panel_1.add(scrollPane_1);
 
 		tableEquipamentos = new JTable();
@@ -640,12 +640,17 @@ public class PrincipalFrm extends JInternalFrame {
 		btnCopiarEquipamento.setBackground(Color.GRAY);
 		panel_22.add(btnCopiarEquipamento, "cell 2 0");
 
+		lblIdEquipamento = new JLabel("");
+		lblIdEquipamento.setName("lblIdEquipamento");
+		lblIdEquipamento.setBounds(146, 20, 70, 15);
+		panelEquipamento.add(lblIdEquipamento);
+
 		JPanel panel_7 = new JPanel();
+		panel_7.setBounds(12, 47, 332, 405);
+		panelEquipamento.add(panel_7);
 		panel_7.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informa\u00E7\u00F5es",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
-		panel_7.setBounds(12, 47, 451, 284);
-		panelEquipamento.add(panel_7);
-		panel_7.setLayout(new MigLayout("", "[][grow][grow][][grow]", "[][][][][][][][]"));
+		panel_7.setLayout(new MigLayout("", "[][104.00,grow]", "[][][][][][][][][][][][][][]"));
 
 		JLabel lblNewLabel = new JLabel("Nome:");
 		panel_7.add(lblNewLabel, "cell 0 0,alignx left");
@@ -656,15 +661,6 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_7.add(txtNomeEquipamento, "cell 1 0,growx");
 		txtNomeEquipamento.setColumns(10);
 
-		JLabel lblFp = new JLabel("FP:");
-		panel_7.add(lblFp, "cell 3 0,alignx left");
-
-		txtFpEquipamento = new JTextField();
-		txtFpEquipamento.setName("txtFpEquipamento");
-		txtFpEquipamento.setMaximumSize(new Dimension(50, 2147483647));
-		txtFpEquipamento.setColumns(10);
-		panel_7.add(txtFpEquipamento, "cell 4 0,growx");
-
 		JLabel lblLocal = new JLabel("Local/Descr:");
 		panel_7.add(lblLocal, "cell 0 1,alignx left");
 
@@ -674,18 +670,9 @@ public class PrincipalFrm extends JInternalFrame {
 		txtLocalEquipamento.setColumns(10);
 		panel_7.add(txtLocalEquipamento, "cell 1 1,growx");
 
-		JLabel lblRendimento = new JLabel("Rendimento:");
-		panel_7.add(lblRendimento, "cell 3 1,alignx left");
-
-		txtRendimentoEquipamento = new JTextField();
-		txtRendimentoEquipamento.setName("txtRendimentoEquipamento");
-		txtRendimentoEquipamento.setMaximumSize(new Dimension(50, 2147483647));
-		txtRendimentoEquipamento.setColumns(10);
-		panel_7.add(txtRendimentoEquipamento, "cell 4 1,growx");
-
 		JLabel lblNewLabel_1 = new JLabel("Usabilidade:");
 		panel_7.add(lblNewLabel_1, "cell 0 2,alignx trailing");
-		
+
 		cbUsabilidadeEquipamento = new JComboBox<Usabilidade>();
 		cbUsabilidadeEquipamento.addFocusListener(new FocusAdapter() {
 			@Override
@@ -699,33 +686,15 @@ public class PrincipalFrm extends JInternalFrame {
 			}
 		});
 		cbUsabilidadeEquipamento.setName("cbUsabilidadeEquipamento");
-		panel_7.add(cbUsabilidadeEquipamento, "cell 1 2,growx");
-
-		JLabel lblFd = new JLabel("Fd:");
-		panel_7.add(lblFd, "cell 3 2,alignx left");
-
-		txtFdEquipamento = new JTextField();
-		txtFdEquipamento.setName("txtFdEquipamento");
-		txtFdEquipamento.setMaximumSize(new Dimension(50, 2147483647));
-		txtFdEquipamento.setColumns(10);
-		panel_7.add(txtFdEquipamento, "cell 4 2,growx");
+		panel_7.add(cbUsabilidadeEquipamento, "cell 1 2,grow");
 
 		JLabel lblQuantidade_1 = new JLabel("Quantidade:");
 		panel_7.add(lblQuantidade_1, "cell 0 3,alignx trailing");
 
 		txtQuantidadeEquipamento = new JTextField();
 		txtQuantidadeEquipamento.setName("txtQuantidadeEquipamento");
-		panel_7.add(txtQuantidadeEquipamento, "cell 1 3,growx");
+		panel_7.add(txtQuantidadeEquipamento, "cell 1 3,alignx left,aligny baseline");
 		txtQuantidadeEquipamento.setColumns(10);
-
-		JLabel lblFutil = new JLabel("FUtil:");
-		panel_7.add(lblFutil, "cell 3 3,alignx left");
-
-		txtFUtilizacaoEquipamento = new JTextField();
-		txtFUtilizacaoEquipamento.setName("txtFUtilizacaoEquipamento");
-		txtFUtilizacaoEquipamento.setMaximumSize(new Dimension(50, 2147483647));
-		txtFUtilizacaoEquipamento.setColumns(10);
-		panel_7.add(txtFUtilizacaoEquipamento, "cell 4 3,growx");
 
 		JLabel lblQuantidade = new JLabel("Pot\u00EAncia:");
 		panel_7.add(lblQuantidade, "cell 0 4,alignx left");
@@ -734,7 +703,100 @@ public class PrincipalFrm extends JInternalFrame {
 		txtPotenciaEquipamento.setName("txtPotenciaEquipamento");
 		txtPotenciaEquipamento.setMaximumSize(new Dimension(120, 2147483647));
 		txtPotenciaEquipamento.setColumns(10);
-		panel_7.add(txtPotenciaEquipamento, "cell 1 4,growx");
+		panel_7.add(txtPotenciaEquipamento, "flowx,cell 1 4,alignx left");
+
+		JLabel lblPlos = new JLabel("P\u00F3los:");
+		panel_7.add(lblPlos, "cell 0 5,alignx left");
+
+		cbPolosEquipamento = new JComboBox<>();
+		cbPolosEquipamento.setName("cbPolosEquipamento");
+		cbPolosEquipamento.setMaximumSize(new Dimension(45, 32767));
+		panel_7.add(cbPolosEquipamento, "cell 1 5,grow");
+
+		JLabel lblLigao = new JLabel("Liga\u00E7\u00E3o:");
+		panel_7.add(lblLigao, "cell 0 6,alignx left");
+
+		cbLigacaoEquipamento = new JComboBox<Ligacao>();
+		cbLigacaoEquipamento.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				List<Ligacao> lista = new ArrayList<Ligacao>();
+				cbLigacaoEquipamento.removeAllItems();
+				lista.add(Ligacao.FF);
+				lista.add(Ligacao.FFN);
+				lista.add(Ligacao.FFF);
+				lista.add(Ligacao.FFFN);
+				lista.add(Ligacao.FN);
+				setLigacaoEquipamento(lista);
+			}
+		});
+		cbLigacaoEquipamento.setName("cbLigacaoEquipamento");
+		cbLigacaoEquipamento.setMinimumSize(new Dimension(40, 24));
+		cbLigacaoEquipamento.setMaximumSize(new Dimension(60, 32767));
+		panel_7.add(cbLigacaoEquipamento, "cell 1 6,grow");
+
+		JLabel lblPerdasw = new JLabel("Perdas (W):");
+		panel_7.add(lblPerdasw, "cell 0 7,alignx left");
+
+		txtPerdasEquipamento = new JTextField();
+		txtPerdasEquipamento.setName("txtPerdasEquipamento");
+		txtPerdasEquipamento.setMaximumSize(new Dimension(120, 2147483647));
+		txtPerdasEquipamento.setColumns(10);
+		panel_7.add(txtPerdasEquipamento, "cell 1 7,grow");
+
+		JLabel lblFp = new JLabel("FP:");
+		panel_7.add(lblFp, "cell 0 8,alignx left");
+
+		txtFpEquipamento = new JTextField();
+		txtFpEquipamento.setName("txtFpEquipamento");
+		txtFpEquipamento.setMaximumSize(new Dimension(50, 2147483647));
+		txtFpEquipamento.setColumns(10);
+		panel_7.add(txtFpEquipamento, "cell 1 8,alignx left,growy");
+
+		JLabel lblRendimento = new JLabel("Rendimento:");
+		panel_7.add(lblRendimento, "cell 0 9,alignx left");
+
+		txtRendimentoEquipamento = new JTextField();
+		txtRendimentoEquipamento.setName("txtRendimentoEquipamento");
+		txtRendimentoEquipamento.setMaximumSize(new Dimension(50, 2147483647));
+		txtRendimentoEquipamento.setColumns(10);
+		panel_7.add(txtRendimentoEquipamento, "cell 1 9,alignx left");
+
+		JLabel lblFd = new JLabel("Fd:");
+		panel_7.add(lblFd, "cell 0 10,alignx left");
+
+		txtFdEquipamento = new JTextField();
+		txtFdEquipamento.setName("txtFdEquipamento");
+		txtFdEquipamento.setMaximumSize(new Dimension(50, 2147483647));
+		txtFdEquipamento.setColumns(10);
+		panel_7.add(txtFdEquipamento, "cell 1 10,growx");
+
+		JLabel lblFutil = new JLabel("FUtil:");
+		panel_7.add(lblFutil, "cell 0 11,alignx left");
+
+		txtFUtilizacaoEquipamento = new JTextField();
+		txtFUtilizacaoEquipamento.setName("txtFUtilizacaoEquipamento");
+		txtFUtilizacaoEquipamento.setMaximumSize(new Dimension(50, 2147483647));
+		txtFUtilizacaoEquipamento.setColumns(10);
+		panel_7.add(txtFUtilizacaoEquipamento, "cell 1 11,growx");
+
+		JLabel lblFserv = new JLabel("FServ:");
+		panel_7.add(lblFserv, "cell 0 12,alignx left");
+
+		txtFServicoEquipamento = new JTextField();
+		txtFServicoEquipamento.setName("txtFServicoEquipamento");
+		txtFServicoEquipamento.setMaximumSize(new Dimension(50, 2147483647));
+		txtFServicoEquipamento.setColumns(10);
+		panel_7.add(txtFServicoEquipamento, "cell 1 12,growx");
+
+		JLabel lblFsimu = new JLabel("FSimu:");
+		panel_7.add(lblFsimu, "cell 0 13,alignx left");
+
+		txtFSimutaneadadeEquipamento = new JTextField();
+		txtFSimutaneadadeEquipamento.setName("txtFSimutaneadadeEquipamento");
+		txtFSimutaneadadeEquipamento.setMaximumSize(new Dimension(50, 2147483647));
+		txtFSimutaneadadeEquipamento.setColumns(10);
+		panel_7.add(txtFSimutaneadadeEquipamento, "cell 1 13,growx");
 
 		cbUnidadePotEquipamento = new JComboBox<>();
 		cbUnidadePotEquipamento.addFocusListener(new FocusAdapter() {
@@ -751,75 +813,7 @@ public class PrincipalFrm extends JInternalFrame {
 			}
 		});
 		cbUnidadePotEquipamento.setName("cbUnidadePotEquipamento");
-		panel_7.add(cbUnidadePotEquipamento, "cell 2 4,growx");
-
-		JLabel lblTotal = new JLabel("Total:");
-		panel_7.add(lblTotal, "cell 3 4,aligny baseline");
-
-		JLabel lblValorTotal = new JLabel("");
-		panel_7.add(lblValorTotal, "cell 4 4");
-
-		JLabel lblPlos = new JLabel("P\u00F3los:");
-		panel_7.add(lblPlos, "cell 0 5,alignx left");
-
-		cbPolosEquipamento = new JComboBox<>();
-		cbPolosEquipamento.setName("cbPolosEquipamento");
-		cbPolosEquipamento.setMaximumSize(new Dimension(45, 32767));
-		panel_7.add(cbPolosEquipamento, "cell 1 5,growx");
-
-		JLabel lblFserv = new JLabel("FServ:");
-		panel_7.add(lblFserv, "cell 3 5,alignx left");
-
-		txtFServicoEquipamento = new JTextField();
-		txtFServicoEquipamento.setName("txtFServicoEquipamento");
-		txtFServicoEquipamento.setMaximumSize(new Dimension(50, 2147483647));
-		txtFServicoEquipamento.setColumns(10);
-		panel_7.add(txtFServicoEquipamento, "cell 4 5,growx");
-
-		JLabel lblLigao = new JLabel("Liga\u00E7\u00E3o:");
-		panel_7.add(lblLigao, "cell 0 6,alignx left");
-
-		cbLigacaoEquipamento = new JComboBox<Ligacao>();
-		cbLigacaoEquipamento.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				List<Ligacao> lista = new ArrayList<Ligacao>();
-				cbLigacaoEquipamento.removeAllItems();
-				lista.add(Ligacao.BIFASICO_FF);
-				lista.add(Ligacao.BIFASICO_FFN);
-				lista.add(Ligacao.TRIFASICO_FFF);
-				lista.add(Ligacao.TRIFASICO_FFFN);
-				lista.add(Ligacao.MONOFASICO_FN);
-				setLigacaoEquipamento(lista);
-			}
-		});
-		cbLigacaoEquipamento.setName("cbLigacaoEquipamento");
-		cbLigacaoEquipamento.setMinimumSize(new Dimension(40, 24));
-		cbLigacaoEquipamento.setMaximumSize(new Dimension(60, 32767));
-		panel_7.add(cbLigacaoEquipamento, "cell 1 6,growx");
-
-		JLabel lblFsimu = new JLabel("FSimu:");
-		panel_7.add(lblFsimu, "cell 3 6,alignx left");
-
-		txtFSimutaneadadeEquipamento = new JTextField();
-		txtFSimutaneadadeEquipamento.setName("txtFSimutaneadadeEquipamento");
-		txtFSimutaneadadeEquipamento.setMaximumSize(new Dimension(50, 2147483647));
-		txtFSimutaneadadeEquipamento.setColumns(10);
-		panel_7.add(txtFSimutaneadadeEquipamento, "cell 4 6,growx");
-
-		JLabel lblPerdasw = new JLabel("Perdas (W):");
-		panel_7.add(lblPerdasw, "cell 0 7,alignx left");
-
-		txtPerdasEquipamento = new JTextField();
-		txtPerdasEquipamento.setName("txtPerdasEquipamento");
-		txtPerdasEquipamento.setMaximumSize(new Dimension(120, 2147483647));
-		txtPerdasEquipamento.setColumns(10);
-		panel_7.add(txtPerdasEquipamento, "cell 1 7,growx");
-
-		lblIdEquipamento = new JLabel("");
-		lblIdEquipamento.setName("lblIdEquipamento");
-		lblIdEquipamento.setBounds(146, 20, 70, 15);
-		panelEquipamento.add(lblIdEquipamento);
+		panel_7.add(cbUnidadePotEquipamento, "cell 1 4,grow");
 
 		JPanel panel = new JPanel();
 		abas.addTab("Resultados", null, panel, null);
@@ -1282,14 +1276,14 @@ public class PrincipalFrm extends JInternalFrame {
 			this.getCbUsabilidadeQuadro().addItem(con);
 		}
 	}
-	
+
 	public void setUsabilidadeEquipamento(List<Usabilidade> lista) {
 
 		for (Usabilidade con : lista) {
 			this.getCbUsabilidadeEquipamento().addItem(con);
 		}
 	}
-	
+
 	public void setLigacaoEquipamento(List<Ligacao> lista) {
 
 		for (Ligacao con : lista) {
