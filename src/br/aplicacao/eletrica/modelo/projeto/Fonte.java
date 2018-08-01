@@ -78,15 +78,21 @@ public class Fonte implements Entidade<Fonte> {
 		this.tensaoFN = tensaoFN;
 	}
 
-	/*
-	 * public Double getPotenciaInstalada() { double total = 0; for (Quadro quadro :
-	 * this.getQuadros()) { total += quadro.getPotenciaInstalada(); } return total;
-	 * }
-	 */
-	/*
-	 * public Double getDemanda() { double total = 0; for (Quadro quadro :
-	 * this.getQuadros()) { total += quadro.getDemanda(); } return total; }
-	 */
+	public Double getPotenciaInstalada() {
+		double total = 0;
+		for (Quadro quadro : this.getQuadros()) {
+			total += quadro.getPotenciaInstalada();
+		}
+		return total;
+	}
+
+	public Double getDemanda() {
+		double total = 0;
+		for (Quadro quadro : this.getQuadros()) {
+			total += quadro.getDemanda();
+		}
+		return total;
+	}
 
 	@Override
 	public Fonte clonarSemID() {

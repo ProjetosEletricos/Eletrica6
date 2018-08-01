@@ -36,7 +36,6 @@ public class CalculoUtils {
 	public double getDemanda() {
 
 		return fonte.getDemanda();
-
 	}
 
 	public Double getPotenciaInstalada() {

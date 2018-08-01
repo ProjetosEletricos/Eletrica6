@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
+import br.aplicacao.eletrica.enums.Usabilidade;
 import br.aplicacao.eletrica.janelas.condutor.CondutorFrm;
 import br.aplicacao.eletrica.janelas.curto.CurtoFrm;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
@@ -67,7 +68,7 @@ public class QuadroControle {
 		quadro.setFp(Numero.stringToDouble(frmPrincipal.getTxtFpQuadro().getText()));
 		quadro.setLocal(frmPrincipal.getTxtLocalQuadro().getText());
 		quadro.setNome(frmPrincipal.getTxtNomeQuadro().getText());
-		quadro.setUsabilidade(frmPrincipal.getCbUsabilidadeQuadro().getModel().getSelectedItem().toString());
+		quadro.setUsabilidade((Usabilidade) frmPrincipal.getCbUsabilidadeQuadro().getModel().getSelectedItem());
 		quadro.setDrGeral(frmPrincipal.getCbDrQuadro().getModel().getSelectedItem().toString());
 		quadro.setCondutor(frmCondutor.getCondutorControle().getCondutor());
 		quadro.setCurto(frmCurto.getCurtoControle().getCurto());
@@ -79,10 +80,10 @@ public class QuadroControle {
 	}
 
 	private void iniciaCbUsabilidade() {
-		frmPrincipal.getCbUsabilidadeQuadro().setModel(new DefaultComboBoxModel<>());
+/*		frmPrincipal.getCbUsabilidadeQuadro().setModel(new DefaultComboBoxModel<>());
 		frmPrincipal.getCbUsabilidadeQuadro().addItem("Iluminação");
 		frmPrincipal.getCbUsabilidadeQuadro().addItem("Motor");
-		frmPrincipal.getCbUsabilidadeQuadro().setSelectedIndex(0);
+		frmPrincipal.getCbUsabilidadeQuadro().setSelectedIndex(0);*/
 	}
 
 	private void iniciaCbDrQuadro() {
@@ -127,7 +128,7 @@ public class QuadroControle {
 			frmPrincipal.getTxtFpQuadro().setText(Numero.decimal(quadro.getFp(), "##,00"));
 			frmPrincipal.getTxtLocalQuadro().setText(quadro.getLocal());
 			frmPrincipal.getTxtNomeQuadro().setText(quadro.getNome());
-			frmPrincipal.getCbUsabilidadeQuadro().getModel().setSelectedItem(quadro.getUsabilidade());
+			frmPrincipal.getCbUsabilidadeQuadro().getModel().setSelectedItem(quadro.getUsabilidade().getSigla());
 			frmPrincipal.getCbDrQuadro().getModel().setSelectedItem(quadro.getDrGeral());
 			frmPrincipal.getLblIdQuadro().setText(Integer.toString(quadro.getId()));
 			frmPrincipal.getCbQuadroPai().getModel().setSelectedItem(quadro.getQuadroPaiQuadro());

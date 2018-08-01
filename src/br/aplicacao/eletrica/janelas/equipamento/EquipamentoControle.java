@@ -2,7 +2,9 @@ package br.aplicacao.eletrica.janelas.equipamento;
 
 import java.util.List;
 
+import br.aplicacao.eletrica.enums.Ligacao;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
+import br.aplicacao.eletrica.enums.Usabilidade;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.projeto.Equipamento;
 import br.aplicacao.eletrica.uteis.Numero;
@@ -53,7 +55,7 @@ public class EquipamentoControle {
 		frm.getTxtPotenciaEquipamento().setText("");
 		frm.getTxtRendimentoEquipamento().setText("");
 		frm.getTxtQuantidadeEquipamento().setText("");
-
+		frm.getCbUsabilidadeEquipamento().setSelectedIndex(-1);
 		frm.getCbLigacaoEquipamento().setSelectedIndex(-1);
 		frm.getCbPolosEquipamento().setSelectedIndex(-1);
 		frm.getCbUnidadePotEquipamento().setSelectedIndex(-1);
@@ -78,22 +80,24 @@ public class EquipamentoControle {
 		equipamento.setRendimento(Numero.stringToDouble(frm.getTxtRendimentoEquipamento().getText()));
 		equipamento.setQuantidade(Numero.stringToInteger(frm.getTxtQuantidadeEquipamento().getText()));
 		equipamento.setUnidade((UnidadePontencia) frm.getCbUnidadePotEquipamento().getSelectedItem());
-		equipamento.setLigacao(frm.getCbLigacaoEquipamento().getModel().getSelectedItem().toString());
+		equipamento.setUsabilidade((Usabilidade) frm.getCbUsabilidadeEquipamento().getSelectedItem());
+		equipamento.setLigacao((Ligacao) frm.getCbLigacaoEquipamento().getModel().getSelectedItem());
 		equipamento
 				.setnPolos(Numero.stringToInteger(frm.getCbPolosEquipamento().getModel().getSelectedItem().toString()));
 		equipamento.setId(Numero.stringToInteger(frm.getLblIdEquipamento().getText()));
+		equipamento.setCircuito(frm.getCircuitoControle().getCircuito());
 
 		return equipamento;
 	}
 
 	private void iniciaCbLigacaoEquipamento() {
-		frm.getCbLigacaoEquipamento().removeAllItems();
+/*		frm.getCbLigacaoEquipamento().removeAllItems();
 		frm.getCbLigacaoEquipamento().addItem("FN");
 		frm.getCbLigacaoEquipamento().addItem("FF");
 		frm.getCbLigacaoEquipamento().addItem("FFN");
 		frm.getCbLigacaoEquipamento().addItem("FFF");
 		frm.getCbLigacaoEquipamento().addItem("FFFN");
-		frm.getCbLigacaoEquipamento().setSelectedIndex(0);
+		frm.getCbLigacaoEquipamento().setSelectedIndex(0)*/;
 	}
 
 	private void iniciaCbPolosEquipamento() {
@@ -158,10 +162,10 @@ public class EquipamentoControle {
 			frm.getTxtPotenciaEquipamento().setText(Numero.decimal(equipamento.getPotencia(), "##,00"));
 			frm.getTxtRendimentoEquipamento().setText(Numero.decimal(equipamento.getRendimento(), "##,00"));
 			frm.getTxtQuantidadeEquipamento().setText(Integer.toString(equipamento.getQuantidade()));
-
-			frm.getCbLigacaoEquipamento().getModel().setSelectedItem(equipamento.getLigacao());
+			frm.getCbUsabilidadeEquipamento().getModel().setSelectedItem(equipamento.getUsabilidade().getSigla());
+			frm.getCbLigacaoEquipamento().getModel().setSelectedItem(equipamento.getLigacao().getSigla());
 			frm.getCbPolosEquipamento().getModel().setSelectedItem(equipamento.getnPolos());
-			frm.getCbUnidadePotEquipamento().getModel().setSelectedItem(equipamento.getUnidade());
+			frm.getCbUnidadePotEquipamento().getModel().setSelectedItem(equipamento.getUnidade().getSigla());
 			frm.getLblIdEquipamento().setText(Integer.toString(equipamento.getId()));
 		}
 	}

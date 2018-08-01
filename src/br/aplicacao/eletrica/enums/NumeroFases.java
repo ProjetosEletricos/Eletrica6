@@ -1,12 +1,12 @@
 package br.aplicacao.eletrica.enums;
 
-public enum TipoCircuito {
+public enum NumeroFases {
 
 	BIFASICO("2"), MONOFASICO("1"), TRIFASICO("3");
 
 	private String sigla;
 
-	private TipoCircuito(String sigla) {
+	private NumeroFases(String sigla) {
 		this.sigla = sigla;
 	}
 

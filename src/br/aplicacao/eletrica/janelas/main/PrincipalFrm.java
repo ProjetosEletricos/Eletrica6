@@ -23,7 +23,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import br.aplicacao.eletrica.enums.Ligacao;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
+import br.aplicacao.eletrica.enums.Usabilidade;
 import br.aplicacao.eletrica.janelas.circuito.CircuitoControle;
 import br.aplicacao.eletrica.janelas.equipamento.EquipamentoControle;
 import br.aplicacao.eletrica.janelas.fonte.FonteControle;
@@ -60,11 +62,11 @@ public class PrincipalFrm extends JInternalFrame {
 
 	private JComboBox<Concessionaria> cbConcessionaria;
 	private JComboBox<String> cbDrQuadro;
-	private JComboBox<Object> cbLigacaoEquipamento;
+	private JComboBox<Ligacao> cbLigacaoEquipamento;
 	private JComboBox<String> cbPolosEquipamento;
 	private JComboBox<Quadro> cbQuadroPaiQuadro;
 	private JComboBox<UnidadePontencia> cbUnidadePotEquipamento;
-	private JComboBox<String> cbUsabilidadeQuadro;
+	private JComboBox<Usabilidade> cbUsabilidadeQuadro;
 	private JPanel contentPane;
 	private JLabel lblIdCircuito;
 	private JLabel lblIdFonte;
@@ -118,6 +120,7 @@ public class PrincipalFrm extends JInternalFrame {
 	private JButton btnCondutorQuadro;
 
 	private JButton btnCurtoCirQuadro;
+	private JComboBox<Usabilidade> cbUsabilidadeEquipamento;
 
 	public PrincipalFrm() {
 		setClosable(true);
@@ -379,7 +382,18 @@ public class PrincipalFrm extends JInternalFrame {
 		JLabel label_8 = new JLabel("Usabilidade:");
 		panel_16.add(label_8, "cell 2 0,alignx trailing");
 
-		cbUsabilidadeQuadro = new JComboBox<String>();
+		cbUsabilidadeQuadro = new JComboBox<Usabilidade>();
+		cbUsabilidadeQuadro.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				List<Usabilidade> lista = new ArrayList<Usabilidade>();
+				cbUsabilidadeQuadro.removeAllItems();
+				lista.add(Usabilidade.ILUMINACAO_FLUORESCENTE);
+				lista.add(Usabilidade.ILUMINACAO_INCADESCENTE);
+				lista.add(Usabilidade.MOTOR);
+				setUsabilidadeQuadro(lista);
+			}
+		});
 		cbUsabilidadeQuadro.setName("cbUsabilidade");
 		panel_16.add(cbUsabilidadeQuadro, "cell 3 0,growx");
 
@@ -486,12 +500,12 @@ public class PrincipalFrm extends JInternalFrame {
 		lblIdQuadro.setName("lblIdQuadro");
 		lblIdQuadro.setBounds(146, 15, 55, 16);
 		panelQuadro.add(lblIdQuadro);
-		
+
 		btnCondutorQuadro = new JButton("Condutor");
 		btnCondutorQuadro.setName("btnCondutorQuadro");
 		btnCondutorQuadro.setBounds(178, 211, 100, 21);
 		panelQuadro.add(btnCondutorQuadro);
-		
+
 		btnCurtoCirQuadro = new JButton("Curto cir.");
 		btnCurtoCirQuadro.setName("btnCurtoCirQuadro");
 		btnCurtoCirQuadro.setBounds(178, 236, 100, 19);
@@ -537,11 +551,11 @@ public class PrincipalFrm extends JInternalFrame {
 		btnCurtoCirCircuito.setName("btnCurtoCirCircuito");
 		btnCurtoCirCircuito.setBounds(72, 77, 100, 19);
 		panel_8.add(btnCurtoCirCircuito);
-		
-				btnCondutorCircuito = new JButton("Condutor");
-				btnCondutorCircuito.setBounds(72, 52, 100, 21);
-				panel_8.add(btnCondutorCircuito);
-				btnCondutorCircuito.setName("btnCondutorCircuito");
+
+		btnCondutorCircuito = new JButton("Condutor");
+		btnCondutorCircuito.setBounds(72, 52, 100, 21);
+		panel_8.add(btnCondutorCircuito);
+		btnCondutorCircuito.setName("btnCondutorCircuito");
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(12, 0, 118, 43);
@@ -670,7 +684,22 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_7.add(txtRendimentoEquipamento, "cell 4 1,growx");
 
 		JLabel lblNewLabel_1 = new JLabel("Usabilidade:");
-		panel_7.add(lblNewLabel_1, "cell 0 2,alignx left");
+		panel_7.add(lblNewLabel_1, "cell 0 2,alignx trailing");
+		
+		cbUsabilidadeEquipamento = new JComboBox<Usabilidade>();
+		cbUsabilidadeEquipamento.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				List<Usabilidade> lista = new ArrayList<Usabilidade>();
+				cbUsabilidadeEquipamento.removeAllItems();
+				lista.add(Usabilidade.ILUMINACAO_FLUORESCENTE);
+				lista.add(Usabilidade.ILUMINACAO_INCADESCENTE);
+				lista.add(Usabilidade.GERAL);
+				setUsabilidadeEquipamento(lista);
+			}
+		});
+		cbUsabilidadeEquipamento.setName("cbUsabilidadeEquipamento");
+		panel_7.add(cbUsabilidadeEquipamento, "cell 1 2,growx");
 
 		JLabel lblFd = new JLabel("Fd:");
 		panel_7.add(lblFd, "cell 3 2,alignx left");
@@ -750,7 +779,20 @@ public class PrincipalFrm extends JInternalFrame {
 		JLabel lblLigao = new JLabel("Liga\u00E7\u00E3o:");
 		panel_7.add(lblLigao, "cell 0 6,alignx left");
 
-		cbLigacaoEquipamento = new JComboBox<Object>();
+		cbLigacaoEquipamento = new JComboBox<Ligacao>();
+		cbLigacaoEquipamento.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				List<Ligacao> lista = new ArrayList<Ligacao>();
+				cbLigacaoEquipamento.removeAllItems();
+				lista.add(Ligacao.BIFASICO_FF);
+				lista.add(Ligacao.BIFASICO_FFN);
+				lista.add(Ligacao.TRIFASICO_FFF);
+				lista.add(Ligacao.TRIFASICO_FFFN);
+				lista.add(Ligacao.MONOFASICO_FN);
+				setLigacaoEquipamento(lista);
+			}
+		});
 		cbLigacaoEquipamento.setName("cbLigacaoEquipamento");
 		cbLigacaoEquipamento.setMinimumSize(new Dimension(40, 24));
 		cbLigacaoEquipamento.setMaximumSize(new Dimension(60, 32767));
@@ -864,7 +906,7 @@ public class PrincipalFrm extends JInternalFrame {
 		return cbDrQuadro;
 	}
 
-	public JComboBox<Object> getCbLigacaoEquipamento() {
+	public JComboBox<Ligacao> getCbLigacaoEquipamento() {
 		return cbLigacaoEquipamento;
 	}
 
@@ -876,7 +918,7 @@ public class PrincipalFrm extends JInternalFrame {
 		return cbQuadroPaiQuadro;
 	}
 
-	public JComboBox<String> getCbUsabilidadeQuadro() {
+	public JComboBox<Usabilidade> getCbUsabilidadeQuadro() {
 		return cbUsabilidadeQuadro;
 	}
 
@@ -1084,6 +1126,14 @@ public class PrincipalFrm extends JInternalFrame {
 		return abas;
 	}
 
+	public JComboBox<Usabilidade> getCbUsabilidadeEquipamento() {
+		return cbUsabilidadeEquipamento;
+	}
+
+	public void setCbUsabilidadeEquipamento(JComboBox<Usabilidade> cbUsabilidadeEquipamento) {
+		this.cbUsabilidadeEquipamento = cbUsabilidadeEquipamento;
+	}
+
 	public JButton getBtnCondutorQuadro() {
 		return btnCondutorQuadro;
 	}
@@ -1200,7 +1250,7 @@ public class PrincipalFrm extends JInternalFrame {
 		this.cbDrQuadro = cbDrQuadro;
 	}
 
-	public void setCbLigacaoEquipamento(JComboBox<Object> cbLigacaoEquipamento) {
+	public void setCbLigacaoEquipamento(JComboBox<Ligacao> cbLigacaoEquipamento) {
 		this.cbLigacaoEquipamento = cbLigacaoEquipamento;
 	}
 
@@ -1208,7 +1258,7 @@ public class PrincipalFrm extends JInternalFrame {
 		this.cbQuadroPaiQuadro = cbQuadroPai;
 	}
 
-	public void setCbUsabilidadeQuadro(JComboBox<String> cbUsabilidadeQuadro) {
+	public void setCbUsabilidadeQuadro(JComboBox<Usabilidade> cbUsabilidadeQuadro) {
 		this.cbUsabilidadeQuadro = cbUsabilidadeQuadro;
 	}
 
@@ -1218,14 +1268,35 @@ public class PrincipalFrm extends JInternalFrame {
 			this.getCbConcessionaria().addItem(con);
 		}
 	}
-	
+
 	public void setUnidadeEquipamento(List<UnidadePontencia> lista) {
 
 		for (UnidadePontencia con : lista) {
 			this.getCbUnidadePotEquipamento().addItem(con);
 		}
 	}
+
+	public void setUsabilidadeQuadro(List<Usabilidade> lista) {
+
+		for (Usabilidade con : lista) {
+			this.getCbUsabilidadeQuadro().addItem(con);
+		}
+	}
 	
+	public void setUsabilidadeEquipamento(List<Usabilidade> lista) {
+
+		for (Usabilidade con : lista) {
+			this.getCbUsabilidadeEquipamento().addItem(con);
+		}
+	}
+	
+	public void setLigacaoEquipamento(List<Ligacao> lista) {
+
+		for (Ligacao con : lista) {
+			this.getCbLigacaoEquipamento().addItem(con);
+		}
+	}
+
 	public void setQuadros(List<Quadro> lista) {
 
 		for (Quadro con : lista) {
@@ -1236,7 +1307,6 @@ public class PrincipalFrm extends JInternalFrame {
 	public void setLblIdCircuito(JLabel lblIdCircuito) {
 		this.lblIdCircuito = lblIdCircuito;
 	}
-
 
 	public void setLblIdFonte(JLabel lblIdFonte) {
 		this.lblIdFonte = lblIdFonte;

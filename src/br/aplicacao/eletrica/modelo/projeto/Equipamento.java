@@ -8,7 +8,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.aplicacao.eletrica.calculo.ConversorPotencia;
+import br.aplicacao.eletrica.enums.Ligacao;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
+import br.aplicacao.eletrica.enums.Usabilidade;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
 import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 
@@ -22,7 +24,7 @@ public class Equipamento implements Entidade<Equipamento> {
 	private Integer id;
 	@ManyToOne()
 	private Circuito circuito;
-	private String ligacao;
+	private Ligacao ligacao;
 	private String ligacaoReal;
 	@Column(colName = "Nome", colPosition = 0)
 	private String nome;
@@ -41,7 +43,7 @@ public class Equipamento implements Entidade<Equipamento> {
 	private double fSimu;
 	private double fu;
 	private UnidadePontencia unidade;
-	private String usabilidade;
+	private Usabilidade usabilidade;
 
 	// ----------------------------------------------
 
@@ -49,58 +51,9 @@ public class Equipamento implements Entidade<Equipamento> {
 
 	}
 
-	@Override
-	public Equipamento clonarSemID() {
-		Equipamento e = copiar();
-		e.setId(null);
-		return this;
-	}
-
-	@Override
-	public Equipamento copiar() {
-		Equipamento e = new Equipamento();
-		e.setId(id);
-		e.setNome(nome);
-		e.setDescricao(descricao);
-		e.setFd(fd);
-		e.setFp(fp);
-		e.setFs(fSimu);
-		e.setfSimu(fSimu);
-		e.setFu(fu);
-		e.setLigacao(ligacao);
-		e.setLigacaoReal(ligacaoReal);
-		e.setnPolos(nPolos);
-		e.setPerdasReator(perdasReator);
-		e.setPotencia(potencia);
-		e.setQuantidade(quantidade);
-		e.setRendimento(rendimento);
-		e.setTensaoFN(tensaoFN);
-		e.setUnidade(unidade);
-		e.setUsabilidade(usabilidade);
-
-		return this;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-
-			return false;
-		final Equipamento other = (Equipamento) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
 	public double getCorrente() {
 		double valor = 0;
+
 		if (this.ligacao.equals("FFF") || this.ligacao.equals("FFFN")) {
 			valor = getPotenciaEmVA() / (this.tensaoFN);
 		}
@@ -116,14 +69,18 @@ public class Equipamento implements Entidade<Equipamento> {
 	public Double getDemanda() {
 		double total = 0;
 
-		if (this.getUsabilidade().equals("Ilumina��o fluorescente")) {
+		if (this.getUsabilidade().equals("Iluminacao fluorescente")) {
 
 			total = 1.8 * ((this.getPotenciaEmW() * this.getFd()) + (this.getPerdasReator() / this.getFp()));
-		}
+
+		} else
 
 		if (this.getUsabilidade().equals("Geral") || this.getUsabilidade().equals("Iluminacao incandescente")) {
 
 			total = this.getPotenciaEmVA() * this.getFu() * this.getFd() / this.getRendimento();
+
+		} else {
+
 		}
 		return total;
 	}
@@ -152,12 +109,7 @@ public class Equipamento implements Entidade<Equipamento> {
 		return fu;
 	}
 
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	public String getLigacao() {
+	public Ligacao getLigacao() {
 		return ligacao;
 	}
 
@@ -237,16 +189,8 @@ public class Equipamento implements Entidade<Equipamento> {
 		this.circuito = circuito;
 	}
 
-	public String getUsabilidade() {
+	public Usabilidade getUsabilidade() {
 		return usabilidade;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
 	}
 
 	public void setDescricao(String descricao) {
@@ -277,7 +221,7 @@ public class Equipamento implements Entidade<Equipamento> {
 		this.id = id;
 	}
 
-	public void setLigacao(String ligacao) {
+	public void setLigacao(Ligacao ligacao) {
 		this.ligacao = ligacao;
 	}
 
@@ -317,8 +261,71 @@ public class Equipamento implements Entidade<Equipamento> {
 		this.unidade = unidade;
 	}
 
-	public void setUsabilidade(String usabilidade) {
+	public void setUsabilidade(Usabilidade usabilidade) {
 		this.usabilidade = usabilidade;
+	}
+
+	@Override
+	public Equipamento clonarSemID() {
+		Equipamento e = copiar();
+		e.setId(null);
+		return this;
+	}
+
+	@Override
+	public Equipamento copiar() {
+		Equipamento e = new Equipamento();
+		e.setId(id);
+		e.setNome(nome);
+		e.setDescricao(descricao);
+		e.setFd(fd);
+		e.setFp(fp);
+		e.setFs(fSimu);
+		e.setfSimu(fSimu);
+		e.setFu(fu);
+		e.setLigacao(ligacao);
+		e.setLigacaoReal(ligacaoReal);
+		e.setnPolos(nPolos);
+		e.setPerdasReator(perdasReator);
+		e.setPotencia(potencia);
+		e.setQuantidade(quantidade);
+		e.setRendimento(rendimento);
+		e.setTensaoFN(tensaoFN);
+		e.setUnidade(unidade);
+		e.setUsabilidade(usabilidade);
+
+		return this;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+
+			return false;
+		final Equipamento other = (Equipamento) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public Integer getId() {
+		return id;
 	}
 
 	@Override
@@ -331,7 +338,7 @@ public class Equipamento implements Entidade<Equipamento> {
 
 		id = null;
 		circuito = null;
-		ligacao = "";
+		ligacao = null;
 		ligacaoReal = "";
 		nome = "";
 		nPolos = 0;
@@ -347,7 +354,7 @@ public class Equipamento implements Entidade<Equipamento> {
 		fSimu = 0;
 		fu = 0;
 		unidade = null;
-		usabilidade = "";
+		usabilidade = null;
 
 	}
 }

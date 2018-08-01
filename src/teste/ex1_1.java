@@ -1,5 +1,8 @@
 package teste;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.aplicacao.eletrica.calculo.CalculoUtils;
 import br.aplicacao.eletrica.calculo.CalculoUtils.MODELO_INSTALACAO;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
@@ -55,7 +58,7 @@ public class ex1_1 {
 		motor1.setRendimento(0.92);
 		motor1.setFp(0.86);
 		motor1.setfSimu(0.65);
-		motor1.setUsabilidade("Geral");
+		motor1.setUsabilidadeQuadro("Geral");
 
 		Equipamento motor2 = new Equipamento();
 		motor2.setNome("Motor2");
@@ -66,7 +69,7 @@ public class ex1_1 {
 		motor2.setRendimento(0.9);
 		motor2.setFp(0.83);
 		motor2.setfSimu(0.65);
-		motor2.setUsabilidade("Geral");
+		motor2.setUsabilidadeQuadro("Geral");
 
 		Equipamento motor3 = new Equipamento();
 		motor3.setNome("Motor3");
@@ -77,7 +80,7 @@ public class ex1_1 {
 		motor3.setRendimento(0.92);
 		motor3.setFp(0.86);
 		motor3.setfSimu(0.70);
-		motor3.setUsabilidade("Geral");
+		motor3.setUsabilidadeQuadro("Geral");
 
 		Equipamento lampFlu = new Equipamento();
 		lampFlu.setNome("LampFlu");
@@ -86,14 +89,14 @@ public class ex1_1 {
 		lampFlu.setUnidade(UnidadePontencia.W);
 		lampFlu.setPerdasReator(15.3);
 		lampFlu.setFp(0.4);
-		lampFlu.setUsabilidade("Iluminação fluorescente");
+		lampFlu.setUsabilidadeQuadro("Iluminação fluorescente");
 
 		Equipamento lampInc = new Equipamento();
 		lampInc.setNome("LampInc");
 		lampInc.setQuantidade(52);
 		lampInc.setPotencia(100);
 		lampInc.setUnidade(UnidadePontencia.W);
-		lampInc.setUsabilidade("Iluminação incandescente");
+		lampInc.setUsabilidadeQuadro("Iluminação incandescente");
 
 		CIR_1.addEquipamento(motor1);
 		CIR_2.addEquipamento(motor2);
@@ -107,12 +110,18 @@ public class ex1_1 {
 		QDL.addCircuito(CIR_FL);
 		QDL.addCircuito(CIR_IN);
 
-		QGF.addQuadro(CCM1);
-		QGF.addQuadro(CCM2);
-		QGF.addQuadro(QDL);
+		List<Quadro> lista = new ArrayList<Quadro>();
+		lista.add(CCM1);
+		lista.add(CCM2);
+		lista.add(QDL);
+		QGF.setQuadros(lista);
 
-		fonte.adicionarQuadro(QGF);
-		pro.adicionaFonte(fonte);
+		List<Quadro> lista2 = new ArrayList<Quadro>();
+		lista2.add(QGF);
+		fonte.setQuadros(lista2);
+		List<Fonte> lista3 = new ArrayList<Fonte>();
+		lista3.add(fonte);
+		pro.setFontes(lista3);
 
 		double demanda = new CalculoUtils().comProjeto(pro).comFonte(fonte).comModelo(MODELO_INSTALACAO.INDUSTRIAL)
 				.getDemanda();

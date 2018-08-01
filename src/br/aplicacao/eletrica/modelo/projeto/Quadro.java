@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.aplicacao.eletrica.enums.UnidadePontencia;
+import br.aplicacao.eletrica.enums.Usabilidade;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
 import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 
@@ -44,7 +45,7 @@ public class Quadro implements Entidade<Quadro> {
 	@Column(colName = "Nome", colPosition = 0)
 	private String nome;
 	private double pot100PercDem;
-	private String usabilidade;
+	private Usabilidade usabilidade;
 	private UnidadePontencia unidade;
 	@Transient
 	private Quadro quadroPaiQuadro;
@@ -116,7 +117,7 @@ public class Quadro implements Entidade<Quadro> {
 		return unidade;
 	}
 
-	public String getUsabilidade() {
+	public Usabilidade getUsabilidade() {
 		return this.usabilidade;
 	}
 
@@ -201,7 +202,7 @@ public class Quadro implements Entidade<Quadro> {
 		this.unidade = unidade;
 	}
 
-	public void setUsabilidade(String usabilidade) {
+	public void setUsabilidade(Usabilidade usabilidade) {
 		this.usabilidade = usabilidade;
 	}
 
