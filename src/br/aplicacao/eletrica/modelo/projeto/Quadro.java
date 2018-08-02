@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import br.aplicacao.eletrica.calculo.PotenciaInstalada;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.enums.Usabilidade;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
@@ -56,6 +57,31 @@ public class Quadro implements Entidade<Quadro> {
 		circuitos = new ArrayList<Circuito>();
 	}
 
+	public Double getDemanda(UnidadePontencia unidadeDestino) {
+		double total = 0;
+
+		for (Circuito c : this.getCircuitos()) {
+			for (Equipamento e : c.getEquipamentos()) {
+				if (unidadeDestino == UnidadePontencia.VA) {
+					total += e.getQuantidade() * e.getDemandaVA() * e.getfSimu();
+				} else if (unidadeDestino == UnidadePontencia.VA) {
+					total += e.getQuantidade() * e.getDemandaW() * e.getfSimu();
+				}
+			}
+		}
+		for (Quadro subQuadro : this.getQuadros()) {
+			total += subQuadro.getDemanda(unidadeDestino);
+		}
+		return total;
+	}
+
+	public double getPotenciaInstalada(UnidadePontencia unidadeDestino) {
+		return new PotenciaInstalada()//
+				.withQuadro(this)//
+				.withUnidadeDestino(unidadeDestino)//
+				.valor();
+	}
+
 	public void addCircuito(Circuito circuito) {
 		this.circuitos.add(circuito);
 	}
@@ -74,43 +100,6 @@ public class Quadro implements Entidade<Quadro> {
 
 	public double getPot100PercDem() {
 		return this.pot100PercDem;
-	}
-
-	public Double getDemanda() {
-
-		double total = 0;
-
-		for (Circuito c : this.getCircuitos()) {
-			for (Equipamento e : c.getEquipamentos()) {
-				total += e.getQuantidade() * e.getDemanda() * e.getfSimu();
-			}
-		}
-
-		/*
-		 * for (Quadro subQuadro : this.getQuadros()) {
-		 * 
-		 * total += subQuadro.getDemanda(); }
-		 */
-
-		return total;
-	}
-
-	public double getPotenciaInstalada() {
-
-		double total = 0;
-
-		for (Circuito c : this.getCircuitos()) {
-			for (Equipamento e : c.getEquipamentos()) {
-				total += e.getQuantidade() * e.getDemanda();
-			}
-		}
-
-		/*
-		 * for (Quadro q : this.getQuadros()) { for (Circuito c : q.getCircuitos()) {
-		 * for (Equipamento e : c.getEquipamento()) { total += e.getQuantidade() *
-		 * e.getDemanda(); } } }
-		 */
-		return total;
 	}
 
 	public UnidadePontencia getUnidade() {
@@ -213,12 +202,6 @@ public class Quadro implements Entidade<Quadro> {
 	public void setQuadros(List<Quadro> quadros) {
 		this.quadros = quadros;
 	}
-
-	/*
-	 * public Quadro getQuadro() { return quadro; }
-	 * 
-	 * public void setQuadro(Quadro quadro) { this.quadro = quadro; }
-	 */
 
 	@Override
 	public Quadro clonarSemID() {

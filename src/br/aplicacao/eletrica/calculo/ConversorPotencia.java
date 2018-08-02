@@ -76,5 +76,4 @@ public class ConversorPotencia {
 		this.unidadeOrigem = unidadeOrigem;
 		return this;
 	}
-
 }

@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
 import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 
@@ -39,6 +40,22 @@ public class Fonte implements Entidade<Fonte> {
 
 	public Fonte() {
 		quadros = new ArrayList<>();
+	}
+
+	public Double getPotenciaInstalada(UnidadePontencia unidadeDestino) {
+		double total = 0;
+		for (Quadro quadro : this.getQuadros()) {
+			total += quadro.getPotenciaInstalada(unidadeDestino);
+		}
+		return total;
+	}
+
+	public Double getDemanda(UnidadePontencia unidadeDestino) {
+		double total = 0;
+		for (Quadro quadro : this.getQuadros()) {
+			total += quadro.getDemanda(unidadeDestino);
+		}
+		return total;
 	}
 
 	public String getNome() {
@@ -76,22 +93,6 @@ public class Fonte implements Entidade<Fonte> {
 
 	public void setTensaoFN(double tensaoFN) {
 		this.tensaoFN = tensaoFN;
-	}
-
-	public Double getPotenciaInstalada() {
-		double total = 0;
-		for (Quadro quadro : this.getQuadros()) {
-			total += quadro.getPotenciaInstalada();
-		}
-		return total;
-	}
-
-	public Double getDemanda() {
-		double total = 0;
-		for (Quadro quadro : this.getQuadros()) {
-			total += quadro.getDemanda();
-		}
-		return total;
 	}
 
 	@Override
@@ -170,5 +171,4 @@ public class Fonte implements Entidade<Fonte> {
 		nome = "";
 		tensaoFN = 0;
 	}
-
 }

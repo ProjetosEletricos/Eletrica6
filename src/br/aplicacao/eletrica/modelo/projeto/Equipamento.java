@@ -9,6 +9,8 @@ import javax.persistence.Table;
 
 import br.aplicacao.eletrica.calculo.ConversorPotencia;
 import br.aplicacao.eletrica.calculo.Corrente;
+import br.aplicacao.eletrica.calculo.Demanda;
+import br.aplicacao.eletrica.calculo.NumFases;
 import br.aplicacao.eletrica.enums.Ligacao;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.enums.Usabilidade;
@@ -35,8 +37,6 @@ public class Equipamento implements Entidade<Equipamento> {
 	private double potencia;
 	private int quantidade;
 	private double rendimento;
-	@Column(colName = "Tensão", colPosition = 2)
-	// private double tensaoFN;
 	private String descricao;
 	private double fd;
 	private double fp;
@@ -61,23 +61,32 @@ public class Equipamento implements Entidade<Equipamento> {
 				.valor();
 	}
 
-	public Double getDemanda() {
-		double total = 0;
-
-		if (this.getUsabilidade().equals("Iluminacao fluorescente")) {
-
-			total = 1.8 * ((this.getPotenciaEmW() * this.getFd()) + (this.getPerdasReator() / this.getFp()));
-
-		} else
-
-		if (this.getUsabilidade().equals("Geral") || this.getUsabilidade().equals("Iluminacao incandescente")) {
-
-			total = this.getPotenciaEmVA() * this.getFu() * this.getFd() / this.getRendimento();
-
-		} else {
-
-		}
-		return total;
+	public Double getDemandaVA() {
+		return new Demanda()//
+				.withFd(this.getFd())//
+				.withFp(this.getFp())//
+				.withFu(this.getFu())//
+				.withPerdasReator(this.getPerdasReator())//
+				.withPotencia(this.getPotencia())//
+				.withRendimento(this.getRendimento())//
+				.withUnidadeOrigem(this.getUnidade())//
+				.withUnidadeDestino(UnidadePontencia.VA)//
+				.withUsabilidade(this.getUsabilidade())//
+				.valor();
+	}
+	
+	public Double getDemandaW() {
+		return new Demanda()//
+				.withFd(this.getFd())//
+				.withFp(this.getFp())//
+				.withFu(this.getFu())//
+				.withPerdasReator(this.getPerdasReator())//
+				.withPotencia(this.getPotencia())//
+				.withRendimento(this.getRendimento())//
+				.withUnidadeOrigem(this.getUnidade())//
+				.withUnidadeDestino(UnidadePontencia.W)//
+				.withUsabilidade(this.getUsabilidade())//
+				.valor();
 	}
 
 	public String getDescricao() {
@@ -113,17 +122,9 @@ public class Equipamento implements Entidade<Equipamento> {
 	}
 
 	public int getNFases() {
-		int valor = 0;
-		if (this.ligacao.equals("FN")) {
-			valor = 1;
-		}
-		if (this.ligacao.equals("FF") || this.ligacao.equals("FFN")) {
-			valor = 2;
-		}
-		if (this.ligacao.equals("FFF") || this.ligacao.equals("FFFN")) {
-			valor = 3;
-		}
-		return valor;
+		return new NumFases()//
+				.withLigacao(this.getLigacao())//
+				.numero();
 	}
 
 	public String getNome() {

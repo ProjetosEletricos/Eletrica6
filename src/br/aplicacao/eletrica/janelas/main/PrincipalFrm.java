@@ -797,7 +797,6 @@ public class PrincipalFrm extends JInternalFrame {
 		txtFSimutaneadadeEquipamento.setMaximumSize(new Dimension(50, 2147483647));
 		txtFSimutaneadadeEquipamento.setColumns(10);
 		panel_7.add(txtFSimutaneadadeEquipamento, "cell 1 13,growx");
-
 		cbUnidadePotEquipamento = new JComboBox<>();
 		cbUnidadePotEquipamento.addFocusListener(new FocusAdapter() {
 			@Override

@@ -2,7 +2,7 @@ package br.aplicacao.eletrica.enums;
 
 public enum NumeroFases {
 
-	BIFASICO("2"), MONOFASICO("1"), TRIFASICO("3");
+	FF("2"), FN("1"), FFF("3"), FFFN("3"), FFN("2");
 
 	private String sigla;
 

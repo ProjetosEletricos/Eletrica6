@@ -19,13 +19,25 @@ public class Corrente {
 		double valor = 0;
 
 		if (ligacao == Ligacao.FFF || ligacao == Ligacao.FFFN) {
-			valor = getPotenciaEmVA() / (Math.sqrt(3) * tensaoFN);
+			try {
+				valor = getPotenciaEmVA() / (Math.sqrt(3) * tensaoFN);
+			} catch (Exception e) {
+				valor = getPotenciaEmW() / (Math.sqrt(3) * tensaoFN * fp);
+			}
 		}
 		if (ligacao == Ligacao.FF || ligacao == Ligacao.FFN) {
-			valor = getPotenciaEmVA() / (tensaoFN);
+			try {
+				valor = getPotenciaEmVA() / (tensaoFN);
+			} catch (Exception e) {
+				valor = getPotenciaEmW() / (tensaoFN * fp);
+			}
 		}
 		if (ligacao == Ligacao.FN) {
-			valor = getPotenciaEmVA() / (tensaoFN);
+			try {
+				valor = getPotenciaEmVA() / (tensaoFN);
+			} catch (Exception e) {
+				valor = getPotenciaEmW() / (tensaoFN * fp);
+			}
 		}
 		return valor;
 	}
@@ -59,7 +71,6 @@ public class Corrente {
 				.converte();
 	}
 
-	@SuppressWarnings("unused")
 	private Double getPotenciaEmW() {
 		return new ConversorPotencia()//
 				.withFatorPotencia(fp)//

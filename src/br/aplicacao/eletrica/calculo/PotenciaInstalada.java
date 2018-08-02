@@ -1,25 +1,49 @@
 package br.aplicacao.eletrica.calculo;
 
-import br.aplicacao.eletrica.modelo.projeto.Projeto;
+import br.aplicacao.eletrica.enums.UnidadePontencia;
+import br.aplicacao.eletrica.modelo.projeto.Circuito;
+import br.aplicacao.eletrica.modelo.projeto.Equipamento;
+import br.aplicacao.eletrica.modelo.projeto.Quadro;
 
 public class PotenciaInstalada {
 
-	private Projeto projeto;
-	private double total;
+	private Quadro quadro;
+	private UnidadePontencia unidadeDestino;
 
-	public PotenciaInstalada(Projeto projeto) {
-		this.projeto = projeto;
+	public PotenciaInstalada() {
+
 	}
 
-	public void add(double potW) {
-		total += potW;
+	public Double valor() {
+		double valor = 0;
+		if (unidadeDestino == UnidadePontencia.VA) {
+			for (Quadro q : quadro.getQuadros()) {
+				for (Circuito c : q.getCircuitos()) {
+					for (Equipamento e : c.getEquipamentos()) {
+						valor += e.getQuantidade() * e.getDemandaVA();
+					}
+				}
+			}
+		} else if (unidadeDestino == UnidadePontencia.W) {
+			for (Quadro q : quadro.getQuadros()) {
+				for (Circuito c : q.getCircuitos()) {
+					for (Equipamento e : c.getEquipamentos()) {
+						valor += e.getQuantidade() * e.getDemandaW();
+					}
+				}
+			}
+		}
+
+		return valor;
 	}
 
-	public void calculo() {
+	public PotenciaInstalada withQuadro(Quadro quadro) {
+		this.quadro = quadro;
+		return this;
 	}
 
-	public double getTotal() {
-		return total;
+	public PotenciaInstalada withUnidadeDestino(UnidadePontencia unidadeDestino) {
+		this.unidadeDestino = unidadeDestino;
+		return this;
 	}
-
 }
