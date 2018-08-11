@@ -50,6 +50,13 @@ public class Demanda {
 				valor = this.getPotenciaEmW() * fu * fd / rendimento;
 			}
 		}
+		if (usabilidade == Usabilidade.EQUIPAMENTOS_ESPECIAIS) {
+			if (unidadeDestino == UnidadePontencia.VA) {
+				valor = this.getPotenciaEmVA() * fu * fd / rendimento;
+			} else if (unidadeDestino == UnidadePontencia.W) {
+				valor = this.getPotenciaEmW() * fu * fd / rendimento;
+			}
+		}
 
 		return valor;
 	}

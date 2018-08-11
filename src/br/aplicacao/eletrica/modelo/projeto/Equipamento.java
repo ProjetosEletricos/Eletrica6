@@ -36,15 +36,16 @@ public class Equipamento implements Entidade<Equipamento> {
 	@Column(colName = "Potência", colPosition = 1)
 	private double potencia;
 	private int quantidade;
-	private double rendimento;
+	private double rendimento = 1;
 	private String descricao;
-	private double fd;
-	private double fp;
-	private double fs;
-	private double fSimu;
-	private double fu;
+	private double fd = 1;
+	private double fp = 1;
+	private double fs = 1;
+	private double fSimu = 1;
+	private double fu = 1;
 	private UnidadePontencia unidade;
 	private Usabilidade usabilidade;
+	private Double tensaoFN;
 
 	// ----------------------------------------------
 
@@ -57,11 +58,12 @@ public class Equipamento implements Entidade<Equipamento> {
 				.withLigacao(getLigacao())//
 				.withPotencia(this.getPotencia())//
 				.withTensao(this.getTensaoFN())//
-				.withUnidade(this.getUnidade())//
+				.withUnidade(this.getUnidade())
+				.withFP(this.fp)//
 				.valor();
 	}
 
-	public Double getDemandaVA() {
+	public Double getDemanda(UnidadePontencia unidadeDestino) {
 		return new Demanda()//
 				.withFd(this.getFd())//
 				.withFp(this.getFp())//
@@ -70,23 +72,42 @@ public class Equipamento implements Entidade<Equipamento> {
 				.withPotencia(this.getPotencia())//
 				.withRendimento(this.getRendimento())//
 				.withUnidadeOrigem(this.getUnidade())//
-				.withUnidadeDestino(UnidadePontencia.VA)//
+				.withUnidadeDestino(unidadeDestino)//
 				.withUsabilidade(this.getUsabilidade())//
 				.valor();
 	}
-	
-	public Double getDemandaW() {
-		return new Demanda()//
-				.withFd(this.getFd())//
-				.withFp(this.getFp())//
-				.withFu(this.getFu())//
-				.withPerdasReator(this.getPerdasReator())//
-				.withPotencia(this.getPotencia())//
-				.withRendimento(this.getRendimento())//
-				.withUnidadeOrigem(this.getUnidade())//
-				.withUnidadeDestino(UnidadePontencia.W)//
-				.withUsabilidade(this.getUsabilidade())//
-				.valor();
+
+	public int getNFases() {
+		return new NumFases()//
+				.withLigacao(this.getLigacao())//
+				.numero();
+	}
+
+	public Double getPotencia(UnidadePontencia unidadeDestino) {
+		return new ConversorPotencia()//
+				.withFatorPotencia(fp)//
+				.withPotencia(potencia)//
+				.withUnidadeOrigem(unidade)//
+				.withUnidadeDestino(unidadeDestino)//
+				.converte();
+	}
+
+	public Double getTensaoFN() {
+		double tensaoFonte = 0;
+		
+		try {
+			tensaoFonte = getCircuito().getQuadro().getFonte().getTensaoFN();
+			if (getCircuito().getQuadro().getFonte().getTensaoFN() == this.tensaoFN) {
+				tensaoFonte = this.tensaoFN;
+			} else {
+				System.out.println("Tensão imprópria para a Fonte!");
+				tensaoFonte = 0;
+			}
+		} catch (Exception e) {
+			System.out.println("Não tem fonte");
+			tensaoFonte = this.tensaoFN;
+		}
+		return tensaoFonte;
 	}
 
 	public String getDescricao() {
@@ -121,12 +142,6 @@ public class Equipamento implements Entidade<Equipamento> {
 		return ligacaoReal;
 	}
 
-	public int getNFases() {
-		return new NumFases()//
-				.withLigacao(this.getLigacao())//
-				.numero();
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -143,34 +158,12 @@ public class Equipamento implements Entidade<Equipamento> {
 		return potencia;
 	}
 
-	public Double getPotenciaEmVA() {
-		return new ConversorPotencia()//
-				.withFatorPotencia(fp)//
-				.withPotencia(potencia)//
-				.withUnidadeOrigem(unidade)//
-				.withUnidadeDestino(UnidadePontencia.VA)//
-				.converte();
-	}
-
-	public Double getPotenciaEmW() {
-		return new ConversorPotencia()//
-				.withFatorPotencia(fp)//
-				.withPotencia(potencia)//
-				.withUnidadeOrigem(unidade)//
-				.withUnidadeDestino(UnidadePontencia.W)//
-				.converte();
-	}
-
 	public int getQuantidade() {
 		return quantidade;
 	}
 
 	public double getRendimento() {
 		return rendimento;
-	}
-
-	public double getTensaoFN() {
-		return getCircuito().getQuadro().getFonte().getTensaoFN();
 	}
 
 	public UnidadePontencia getUnidade() {
@@ -231,6 +224,10 @@ public class Equipamento implements Entidade<Equipamento> {
 
 	public void setnPolos(int nPolos) {
 		this.nPolos = nPolos;
+	}
+
+	public void setTensaoFN(Double tensaoFN) {
+		this.tensaoFN = tensaoFN;
 	}
 
 	public void setPerdasReator(double perdasReator) {

@@ -53,6 +53,10 @@ public class Projeto implements Entidade<Projeto> {
 		this.fontes.clear();
 		this.fontes.addAll(fontes);
 	}
+	
+	public void addFonte(Fonte fonte) {
+		this.fontes.add(fonte);
+	}
 
 	public void setId(Integer id) {
 		this.id = id;

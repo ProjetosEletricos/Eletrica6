@@ -61,6 +61,11 @@ public class Corrente {
 		this.unidade = unidade;
 		return this;
 	}
+	
+	public Corrente withFP(Double fp) {
+		this.fp = fp;
+		return this;
+	}
 
 	private Double getPotenciaEmVA() {
 		return new ConversorPotencia()//

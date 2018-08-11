@@ -39,8 +39,8 @@ public class Quadro implements Entidade<Quadro> {
 	@Column(colName = "Dados CC", colPosition = 3)
 	private Curto curto;
 	private String drGeral;
-	private double fd;
-	private double fp;
+	private double fd = 1;
+	private double fp = 1;
 	@Column(colName = "Local", colPosition = 1)
 	private String local;
 	@Column(colName = "Nome", colPosition = 0)
@@ -62,15 +62,16 @@ public class Quadro implements Entidade<Quadro> {
 
 		for (Circuito c : this.getCircuitos()) {
 			for (Equipamento e : c.getEquipamentos()) {
-				if (unidadeDestino == UnidadePontencia.VA) {
-					total += e.getQuantidade() * e.getDemandaVA() * e.getfSimu();
-				} else if (unidadeDestino == UnidadePontencia.VA) {
-					total += e.getQuantidade() * e.getDemandaW() * e.getfSimu();
-				}
+				total += e.getQuantidade() * e.getDemanda(unidadeDestino) * e.getfSimu();
 			}
 		}
-		for (Quadro subQuadro : this.getQuadros()) {
-			total += subQuadro.getDemanda(unidadeDestino);
+
+		try {
+			for (Quadro subQuadro : this.getQuadros()) {
+				total += subQuadro.getDemanda(unidadeDestino);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 		return total;
 	}
@@ -80,6 +81,10 @@ public class Quadro implements Entidade<Quadro> {
 				.withQuadro(this)//
 				.withUnidadeDestino(unidadeDestino)//
 				.valor();
+	}
+
+	public void addQuadro(Quadro quadro) {
+		this.quadros.add(quadro);
 	}
 
 	public void addCircuito(Circuito circuito) {

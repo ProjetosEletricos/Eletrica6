@@ -1,6 +1,7 @@
 package teste;
 
 import br.aplicacao.eletrica.enums.UnidadePontencia;
+import br.aplicacao.eletrica.enums.Usabilidade;
 import br.aplicacao.eletrica.modelo.projeto.Circuito;
 import br.aplicacao.eletrica.modelo.projeto.Equipamento;
 import br.aplicacao.eletrica.modelo.projeto.Fonte;
@@ -54,7 +55,7 @@ public class TesteComBanco {
 		motor1.setRendimento(0.92);
 		motor1.setFp(0.86);
 		motor1.setfSimu(0.65);
-		motor1.setUsabilidadeQuadro("Geral");
+		motor1.setUsabilidade(Usabilidade.GERAL);
 
 		Equipamento motor2 = new Equipamento();
 		motor2.setNome("Motor2");
@@ -65,7 +66,7 @@ public class TesteComBanco {
 		motor2.setRendimento(0.9);
 		motor2.setFp(0.83);
 		motor2.setfSimu(0.65);
-		motor2.setUsabilidadeQuadro("Geral");
+		motor2.setUsabilidade(Usabilidade.GERAL);
 
 		Equipamento motor3 = new Equipamento();
 		motor3.setNome("Motor3");
@@ -76,7 +77,7 @@ public class TesteComBanco {
 		motor3.setRendimento(0.92);
 		motor3.setFp(0.86);
 		motor3.setfSimu(0.70);
-		motor3.setUsabilidadeQuadro("Geral");
+		motor3.setUsabilidade(Usabilidade.GERAL);
 
 		Equipamento lampFlu = new Equipamento();
 		lampFlu.setNome("LampFlu");
@@ -85,14 +86,14 @@ public class TesteComBanco {
 		lampFlu.setUnidade(UnidadePontencia.W);
 		lampFlu.setPerdasReator(15.3);
 		lampFlu.setFp(0.4);
-		lampFlu.setUsabilidadeQuadro("Iluminação fluorescente");
+		lampFlu.setUsabilidade(Usabilidade.ILUMINACAO_FLUORESCENTE);
 
 		Equipamento lampInc = new Equipamento();
 		lampInc.setNome("LampInc");
 		lampInc.setQuantidade(52);
 		lampInc.setPotencia(100);
 		lampInc.setUnidade(UnidadePontencia.W);
-		lampInc.setUsabilidadeQuadro("Iluminação incandescente");
+		lampInc.setUsabilidade(Usabilidade.ILUMINACAO_INCADESCENTE);
 
 		CIR_1.addEquipamento(motor1);
 		CIR_2.addEquipamento(motor2);
@@ -110,10 +111,10 @@ public class TesteComBanco {
 		QGF.addQuadro(CCM2);
 		QGF.addQuadro(QDL);
 
-		fonte.adicionarQuadro(QGF);
-		pro.adicionaFonte(fonte);
+		fonte.addQuadro(QGF);
+		pro.addFonte(fonte);
 
-		ProjetoService.salve(pro);
+		ProjetoService.salva(pro);
 
 	}
 }

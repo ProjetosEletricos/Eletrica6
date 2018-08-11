@@ -86,6 +86,10 @@ public class Fonte implements Entidade<Fonte> {
 		this.quadros.clear();
 		this.quadros.addAll(quadros);
 	}
+	
+	public void addQuadro(Quadro quadro) {
+		this.quadros.add(quadro);
+	}
 
 	public List<Quadro> getQuadros() {
 		return quadros;

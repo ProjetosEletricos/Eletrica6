@@ -1,7 +1,7 @@
 package br.aplicacao.eletrica.calculo;
 
+import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.modelo.projeto.Fonte;
-import br.aplicacao.eletrica.modelo.projeto.Projeto;
 
 public class CalculoUtils {
 
@@ -12,7 +12,7 @@ public class CalculoUtils {
 	private Fonte fonte;
 	@SuppressWarnings("unused")
 	private MODELO_INSTALACAO modelo;
-	private Projeto projeto;
+	// private Projeto projeto;
 
 	public CalculoUtils() {
 
@@ -28,19 +28,18 @@ public class CalculoUtils {
 		return this;
 	}
 
-	public CalculoUtils comProjeto(Projeto p) {
-		this.projeto = p;
-		return this;
+	/*
+	 * public CalculoUtils comProjeto(Projeto p) { this.projeto = p; return this; }
+	 */
+
+	public double getDemanda(UnidadePontencia UnidadeDestino) {
+
+		return fonte.getDemanda(UnidadeDestino);
 	}
 
-	public double getDemanda() {
+	public Double getPotenciaInstalada(UnidadePontencia UnidadeDestino) {
 
-		return fonte.getDemanda();
-	}
-
-	public Double getPotenciaInstalada() {
-
-		return fonte.getPotenciaInstalada();
+		return fonte.getPotenciaInstalada(UnidadeDestino);
 	}
 
 }
