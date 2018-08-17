@@ -4,14 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import br.aplicacao.eletrica.modelo.projeto.Entidade;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
 import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 
 @Entity
-@Table(name = "Tabela Capacidade de Corrente")
 @TableModel
 public class CapacidadeCorrente implements Entidade<CapacidadeCorrente> {
 

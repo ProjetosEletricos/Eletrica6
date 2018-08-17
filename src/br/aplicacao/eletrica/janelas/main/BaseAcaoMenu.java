@@ -4,17 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.UIManager;
+
 import br.aplicacao.eletrica.janelas.tabelas.CapacidadeCorrente;
 import br.aplicacao.eletrica.janelas.tabelas.TabelaModeloFrm;
-import br.aplicacao.eletrica.modelo.projeto.Fonte;
-import br.aplicacao.eletrica.modelo.projeto.Projeto;
 import br.aplicacao.eletrica.servico.CapacidadeCorrenteService;
-import br.aplicacao.eletrica.servico.FonteService;
+import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
-public class BaseAcaoMenu implements ActionListener{
+public class BaseAcaoMenu implements ActionListener {
 	private Base frm;
+	private TabelaModeloFrm tabelaFrm;
 
-	public BaseAcaoMenu(Base frm) {
+	public BaseAcaoMenu(Base frm, TabelaModeloFrm tabelaFrm) {
 		this.frm = frm;
 		this.adicionaActionListener();
 	}
@@ -30,11 +31,23 @@ public class BaseAcaoMenu implements ActionListener{
 		if (event.getSource() == frm.getMntmCapacidade1()) {
 
 			List<CapacidadeCorrente> lista = CapacidadeCorrenteService.getAll();
-			TabelaModeloFrm tabelaFrm = new TabelaModeloFrm();
+			tabelaFrm = new TabelaModeloFrm();
 			
-			frm.get
-			frm.getFonteControle().iniciaTabelaFontes(projeto.getFontes());
-			frm.getFonteControle().apagaDadosFrm();
+			try {
+				UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+				Base.desktopPane.add(tabelaFrm);
+				tabelaFrm.setVisible(true);
+				tabelaFrm.setPosicao();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+			GenericTableModel<CapacidadeCorrente> tabela = new GenericTableModel<>(lista, CapacidadeCorrente.class);
+			tabelaFrm.getTable().setModel(tabela);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		}
 	}

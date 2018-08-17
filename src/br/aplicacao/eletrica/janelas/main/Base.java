@@ -15,7 +15,6 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import br.aplicacao.eletrica.janelas.concessionaria.ConcessionariaFrm;
-import br.aplicacao.eletrica.janelas.tabelas.TabelaModeloFrm;
 
 public class Base extends JFrame {
 
@@ -24,6 +23,7 @@ public class Base extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private BaseControle baseControle;
 
 	/**
 	 * Launch the application.
@@ -84,28 +84,18 @@ public class Base extends JFrame {
 			}
 		});
 		mnJanelas.add(mntmConcessionria);
-		
+
 		JMenu mnTabelas = new JMenu("Tabelas");
 		menuBar.add(mnTabelas);
-		
+
 		JMenuItem mntmTiposDeLinhas = new JMenuItem("Tipos de linhas");
 		mnTabelas.add(mntmTiposDeLinhas);
-		
+
 		JMenu mntmCapacidadeDeConduo = new JMenu("Capacidade de condução:");
 		mnTabelas.add(mntmCapacidadeDeConduo);
-		
+
 		mntmCapacidade1 = new JMenuItem("PVC:70°:Métodos A1, A2, B1, B2, C e D");
 		mntmCapacidade1.setName("mntmCapacidade1");
-		mntmCapacidade1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				TabelaModeloFrm form = new TabelaModeloFrm();
-
-				Base.desktopPane.add(form);
-				form.setVisible(true);
-				form.setPosicao();
-			}
-		});
 		mntmCapacidadeDeConduo.add(mntmCapacidade1);
 		contentPanePrincipal = new JPanel();
 		contentPanePrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -114,6 +104,13 @@ public class Base extends JFrame {
 
 		Base.desktopPane = new JDesktopPane();
 		contentPanePrincipal.add(Base.desktopPane, BorderLayout.CENTER);
+
+		// -------------------------Controle-----------------------
+		this.Listen();
+	}
+
+	private void Listen() {
+		baseControle = new BaseControle(this);
 	}
 
 	public JPanel getContentPanePrincipal() {
@@ -130,6 +127,14 @@ public class Base extends JFrame {
 
 	public void setMntmCapacidade1(JMenuItem mntmCapacidade1) {
 		this.mntmCapacidade1 = mntmCapacidade1;
+	}
+
+	public BaseControle getBaseControle() {
+		return baseControle;
+	}
+
+	public void setBaseControle(BaseControle baseControle) {
+		this.baseControle = baseControle;
 	}
 
 }

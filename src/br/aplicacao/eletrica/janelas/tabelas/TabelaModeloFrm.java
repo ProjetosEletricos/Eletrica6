@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableModel;
 
 import br.aplicacao.eletrica.janelas.main.BaseControle;
 
@@ -21,7 +22,6 @@ public class TabelaModeloFrm extends JInternalFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
 	private BaseControle BaseControle;
 
 	/**
@@ -57,13 +57,10 @@ public class TabelaModeloFrm extends JInternalFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 443, 241);
+		scrollPane.setBounds(0, 0, 435, 235);
 		contentPane.add(scrollPane);
-
-		table = new JTable();
-		scrollPane.setColumnHeaderView(table);
 
 		// -------------------------Controle-----------------------
 		this.Listen();
@@ -72,7 +69,11 @@ public class TabelaModeloFrm extends JInternalFrame {
 
 	private void Listen() {
 
-		setBaseControle(new BaseControle(this));
+		//setBaseControle(new BaseControle(this));
+	}
+	
+	public void setModel(TableModel model) {
+		table.setModel(model);
 	}
 
 	public void setPosicao() {
