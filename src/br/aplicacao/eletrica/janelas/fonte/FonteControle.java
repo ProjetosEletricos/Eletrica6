@@ -80,15 +80,6 @@ public class FonteControle {
 
 	public void iniciaTabelaFontes(List<Fonte> lista) {
 
-		/*
-		 * List<Fonte> lista = new ArrayList<Fonte>();
-		 * 
-		 * if (!(idProjeto == 0)) {
-		 * 
-		 * Projeto projeto = ProjetoService.getById(idProjeto);
-		 * 
-		 * for (Fonte f : projeto.getFontes()) { lista.add(f); } }
-		 */
 		try {
 			tabela = new GenericTableModel<Fonte>(lista, Fonte.class);
 			frm.getTableFontes().setModel(tabela);

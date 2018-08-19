@@ -134,6 +134,11 @@ public class GenericTableModel<T> extends AbstractTableModel {
 		}
 		return null;
 	}
+	
+	@Override
+	public boolean isCellEditable(int row, int column) {  
+	    return true;  
+	} 
 
 	/**
 	 * Retorna o nome da coluna no columnIndex . Este � usado para inicializar o
@@ -244,4 +249,6 @@ public class GenericTableModel<T> extends AbstractTableModel {
 	public String getName() {
 		return fieldName;
 	}
+	
+
 }

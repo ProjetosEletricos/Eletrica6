@@ -1,12 +1,8 @@
 package br.aplicacao.eletrica.janelas.main;
 
-import br.aplicacao.eletrica.janelas.tabelas.TabelaModeloFrm;
-
 public class BaseControle {
 
-	private TabelaModeloFrm frm;
 	private Base frmBase;
-	private int tabelaSelecao = -1;
 
 	public BaseControle(Base frm) {
 		this.frmBase = frm;
@@ -18,7 +14,7 @@ public class BaseControle {
 	}
 
 	private void adicionaActionListener() {
-		new BaseAcaoMenu(frmBase, frm);
+		new BaseAcaoMenu(frmBase);
 	}
 
 	private void adicionaChangeListener() {
@@ -37,11 +33,4 @@ public class BaseControle {
 		// new FonteAcaoClicarItem(frm);
 	}
 
-	public int getTabelaSelecao() {
-		return tabelaSelecao;
-	}
-
-	public void setTabelaSelecao(int tabelaSelecao) {
-		this.tabelaSelecao = tabelaSelecao;
-	}
 }
