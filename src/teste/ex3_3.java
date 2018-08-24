@@ -2,8 +2,8 @@ package teste;
 
 import br.aplicacao.eletrica.enums.Ligacao;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
-import br.aplicacao.eletrica.modelo.projeto.Circuito;
-import br.aplicacao.eletrica.modelo.projeto.Equipamento;
+import br.aplicacao.eletrica.modelo.Circuito;
+import br.aplicacao.eletrica.modelo.Equipamento;
 
 public class ex3_3 {
 

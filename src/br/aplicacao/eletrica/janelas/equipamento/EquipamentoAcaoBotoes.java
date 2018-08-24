@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.modelo.projeto.Circuito;
-import br.aplicacao.eletrica.modelo.projeto.Equipamento;
+import br.aplicacao.eletrica.modelo.Circuito;
+import br.aplicacao.eletrica.modelo.Equipamento;
 import br.aplicacao.eletrica.servico.CircuitoService;
 import br.aplicacao.eletrica.servico.EquipamentoService;
 import br.aplicacao.eletrica.uteis.Numero;

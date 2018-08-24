@@ -3,7 +3,7 @@ package br.aplicacao.eletrica.janelas.projeto;
 import java.util.List;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.modelo.projeto.Projeto;
+import br.aplicacao.eletrica.modelo.Projeto;
 import br.aplicacao.eletrica.servico.ProjetoService;
 import br.aplicacao.eletrica.uteis.DataUtil;
 import br.aplicacao.eletrica.uteis.Numero;

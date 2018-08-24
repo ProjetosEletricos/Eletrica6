@@ -4,7 +4,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.UIManager;
 
 import br.aplicacao.eletrica.janelas.main.Base;
-import br.aplicacao.eletrica.modelo.projeto.Condutor;
+import br.aplicacao.eletrica.modelo.Condutor;
 import br.aplicacao.eletrica.uteis.Numero;
 
 public class CondutorControle {

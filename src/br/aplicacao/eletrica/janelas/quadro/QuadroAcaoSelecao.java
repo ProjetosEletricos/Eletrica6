@@ -4,7 +4,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.modelo.projeto.Quadro;
+import br.aplicacao.eletrica.modelo.Quadro;
 
 public class QuadroAcaoSelecao implements ListSelectionListener {
 

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.UIManager;
 
 import br.aplicacao.eletrica.janelas.main.Base;
-import br.aplicacao.eletrica.janelas.tabelas.TabelaModeloFrm;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
 public class TabelaControle {
@@ -25,11 +24,11 @@ public class TabelaControle {
 	}
 
 	private void adicionaActionListener() {
-		//new BaseAcaoMenu(frmBase, frm);
+		new TabelaAcaoMenu(frm);
 	}
 	
 	private void adicionaTableModelListener() {
-		new TabelaAcaoEditar(frm);
+		//new TabelaAcaoEditar(frm);
 	}
 
 	private void adicionaChangeListener() {
@@ -45,14 +44,13 @@ public class TabelaControle {
 	}
 
 	private void adicionaMouseListener() {
-		// new FonteAcaoClicarItem(frm);
+		//new TabelaAcaoClicarItem(frm);
 	}
 	
 	public void iniciaTabela(List<CapacidadeCorrente> lista) {
 
 		try {
 			tabela = new GenericTableModel<CapacidadeCorrente>(lista, CapacidadeCorrente.class);
-
 			frm.getTable().setModel(tabela);
 			frm.getTable().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
 
@@ -63,7 +61,7 @@ public class TabelaControle {
 	
 	public void abreJanela() {
 		try {
-			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 			Base.desktopPane.add(frm);
 			frm.setVisible(true);
 			frm.setPosicao();

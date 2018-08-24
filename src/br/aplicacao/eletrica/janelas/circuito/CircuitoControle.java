@@ -5,7 +5,7 @@ import java.util.List;
 import br.aplicacao.eletrica.janelas.condutor.CondutorFrm;
 import br.aplicacao.eletrica.janelas.curto.CurtoFrm;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.modelo.projeto.Circuito;
+import br.aplicacao.eletrica.modelo.Circuito;
 import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 

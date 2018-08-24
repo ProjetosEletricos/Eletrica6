@@ -15,9 +15,9 @@ public class CapacidadeCorrenteService {
 		return lista;
 	}
 
-	public static List<CapacidadeCorrente> getByExpres(String expres, Object[] parameter) {
+	public static List<CapacidadeCorrente> getByExpres2(String expres, Object[] parameter) {
 
-		return DAO_CAPACIDADE.getByExpres(expres, parameter);
+		return DAO_CAPACIDADE.getByExpres2(expres, parameter);
 	}
 
 	public static CapacidadeCorrente getById(Integer id) {
@@ -38,6 +38,12 @@ public class CapacidadeCorrenteService {
 	public static void salva(CapacidadeCorrente capacidadeCorrente) {
 
 		DAO_CAPACIDADE.salva(capacidadeCorrente);
+	}
+
+	public static void limpa() {
+		
+		DAO_CAPACIDADE.excluirTodos("CapacidadeCorrente");
+
 	}
 
 }

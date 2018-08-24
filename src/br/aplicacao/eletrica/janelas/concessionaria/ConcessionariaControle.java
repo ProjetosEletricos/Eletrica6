@@ -2,7 +2,7 @@ package br.aplicacao.eletrica.janelas.concessionaria;
 
 import java.util.List;
 
-import br.aplicacao.eletrica.modelo.projeto.Concessionaria;
+import br.aplicacao.eletrica.modelo.Concessionaria;
 import br.aplicacao.eletrica.servico.ConcessionariaService;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 

@@ -3,7 +3,7 @@ package br.aplicacao.eletrica.calculo;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.aplicacao.eletrica.modelo.projeto.Equipamento;
+import br.aplicacao.eletrica.modelo.Equipamento;
 
 public class CorrenteIB {
 

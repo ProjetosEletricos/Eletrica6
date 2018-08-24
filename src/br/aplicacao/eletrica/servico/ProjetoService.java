@@ -3,7 +3,7 @@ package br.aplicacao.eletrica.servico;
 import java.util.List;
 
 import br.aplicacao.eletrica.dao.JpaDAO;
-import br.aplicacao.eletrica.modelo.projeto.Projeto;
+import br.aplicacao.eletrica.modelo.Projeto;
 
 public class ProjetoService {
 
@@ -14,9 +14,9 @@ public class ProjetoService {
 		return lista;
 	}
 
-	public static List<Projeto> getByExpres(String expres, Object[] parameter) {
+	public static List<Projeto> getByExpres2(String expres, Object[] parameter) {
 
-		return DAO_PROJETO.getByExpres(expres, parameter);
+		return DAO_PROJETO.getByExpres2(expres, parameter);
 	}
 
 	public static Projeto getById(Integer id) {

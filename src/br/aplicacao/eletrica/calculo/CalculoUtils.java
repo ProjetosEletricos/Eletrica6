@@ -1,7 +1,7 @@
 package br.aplicacao.eletrica.calculo;
 
 import br.aplicacao.eletrica.enums.UnidadePontencia;
-import br.aplicacao.eletrica.modelo.projeto.Fonte;
+import br.aplicacao.eletrica.modelo.Fonte;
 
 public class CalculoUtils {
 

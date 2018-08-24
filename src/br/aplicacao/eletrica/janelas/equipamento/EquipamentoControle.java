@@ -6,7 +6,7 @@ import br.aplicacao.eletrica.enums.Ligacao;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.enums.Usabilidade;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.modelo.projeto.Equipamento;
+import br.aplicacao.eletrica.modelo.Equipamento;
 import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 

@@ -1,4 +1,4 @@
-package br.aplicacao.eletrica.modelo.projeto;
+package br.aplicacao.eletrica.modelo;
 
 public interface Entidade<T extends Entidade<T>> {
 

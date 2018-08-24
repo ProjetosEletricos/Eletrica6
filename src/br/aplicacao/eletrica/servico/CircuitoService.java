@@ -3,7 +3,7 @@ package br.aplicacao.eletrica.servico;
 import java.util.List;
 
 import br.aplicacao.eletrica.dao.JpaDAO;
-import br.aplicacao.eletrica.modelo.projeto.Circuito;
+import br.aplicacao.eletrica.modelo.Circuito;
 
 public class CircuitoService {
 

@@ -2,11 +2,11 @@ package teste;
 
 import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.enums.Usabilidade;
-import br.aplicacao.eletrica.modelo.projeto.Circuito;
-import br.aplicacao.eletrica.modelo.projeto.Equipamento;
-import br.aplicacao.eletrica.modelo.projeto.Fonte;
-import br.aplicacao.eletrica.modelo.projeto.Projeto;
-import br.aplicacao.eletrica.modelo.projeto.Quadro;
+import br.aplicacao.eletrica.modelo.Circuito;
+import br.aplicacao.eletrica.modelo.Equipamento;
+import br.aplicacao.eletrica.modelo.Fonte;
+import br.aplicacao.eletrica.modelo.Projeto;
+import br.aplicacao.eletrica.modelo.Quadro;
 import br.aplicacao.eletrica.servico.ProjetoService;
 
 public class TesteComBanco {

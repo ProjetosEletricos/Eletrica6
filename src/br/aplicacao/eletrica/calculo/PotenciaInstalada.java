@@ -1,9 +1,9 @@
 package br.aplicacao.eletrica.calculo;
 
 import br.aplicacao.eletrica.enums.UnidadePontencia;
-import br.aplicacao.eletrica.modelo.projeto.Circuito;
-import br.aplicacao.eletrica.modelo.projeto.Equipamento;
-import br.aplicacao.eletrica.modelo.projeto.Quadro;
+import br.aplicacao.eletrica.modelo.Circuito;
+import br.aplicacao.eletrica.modelo.Equipamento;
+import br.aplicacao.eletrica.modelo.Quadro;
 
 public class PotenciaInstalada {
 

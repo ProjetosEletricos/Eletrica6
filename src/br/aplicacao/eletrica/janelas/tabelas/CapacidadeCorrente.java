@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import br.aplicacao.eletrica.modelo.projeto.Entidade;
+import br.aplicacao.eletrica.modelo.Entidade;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
 import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 
@@ -15,17 +15,20 @@ public class CapacidadeCorrente implements Entidade<CapacidadeCorrente> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(colName = "ID", colPosition = 0)
 	private Integer id;
-	@Column(colName = "Secao", colPosition = 0)
-	private Double secao;
-	@Column(colName = "Metodo", colPosition = 1)
-	private String metodo;
-	@Column(colName = "Condutores", colPosition = 2)
-	private Integer nCondutorCarr;
-	@Column(colName = "Material", colPosition = 3)
+	@Column(colName = "Material", colPosition = 6)
 	private String material;
-	@Column(colName = "Valor", colPosition = 4)
-	private Double valor;
+	@Column(colName = "Secao", colPosition = 2)
+	private Double secao;
+	@Column(colName = "Metodo", colPosition = 3)
+	private String metodo;
+	@Column(colName = "Condutores", colPosition = 4)
+	private Integer nCondutorCarr;
+	@Column(colName = "Corrente", colPosition = 5)
+	private Double corrente;
+	@Column(colName = "Nível tensão", colPosition = 1)
+	private String nivel;
 
 	public Double getSecao() {
 		return secao;
@@ -59,12 +62,12 @@ public class CapacidadeCorrente implements Entidade<CapacidadeCorrente> {
 		this.material = material;
 	}
 
-	public Double getValor() {
-		return valor;
+	public Double getCorrente() {
+		return corrente;
 	}
 
-	public void setValor(Double valor) {
-		this.valor = valor;
+	public void setCorrente(Double corrente) {
+		this.corrente = corrente;
 	}
 
 	@Override
@@ -89,6 +92,14 @@ public class CapacidadeCorrente implements Entidade<CapacidadeCorrente> {
 	public Integer getId() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(String nivel) {
+		this.nivel = nivel;
 	}
 
 }

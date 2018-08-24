@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -17,8 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableModel;
+
+import br.aplicacao.eletrica.uteis.LerCSV;
 
 public class TabelaModeloFrm extends JInternalFrame {
 
@@ -29,6 +28,8 @@ public class TabelaModeloFrm extends JInternalFrame {
 	private JPanel contentPane;
 	private TabelaControle tabelaControle;
 	private JTable table;
+	private JMenuItem mntmCarregarCSV;
+	private JMenuItem mntmSalvarCSV;
 
 	/**
 	 * Launch the application.
@@ -63,49 +64,29 @@ public class TabelaModeloFrm extends JInternalFrame {
 		JMenuItem mntmImprimir = new JMenuItem("Imprimir");
 		mnMenu.add(mntmImprimir);
 
-		JMenuItem mntmCarregarTxt = new JMenuItem("Carregar Txt");
-		mntmCarregarTxt.addActionListener(new ActionListener() {
+		mntmCarregarCSV = new JMenuItem("Carregar CSV");
+/*		mntmCarregarCSV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				JFileChooser escolhedor = new JFileChooser();
+				JFileChooser selecao = new JFileChooser();
+				selecao.setFileFilter(null);
+				int opcao = selecao.showSaveDialog(null);
+				if (opcao == JFileChooser.APPROVE_OPTION) {
 
-				escolhedor.setFileFilter(new FileFilter() {
-					@Override
-					public String getDescription() {
-						return "Somente diretórios e .txt"; // Exibe essa mensagem
-					}
+					LerCSV dados = new LerCSV(selecao.getSelectedFile().toString());
+					String[][] tabela = dados.lerTabela();
+					Util.salvarMatrizToTabelaCapacidadeCorrente(tabela);
+					System.out.println("Passou por aqui novamente");
+					System.out.println("Passou por aqui");
 
-					@Override
-					public boolean accept(File f) {
-						return (f.getName().endsWith(".txt") || f.isDirectory());
-						// Só mostra arquivos terminados em .txt ou diretórios
-					}
-				});
-
-				int opcaoEscolhida = escolhedor.showOpenDialog(null); // Janela para abrir um arquivo
-
-				if (opcaoEscolhida == JFileChooser.APPROVE_OPTION) {
-					
-
-					final Object[][] dados = new Object[5][3];
-					File selectedFile = escolhedor.getSelectedFile();
-					
-				    final List<String> lines = selectedFile.carregarLinhas("src/data.txt");
-				    for (int i = 0; i < lines.size(); i++) {
-				        final String[] data = ArquivoTextoProvider.lerDados(";", lines.get(i));
-				        dados[i][0] = data[2];
-				        dados[i][1] = data[3];
-				        dados[i][2] = data[4];
-				    }
-					
-					
-					
-					
 				}
-
 			}
-		});
-		mnMenu.add(mntmCarregarTxt);
+		});*/
+		mntmCarregarCSV.setName("mntmCarregarCSV");
+		mnMenu.add(mntmCarregarCSV);
+
+		mntmSalvarCSV = new JMenuItem("Salvar CSV");
+		mnMenu.add(mntmSalvarCSV);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -128,7 +109,7 @@ public class TabelaModeloFrm extends JInternalFrame {
 
 	private void Listen() {
 
-		// tabelaControle = new TabelaControle(this);
+		tabelaControle = new TabelaControle(this);
 	}
 
 	public void setModel(TableModel model) {
@@ -154,5 +135,21 @@ public class TabelaModeloFrm extends JInternalFrame {
 
 	public void setTabelaControle(TabelaControle tabelaControle) {
 		this.tabelaControle = tabelaControle;
+	}
+
+	public JMenuItem getMntmCarregarCSV() {
+		return mntmCarregarCSV;
+	}
+
+	public void setMntmCarregarCSV(JMenuItem mntmCarregarCSV) {
+		this.mntmCarregarCSV = mntmCarregarCSV;
+	}
+
+	public JMenuItem getMntmSalvarCsv() {
+		return mntmSalvarCSV;
+	}
+
+	public void setMntmSalvarCsv(JMenuItem mntmSalvarCsv) {
+		this.mntmSalvarCSV = mntmSalvarCsv;
 	}
 }

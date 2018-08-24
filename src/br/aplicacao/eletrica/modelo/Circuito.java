@@ -1,4 +1,4 @@
-package br.aplicacao.eletrica.modelo.projeto;
+package br.aplicacao.eletrica.modelo;
 
 import java.util.ArrayList;
 import java.util.List;

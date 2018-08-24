@@ -1,4 +1,4 @@
-package br.aplicacao.eletrica.modelo.projeto;
+package br.aplicacao.eletrica.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

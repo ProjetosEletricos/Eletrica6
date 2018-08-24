@@ -3,7 +3,7 @@ package br.aplicacao.eletrica.janelas.concessionaria;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import br.aplicacao.eletrica.modelo.projeto.Concessionaria;
+import br.aplicacao.eletrica.modelo.Concessionaria;
 import br.aplicacao.eletrica.servico.ConcessionariaService;
 
 public class ConcessionariaAcaoBotoes implements ActionListener {

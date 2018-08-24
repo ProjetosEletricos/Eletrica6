@@ -3,7 +3,7 @@ package br.aplicacao.eletrica.janelas.curto;
 import javax.swing.UIManager;
 
 import br.aplicacao.eletrica.janelas.main.Base;
-import br.aplicacao.eletrica.modelo.projeto.Curto;
+import br.aplicacao.eletrica.modelo.Curto;
 import br.aplicacao.eletrica.uteis.Numero;
 
 public class CurtoControle {

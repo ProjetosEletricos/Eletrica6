@@ -1,6 +1,6 @@
 package br.aplicacao.eletrica.calculo;
 
-import br.aplicacao.eletrica.modelo.projeto.Projeto;
+import br.aplicacao.eletrica.modelo.Projeto;
 
 public class CalculoPredial {
 

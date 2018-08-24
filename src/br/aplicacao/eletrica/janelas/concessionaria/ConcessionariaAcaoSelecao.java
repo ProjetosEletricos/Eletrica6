@@ -3,7 +3,7 @@ package br.aplicacao.eletrica.janelas.concessionaria;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import br.aplicacao.eletrica.modelo.projeto.Concessionaria;
+import br.aplicacao.eletrica.modelo.Concessionaria;
 
 public class ConcessionariaAcaoSelecao implements ListSelectionListener {
 

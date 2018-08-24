@@ -3,8 +3,8 @@ package br.aplicacao.eletrica.janelas.fonte;
 import java.util.List;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.modelo.projeto.Concessionaria;
-import br.aplicacao.eletrica.modelo.projeto.Fonte;
+import br.aplicacao.eletrica.modelo.Concessionaria;
+import br.aplicacao.eletrica.modelo.Fonte;
 import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 

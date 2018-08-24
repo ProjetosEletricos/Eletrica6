@@ -3,9 +3,10 @@ package br.aplicacao.eletrica.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import br.aplicacao.eletrica.modelo.projeto.Entidade;
+import br.aplicacao.eletrica.modelo.Entidade;
 
 public class JpaDAO<T extends Entidade<T>> {
 
@@ -24,6 +25,9 @@ public class JpaDAO<T extends Entidade<T>> {
 		return lista;
 	}
 
+	// Query query = manager.createQuery("update Usuario set ativo = false where
+	// email like :email");
+	// query.setParameter("email", "%@algaworks.com");
 	public List<T> getByExpres(String expres, Object[] parameter) {
 
 		TypedQuery<T> query = entityManager.createQuery(expres, entityClass);
@@ -42,11 +46,12 @@ public class JpaDAO<T extends Entidade<T>> {
 		return lista;
 	}
 
-	public List<Object> getByExpres(String expres, Object[] parameter, Class<Object> clazz) {
+	@SuppressWarnings("unchecked")
+	public List<T> getByExpres2(String expres, Object[] parameter) {
 
-		TypedQuery<Object> query = entityManager.createQuery(expres, clazz);
+		Query query = entityManager.createQuery(expres);
 
-		if (!(parameter.length == 0)) {
+		if (parameter.length > 0) {
 			int i = 0;
 			for (int x = 0; x < parameter.length - 1; x++) {
 
@@ -56,7 +61,7 @@ public class JpaDAO<T extends Entidade<T>> {
 			}
 		}
 
-		List<Object> lista = query.getResultList();
+		List<T> lista = query.getResultList();
 
 		return lista;
 	}
@@ -102,13 +107,25 @@ public class JpaDAO<T extends Entidade<T>> {
 		}
 	}
 
-	/*
-	 * public void atualiza(T obj) { try { entityManager.getTransaction().begin();
-	 * 
-	 * entityManager.merge(obj);
-	 * 
-	 * entityManager.getTransaction().commit(); } catch (Exception e) {
-	 * entityManager.getTransaction().rollback(); } }
-	 */
-
+	public void excluirTodos(String tabelaNome) {
+		long init = 0;
+		long end;
+		long diff;
+		init = System.currentTimeMillis();
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.createNativeQuery("DELETE FROM " + tabelaNome).executeUpdate();
+			entityManager.createNativeQuery("TRUNCATE TABLE " + tabelaNome).executeUpdate();
+		} catch (Exception e) {
+			System.out.println("Deu erro!" + e);
+			entityManager.getTransaction().rollback(); // desfaz transacao se ocorrer erro ao persitir
+		} finally {
+			if (entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().commit();
+			}
+			end = System.currentTimeMillis();
+			diff = end - init;
+			System.out.println("Tempo de resposta = " + (diff / 1000.0) + " segundos em JPA - Hibernate");
+		}
+	}
 }

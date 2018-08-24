@@ -4,7 +4,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
-import br.aplicacao.eletrica.modelo.projeto.Fonte;
+import br.aplicacao.eletrica.modelo.Fonte;
 
 public class FonteAcaoSelecao implements ListSelectionListener {
 

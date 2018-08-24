@@ -7,11 +7,11 @@ import br.aplicacao.eletrica.calculo.CalculoUtils;
 import br.aplicacao.eletrica.calculo.CalculoUtils.MODELO_INSTALACAO;
 import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.enums.Usabilidade;
-import br.aplicacao.eletrica.modelo.projeto.Circuito;
-import br.aplicacao.eletrica.modelo.projeto.Equipamento;
-import br.aplicacao.eletrica.modelo.projeto.Fonte;
-import br.aplicacao.eletrica.modelo.projeto.Projeto;
-import br.aplicacao.eletrica.modelo.projeto.Quadro;
+import br.aplicacao.eletrica.modelo.Circuito;
+import br.aplicacao.eletrica.modelo.Equipamento;
+import br.aplicacao.eletrica.modelo.Fonte;
+import br.aplicacao.eletrica.modelo.Projeto;
+import br.aplicacao.eletrica.modelo.Quadro;
 
 public class ex1_1 {
 
