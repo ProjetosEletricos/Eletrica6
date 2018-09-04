@@ -5,6 +5,8 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+import br.aplicacao.eletrica.enums.TipoSelecao;
+
 public class JanelaSelecao {
 	private JFileChooser selecao;
 	private int opcao;
@@ -29,13 +31,15 @@ public class JanelaSelecao {
 		return filtro;
 	}
 
-	public void abre() {
+	public void selecao(TipoSelecao tipo) {
 
-		selecao = new JFileChooser();
 		selecao.setFileFilter(filtro());
-		opcao = selecao.showOpenDialog(null);
-
-		System.out.println("Numero: " + opcao);
+		if(tipo  == TipoSelecao.SALVAR) {
+			opcao = selecao.showSaveDialog(null);
+		}
+		if(tipo  == TipoSelecao.ABRIR) {
+			opcao = selecao.showOpenDialog(null);
+		}
 	}
 
 	public boolean confirma() {

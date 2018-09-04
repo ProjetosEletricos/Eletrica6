@@ -6,7 +6,7 @@ import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.Projeto;
 import br.aplicacao.eletrica.servico.ProjetoService;
 import br.aplicacao.eletrica.uteis.DataUtil;
-import br.aplicacao.eletrica.uteis.Numero;
+import br.aplicacao.eletrica.uteis.TrataID;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
 public class ProjetoControle {
@@ -61,7 +61,7 @@ public class ProjetoControle {
 		Projeto projeto = new Projeto();
 		projeto = this.projeto;
 
-		projeto.setId(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
+		projeto.setId(TrataID.StringToInteger(frm.getLblIdProjeto().getText()));
 		projeto.setNome(frm.getTxtNomeProjeto().getText());
 		projeto.setAutor(frm.getTxtAutor().getText());
 		projeto.setDescricao(frm.getTxtDescricaoProjeto().getText());

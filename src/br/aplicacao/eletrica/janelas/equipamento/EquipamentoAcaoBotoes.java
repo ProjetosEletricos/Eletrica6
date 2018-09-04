@@ -40,8 +40,7 @@ public class EquipamentoAcaoBotoes implements ActionListener {
 			equipamento.apagar();
 
 			frm.getTableEquipamentos().clearSelection();
-			frm.getEquipamentoControle()
-					.iniciaTabelaEquipamento(circuito.getEquipamentos());
+			frm.getEquipamentoControle().iniciaTabelaEquipamento(circuito.getEquipamentos());
 			frm.getEquipamentoControle().apagaDadosFrm();
 
 		} else if (event.getSource() == frm.getBtnSalvarEquipamento()) {
@@ -58,12 +57,12 @@ public class EquipamentoAcaoBotoes implements ActionListener {
 
 	private void salvar() {
 
-		if (Numero.stringToInteger(frm.getLblIdCircuito().getText()) > 0) {
-			Circuito circuito = CircuitoService.getById(Numero.stringToInteger(frm.getLblIdCircuito().getText()));
+		if (Integer.valueOf(frm.getLblIdCircuito().getText()) > 0) {
+
+			Circuito circuito = CircuitoService.getById(Numero.stringToInteger(frm.getLblIdCircuito().getText(), 0));
 			Equipamento equipamento = frm.getEquipamentoControle().getDadosFrm();
-			Integer idEquipamento = Numero.stringToInteger(frm.getLblIdEquipamento().getText());
-			//Integer IdCircuito = Numero.stringToInteger(frm.getLblIdCircuito().getText());
-			if (idEquipamento == null) {
+
+			if (equipamento.getId() == null) {
 				circuito.getEquipamentos().add(equipamento);
 				EquipamentoService.salva(equipamento);
 			} else {

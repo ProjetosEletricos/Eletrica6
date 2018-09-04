@@ -153,12 +153,12 @@ public class CondutorControle {
 		Condutor condutor = new Condutor();
 		condutor = this.condutor;
 
-		condutor.setId(Numero.stringToInteger(frm.getLblIdCondutor().getText()));
-		condutor.setQuedaTensao(Numero.stringToDouble(frm.getTxtQuedaTensaoCondutor().getText()));
-		condutor.setResistiTermica(Numero.stringToDouble(frm.getTxtResistTermicaCondutor().getText()));
+		condutor.setId(Numero.stringToInteger(frm.getLblIdCondutor().getText(),0));
+		condutor.setQuedaTensao(Numero.stringToDouble(frm.getTxtQuedaTensaoCondutor().getText(),1));
+		condutor.setResistiTermica(Numero.stringToDouble(frm.getTxtResistTermicaCondutor().getText(),0));
 		condutor.setTemperatura(
-				Numero.stringToDouble(frm.getCbTempAmbienteCondutor().getModel().getSelectedItem().toString()));
-		condutor.setComprimento(Numero.stringToDouble(frm.getTxtComprimentoCondutor().getText()));
+				Numero.stringToDouble(frm.getCbTempAmbienteCondutor().getModel().getSelectedItem().toString(),30));
+		condutor.setComprimento(Numero.stringToDouble(frm.getTxtComprimentoCondutor().getText(),1));
 		condutor.setModoInstalacao(frm.getCbInstalacaoCondutor().getModel().getSelectedItem().toString());
 		condutor.setMaterial(frm.getCbMaterialCondutor().getModel().getSelectedItem().toString());
 		condutor.setIsolacao(frm.getCbIsolacaoCondutor().getModel().getSelectedItem().toString());

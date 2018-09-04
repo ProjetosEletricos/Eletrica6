@@ -68,7 +68,7 @@ public class CircuitoAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frmPrincipal.getBtnCondutorCircuito()) {
 
-			if (Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText()) != null
+			if (Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText(),0) != null
 					&& frmPrincipal.getCircuitoControle().getCircuito().getCondutor().getId() > 0) {
 
 				Condutor condutor = frmPrincipal.getCircuitoControle().getCircuito().getCondutor();
@@ -85,7 +85,7 @@ public class CircuitoAcaoBotoes implements ActionListener {
 			}
 		} else if (event.getSource() == frmPrincipal.getBtnCurtoCirCircuito()) {
 
-			if (Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText()) != null
+			if (Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText(),0) != null
 					&& frmPrincipal.getCircuitoControle().getCircuito().getCurto().getId() > 0) {
 
 				Curto curto = frmPrincipal.getCircuitoControle().getCircuito().getCurto();
@@ -102,11 +102,11 @@ public class CircuitoAcaoBotoes implements ActionListener {
 
 	private void salvar() {
 
-		if (Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()) > 0) {
+		if (Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText(),0) > 0) {
 
-			Quadro quadro = QuadroService.getById(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText()));
+			Quadro quadro = QuadroService.getById(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText(),0));
 			Circuito circuito = frmPrincipal.getCircuitoControle().getDadosFrm();
-			Integer idCircuito = Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText());
+			Integer idCircuito = Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText(),0);
 			//Integer idQuadro = Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText());
 
 			if (idCircuito == null) {

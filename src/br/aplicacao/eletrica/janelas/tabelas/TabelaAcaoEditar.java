@@ -3,13 +3,14 @@ package br.aplicacao.eletrica.janelas.tabelas;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
+import br.aplicacao.eletrica.modelo.CapacidadeCorrente;
 import br.aplicacao.eletrica.servico.CapacidadeCorrenteService;
 
 public class TabelaAcaoEditar implements TableModelListener {
 
-	private TabelaModeloFrm tabelaFrm;
+	private TabelaFrm tabelaFrm;
 
-	public TabelaAcaoEditar(TabelaModeloFrm tabelaFrm) {
+	public TabelaAcaoEditar(TabelaFrm tabelaFrm) {
 		this.tabelaFrm = tabelaFrm;
 		this.adicionaTableModelListener();
 	}

@@ -20,7 +20,7 @@ public class PotenciaInstalada {
 			for (Quadro q : quadro.getQuadros()) {
 				for (Circuito c : q.getCircuitos()) {
 					for (Equipamento e : c.getEquipamentos()) {
-						valor += e.getQuantidade() * e.getDemandaVA();
+						valor += e.getQuantidade() * e.getDemanda(UnidadePontencia.VA);
 					}
 				}
 			}
@@ -28,7 +28,7 @@ public class PotenciaInstalada {
 			for (Quadro q : quadro.getQuadros()) {
 				for (Circuito c : q.getCircuitos()) {
 					for (Equipamento e : c.getEquipamentos()) {
-						valor += e.getQuantidade() * e.getDemandaW();
+						valor += e.getQuantidade() * e.getDemanda(UnidadePontencia.W);
 					}
 				}
 			}

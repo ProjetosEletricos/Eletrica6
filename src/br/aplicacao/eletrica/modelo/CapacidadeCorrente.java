@@ -1,11 +1,10 @@
-package br.aplicacao.eletrica.janelas.tabelas;
+package br.aplicacao.eletrica.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import br.aplicacao.eletrica.modelo.Entidade;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
 import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 

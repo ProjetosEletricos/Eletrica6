@@ -9,15 +9,20 @@ public class GravarCSV {
 	private static final char DEFAULT_SEPARATOR = ';';
 	private FileWriter writer;
 
-	public GravarCSV(String file) throws IOException {
-		writer = new FileWriter(file);
+	public GravarCSV(String file){
+		try {
+			writer = new FileWriter(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public void writeLine(List<String> values) throws IOException {
+	public void writeLine(List<String> values){
 		writeLine(values, DEFAULT_SEPARATOR, ' ');
 	}
 
-	public void writeLine(List<String> values, char separators) throws IOException {
+	public void writeLine(List<String> values, char separators){
 		writeLine(values, separators, ' ');
 	}
 
@@ -32,7 +37,7 @@ public class GravarCSV {
 
 	}
 
-	public void writeLine(List<String> values, char separators, char customQuote) throws IOException {
+	public void writeLine(List<String> values, char separators, char customQuote){
 
 		boolean first = true;
 
@@ -56,7 +61,12 @@ public class GravarCSV {
 			first = false;
 		}
 		sb.append("\n");
-		writer.append(sb.toString());
+		try {
+			writer.append(sb.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	

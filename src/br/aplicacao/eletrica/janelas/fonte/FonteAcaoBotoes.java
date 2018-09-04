@@ -58,10 +58,10 @@ public class FonteAcaoBotoes implements ActionListener {
 
 	private void salvar() {
 
-		if (Numero.stringToInteger(frm.getLblIdProjeto().getText()) > 0) {
-			Projeto projeto = ProjetoService.getById(Numero.stringToInteger(frm.getLblIdProjeto().getText()));
+		if (Numero.stringToInteger(frm.getLblIdProjeto().getText(),0) > 0) {
+			Projeto projeto = ProjetoService.getById(Numero.stringToInteger(frm.getLblIdProjeto().getText(),0));
 			Fonte fonte = frm.getFonteControle().getDadosFrm();
-			Integer idFonte = Numero.stringToInteger(frm.getLblIdFonte().getText());
+			Integer idFonte = Numero.stringToInteger(frm.getLblIdFonte().getText(),0);
 			//Integer idProjeto = Numero.stringToInteger(frm.getLblIdProjeto().getText());
 			
 			if (idFonte == null) {

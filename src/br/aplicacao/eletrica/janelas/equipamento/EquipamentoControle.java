@@ -1,5 +1,6 @@
 package br.aplicacao.eletrica.janelas.equipamento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.aplicacao.eletrica.enums.Ligacao;
@@ -8,6 +9,7 @@ import br.aplicacao.eletrica.enums.Usabilidade;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.Equipamento;
 import br.aplicacao.eletrica.uteis.Numero;
+import br.aplicacao.eletrica.uteis.TrataID;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
 public class EquipamentoControle {
@@ -68,36 +70,29 @@ public class EquipamentoControle {
 		Equipamento equipamento = new Equipamento();
 		equipamento = this.equipamento;
 
-		equipamento.setFd(Numero.stringToDouble(frm.getTxtFdEquipamento().getText()));
-		equipamento.setFp(Numero.stringToDouble(frm.getTxtFpEquipamento().getText()));
-		equipamento.setFs(Numero.stringToDouble(frm.getTxtFServicoEquipamento().getText()));
-		equipamento.setfSimu(Numero.stringToDouble(frm.getTxtFSimutaneadadeEquipamento().getText()));
-		equipamento.setFu(Numero.stringToDouble(frm.getTxtFUtilizacaoEquipamento().getText()));
+		equipamento.setFd(Numero.stringToDouble(frm.getTxtFdEquipamento().getText(), 1));
+		equipamento.setFp(Numero.stringToDouble(frm.getTxtFpEquipamento().getText(), 1));
+		equipamento.setFs(Numero.stringToDouble(frm.getTxtFServicoEquipamento().getText(), 1));
+		equipamento.setfSimu(Numero.stringToDouble(frm.getTxtFSimutaneadadeEquipamento().getText(), 1));
+		equipamento.setFu(Numero.stringToDouble(frm.getTxtFUtilizacaoEquipamento().getText(), 1));
 		equipamento.setDescricao(frm.getTxtLocalEquipamento().getText());
 		equipamento.setNome(frm.getTxtNomeEquipamento().getText());
-		equipamento.setPerdasReator(Numero.stringToDouble(frm.getTxtPerdasEquipamento().getText()));
-		equipamento.setPotencia(Numero.stringToDouble(frm.getTxtPotenciaEquipamento().getText()));
-		equipamento.setRendimento(Numero.stringToDouble(frm.getTxtRendimentoEquipamento().getText()));
-		equipamento.setQuantidade(Numero.stringToInteger(frm.getTxtQuantidadeEquipamento().getText()));
-		equipamento.setUnidade((UnidadePontencia) frm.getCbUnidadePotEquipamento().getSelectedItem());
-		equipamento.setUsabilidade((Usabilidade) frm.getCbUsabilidadeEquipamento().getSelectedItem());
-		equipamento.setLigacao((Ligacao) frm.getCbLigacaoEquipamento().getModel().getSelectedItem());
+		equipamento.setPerdasReator(Numero.stringToDouble(frm.getTxtPerdasEquipamento().getText(), 0));
+		equipamento.setPotencia(Numero.stringToDouble(frm.getTxtPotenciaEquipamento().getText(), 0));
+		equipamento.setRendimento(Numero.stringToDouble(frm.getTxtRendimentoEquipamento().getText(), 1));
+		equipamento.setQuantidade(Numero.stringToInteger(frm.getTxtQuantidadeEquipamento().getText(), 1));
+		equipamento.setUnidade(
+				frm.getCbUnidadePotEquipamento().getItemAt(frm.getCbUnidadePotEquipamento().getSelectedIndex()));
+		equipamento.setUsabilidade(
+				frm.getCbUsabilidadeEquipamento().getItemAt(frm.getCbUsabilidadeEquipamento().getSelectedIndex()));
 		equipamento
-				.setnPolos(Numero.stringToInteger(frm.getCbPolosEquipamento().getModel().getSelectedItem().toString()));
-		equipamento.setId(Numero.stringToInteger(frm.getLblIdEquipamento().getText()));
+				.setLigacao(frm.getCbLigacaoEquipamento().getItemAt(frm.getCbLigacaoEquipamento().getSelectedIndex()));
+		equipamento.setnPolos(
+				Numero.stringToInteger(frm.getCbPolosEquipamento().getModel().getSelectedItem().toString(), 4));
+		equipamento.setId(TrataID.StringToInteger(frm.getLblIdEquipamento().getText()));
 		equipamento.setCircuito(frm.getCircuitoControle().getCircuito());
 
 		return equipamento;
-	}
-
-	private void iniciaCbLigacaoEquipamento() {
-/*		frm.getCbLigacaoEquipamento().removeAllItems();
-		frm.getCbLigacaoEquipamento().addItem("FN");
-		frm.getCbLigacaoEquipamento().addItem("FF");
-		frm.getCbLigacaoEquipamento().addItem("FFN");
-		frm.getCbLigacaoEquipamento().addItem("FFF");
-		frm.getCbLigacaoEquipamento().addItem("FFFN");
-		frm.getCbLigacaoEquipamento().setSelectedIndex(0)*/;
 	}
 
 	private void iniciaCbPolosEquipamento() {
@@ -108,39 +103,55 @@ public class EquipamentoControle {
 	}
 
 	private void iniciaCbUnidadePotEquipamento() {
-		/*
-		 * frm.getCbUnidadePotEquipamento().removeAllItems();
-		 * frm.getCbUnidadePotEquipamento().addItem("VA");
-		 * frm.getCbUnidadePotEquipamento().addItem("W");
-		 * frm.getCbUnidadePotEquipamento().addItem("CV");
-		 * frm.getCbUnidadePotEquipamento().addItem("HP");
-		 * frm.getCbUnidadePotEquipamento().addItem("BTU");
-		 * frm.getCbUnidadePotEquipamento().setSelectedIndex(0);
-		 */
+		List<UnidadePontencia> lista = new ArrayList<UnidadePontencia>();
+		frm.getCbUnidadePotEquipamento().removeAllItems();
+		lista.add(UnidadePontencia.BTU);
+		lista.add(UnidadePontencia.CV);
+		lista.add(UnidadePontencia.HP);
+		lista.add(UnidadePontencia.VA);
+		lista.add(UnidadePontencia.W);
+		frm.setUnidadeEquipamento(lista);
+	}
+	
+	private void iniciaCbLigacaoEquipamento() {
+		List<Ligacao> lista = new ArrayList<Ligacao>();
+		frm.getCbLigacaoEquipamento().removeAllItems();
+		lista.add(Ligacao.FF);
+		lista.add(Ligacao.FFN);
+		lista.add(Ligacao.FFF);
+		lista.add(Ligacao.FFFN);
+		lista.add(Ligacao.FN);
+		frm.setLigacaoEquipamento(lista);
+	}
+	
+	private void iniciaCbUsabilidadeEquipamento() {
+		List<Usabilidade> lista = new ArrayList<Usabilidade>();
+		frm.getCbUsabilidadeEquipamento().removeAllItems();
+		lista.add(Usabilidade.ILUMINACAO_FLUORESCENTE);
+		lista.add(Usabilidade.ILUMINACAO_INCADESCENTE);
+		lista.add(Usabilidade.MOTOR);
+		lista.add(Usabilidade.EQUIPAMENTOS_ESPECIAIS);
+		lista.add(Usabilidade.GERAL);
+		frm.setUsabilidadeEquipamento(lista);
 	}
 
 	public void iniciaCbs() {
 		iniciaCbLigacaoEquipamento();
 		iniciaCbPolosEquipamento();
 		iniciaCbUnidadePotEquipamento();
+		iniciaCbUsabilidadeEquipamento();
 	}
 
 	public void iniciaTabelaEquipamento(List<Equipamento> lista) {
 
-		/*
-		 * List<Equipamento> lista = new ArrayList<Equipamento>();
-		 * 
-		 * if (!(idCircuito == 0)) {
-		 * 
-		 * Circuito circuito = CircuitoService.getById(idCircuito);
-		 * 
-		 * for (Equipamento f : circuito.getEquipamentos()) { lista.add(f); } }
-		 */
 		try {
+			Equipamento novo = new Equipamento();
+			novo.apagar();
+			lista.add(novo);
 			tabela = new GenericTableModel<Equipamento>(lista, Equipamento.class);
 			frm.getTableEquipamentos().setModel(tabela);
 			frm.getTableEquipamentos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
-		
+
 		} catch (Exception e) {
 
 		}
@@ -162,10 +173,10 @@ public class EquipamentoControle {
 			frm.getTxtPotenciaEquipamento().setText(Numero.decimal(equipamento.getPotencia(), "##,00"));
 			frm.getTxtRendimentoEquipamento().setText(Numero.decimal(equipamento.getRendimento(), "##,00"));
 			frm.getTxtQuantidadeEquipamento().setText(Integer.toString(equipamento.getQuantidade()));
-			frm.getCbUsabilidadeEquipamento().getModel().setSelectedItem(equipamento.getUsabilidade().getSigla());
-			frm.getCbLigacaoEquipamento().getModel().setSelectedItem(equipamento.getLigacao().getSigla());
+			frm.getCbUsabilidadeEquipamento().getModel().setSelectedItem(equipamento.getUsabilidade());
+			frm.getCbLigacaoEquipamento().getModel().setSelectedItem(equipamento.getLigacao());
 			frm.getCbPolosEquipamento().getModel().setSelectedItem(equipamento.getnPolos());
-			frm.getCbUnidadePotEquipamento().getModel().setSelectedItem(equipamento.getUnidade().getSigla());
+			frm.getCbUnidadePotEquipamento().getModel().setSelectedItem(equipamento.getUnidade());
 			frm.getLblIdEquipamento().setText(Integer.toString(equipamento.getId()));
 		}
 	}

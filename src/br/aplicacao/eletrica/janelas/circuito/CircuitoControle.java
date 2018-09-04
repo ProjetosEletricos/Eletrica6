@@ -6,7 +6,7 @@ import br.aplicacao.eletrica.janelas.condutor.CondutorFrm;
 import br.aplicacao.eletrica.janelas.curto.CurtoFrm;
 import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.Circuito;
-import br.aplicacao.eletrica.uteis.Numero;
+import br.aplicacao.eletrica.uteis.TrataID;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
 public class CircuitoControle {
@@ -54,7 +54,7 @@ public class CircuitoControle {
 		Circuito circuito = new Circuito();
 		circuito = this.circuito;
 
-		circuito.setId(Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText()));
+		circuito.setId(TrataID.StringToInteger(frmPrincipal.getLblIdCircuito().getText()));
 		circuito.setNome(frmPrincipal.getTxtNomeCircuito().getText());
 		circuito.setCondutor(frmCondutor.getCondutorControle().getCondutor());
 		circuito.setCurto(frmCurto.getCurtoControle().getCurto());
@@ -79,7 +79,7 @@ public class CircuitoControle {
 			frmPrincipal.getTableCircuitos().setModel(tabela);
 			frmPrincipal.getTableCircuitos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);
 		} catch (Exception e) {
-			
+
 		}
 	}
 

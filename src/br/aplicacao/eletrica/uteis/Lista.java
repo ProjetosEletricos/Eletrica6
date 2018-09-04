@@ -102,7 +102,7 @@ public class Lista {
 		Collections.sort(lista);
 		return lista; 
 	}
-
+	
 	public static List<String> ordenaCrescString(List<String> listaStrings) {
 		List<String> lista = new ArrayList<String>();
 		lista = listaStrings;
@@ -154,4 +154,17 @@ public class Lista {
 		return geral;
 	}
 
+	public static List<Object> addObjeto(List<Object> lista, int posicao, Object objeto){
+		List<Object> nova = lista;
+		nova.add("");
+		for(int i = 0;i>lista.size()+1;i++) {
+			if(posicao == i) {
+				nova.set(posicao, lista.get(i));
+			}else {
+				nova.set(posicao, lista.get(i));
+			}
+		}
+		
+		return nova;
+	}
 }

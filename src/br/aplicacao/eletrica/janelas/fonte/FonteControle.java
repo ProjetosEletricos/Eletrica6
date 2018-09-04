@@ -6,6 +6,7 @@ import br.aplicacao.eletrica.janelas.main.PrincipalFrm;
 import br.aplicacao.eletrica.modelo.Concessionaria;
 import br.aplicacao.eletrica.modelo.Fonte;
 import br.aplicacao.eletrica.uteis.Numero;
+import br.aplicacao.eletrica.uteis.TrataID;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
 public class FonteControle {
@@ -57,10 +58,10 @@ public class FonteControle {
 		Fonte fonte = new Fonte();
 		fonte = this.fonte;
 
-		fonte.setId(Numero.stringToInteger(frm.getLblIdFonte().getText()));
+		fonte.setId(TrataID.StringToInteger(frm.getLblIdFonte().getText()));
 		fonte.setConcessionaria((Concessionaria) frm.getCbConcessionaria().getModel().getSelectedItem());
 		fonte.setNome(frm.getTxtNomeFonte().getText());
-		fonte.setTensaoFN(Numero.stringToDouble(frm.getTxtTensaoFonte().getText()));
+		fonte.setTensaoFN(Numero.stringToDouble(frm.getTxtTensaoFonte().getText(),0));
 		fonte.setProjeto(frm.getProjetoControle().getProjeto());
 
 		return fonte;

@@ -5,8 +5,8 @@ public class Comparacao {
 	public static boolean naFaixa(double valor, String p1, String pSinal1, String pSinal2, String p2) {
 
 		boolean teste = false;
-		double v1 = Numero.stringToDouble(p1);
-		double v2 = Numero.stringToDouble(p2);
+		double v1 = Numero.stringToDouble(p1,0);
+		double v2 = Numero.stringToDouble(p2,0);
 
 		try {
 			if (!((p1.equals(null) || p1.equals("")) && (p2.equals(null) || p2.equals(""))

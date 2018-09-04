@@ -49,11 +49,11 @@ public class CurtoControle {
 		Curto curto = new Curto();
 		curto = this.curto;
 
-		curto.setId(Numero.stringToInteger(frm.getLblIdCurto().getText()));
-		curto.setCorrenteCurto(Numero.stringToDouble(frm.getTxtCorrenteCurto().getText()));
-		curto.setTempAdmissRegime(Numero.stringToDouble(frm.getTxtTempAdmissRegimeCurto().getText()));
-		curto.setTempMaxCurto(Numero.stringToDouble(frm.getTxtTempMaxCurto().getText()));
-		curto.setTempoElimDef(Numero.stringToDouble(frm.getTxtTempoElimDefCurto().getText()));
+		curto.setId(Numero.stringToInteger(frm.getLblIdCurto().getText(),0));
+		curto.setCorrenteCurto(Numero.stringToDouble(frm.getTxtCorrenteCurto().getText(),0));
+		curto.setTempAdmissRegime(Numero.stringToDouble(frm.getTxtTempAdmissRegimeCurto().getText(),0));
+		curto.setTempMaxCurto(Numero.stringToDouble(frm.getTxtTempMaxCurto().getText(),0));
+		curto.setTempoElimDef(Numero.stringToDouble(frm.getTxtTempoElimDefCurto().getText(),0));
 
 		return curto;
 	}

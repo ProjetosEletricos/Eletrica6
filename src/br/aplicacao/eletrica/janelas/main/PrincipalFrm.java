@@ -149,13 +149,13 @@ public class PrincipalFrm extends JInternalFrame {
 		JPanel panel_10 = new JPanel();
 		panel_10.setLayout(null);
 		panel_10.setBorder(new TitledBorder(null, "Descri\u00E7\u00E3o", TitledBorder.LEADING, TitledBorder.TOP, null,
-				Color.BLUE));
-		panel_10.setBounds(10, 45, 193, 284);
+				new Color(0, 0, 255)));
+		panel_10.setBounds(10, 45, 352, 284);
 		panelProjeto.add(panel_10);
 
 		JPanel panel_11 = new JPanel();
 		panel_11.setBorder(null);
-		panel_11.setBounds(8, 17, 179, 103);
+		panel_11.setBounds(8, 17, 338, 103);
 		panel_10.add(panel_11);
 		panel_11.setLayout(null);
 
@@ -195,7 +195,7 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_10.add(label_1);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(18, 136, 159, 136);
+		scrollPane.setBounds(18, 136, 317, 136);
 		panel_10.add(scrollPane);
 
 		txtDescricaoProjeto = new JTextPane();
@@ -208,13 +208,13 @@ public class PrincipalFrm extends JInternalFrame {
 
 		JPanel panel_12 = new JPanel();
 		panel_12.setLayout(null);
-		panel_12.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrados",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
-		panel_12.setBounds(205, 45, 470, 284);
+		panel_12.setBorder(new TitledBorder(null, "Cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 255)));
+		panel_12.setBounds(375, 43, 300, 288);
 		panelProjeto.add(panel_12);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(12, 16, 446, 256);
+		scrollPane_3.setBounds(6, 16, 288, 266);
 		panel_12.add(scrollPane_3);
 
 		tableProjetos = new JTable();
@@ -260,13 +260,13 @@ public class PrincipalFrm extends JInternalFrame {
 
 		JPanel panel_15 = new JPanel();
 		panel_15.setLayout(null);
-		panel_15.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informa\u00E7\u00F5es",
-				TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
-		panel_15.setBounds(12, 44, 352, 113);
+		panel_15.setBorder(new TitledBorder(null, "Informa\u00E7\u00F5es", TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 255)));
+		panel_15.setBounds(12, 44, 352, 287);
 		panelFonte.add(panel_15);
 
 		JLabel label_6 = new JLabel("Tens\u00E3o nominal (F-N):");
-		label_6.setBounds(22, 51, 154, 16);
+		label_6.setBounds(12, 52, 154, 16);
 		panel_15.add(label_6);
 
 		JLabel label_9 = new JLabel("V");
@@ -274,14 +274,14 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_15.add(label_9);
 
 		JLabel label_10 = new JLabel("Concession\u00E1ria:");
-		label_10.setBounds(22, 82, 125, 15);
+		label_10.setBounds(12, 82, 125, 15);
 		panel_15.add(label_10);
 
 		txtTensaoFonte = new JTextField();
 		txtTensaoFonte.setName("txtTensaoFonte");
 		txtTensaoFonte.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTensaoFonte.setColumns(10);
-		txtTensaoFonte.setBounds(178, 50, 45, 22);
+		txtTensaoFonte.setBounds(155, 49, 45, 22);
 		panel_15.add(txtTensaoFonte);
 
 		cbConcessionaria = new JComboBox<Concessionaria>();
@@ -296,7 +296,7 @@ public class PrincipalFrm extends JInternalFrame {
 		});
 
 		cbConcessionaria.setName("cbConcessionaria");
-		cbConcessionaria.setBounds(144, 77, 137, 24);
+		cbConcessionaria.setBounds(121, 77, 137, 24);
 		panel_15.add(cbConcessionaria);
 
 		JLabel lblNomeFonte = new JLabel("Nome:");
@@ -341,14 +341,14 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_19.add(btnCopiarFonte, "cell 2 0");
 
 		JPanel panel_20 = new JPanel();
-		panel_20.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrados",
-				TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
-		panel_20.setBounds(12, 169, 352, 162);
+		panel_20.setBorder(new TitledBorder(null, "Cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 255)));
+		panel_20.setBounds(375, 43, 300, 288);
 		panelFonte.add(panel_20);
 		panel_20.setLayout(null);
 
 		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(12, 19, 328, 131);
+		scrollPane_4.setBounds(6, 16, 288, 266);
 		panel_20.add(scrollPane_4);
 		scrollPane_4.setName("scrollPane");
 
@@ -365,11 +365,11 @@ public class PrincipalFrm extends JInternalFrame {
 		panelQuadro.setLayout(null);
 
 		JPanel panel_16 = new JPanel();
-		panel_16.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Descri\u00E7\u00E3o",
-				TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
-		panel_16.setBounds(12, 43, 411, 165);
+		panel_16.setBorder(new TitledBorder(null, "Descri\u00E7\u00E3o", TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 255)));
+		panel_16.setBounds(12, 43, 352, 288);
 		panelQuadro.add(panel_16);
-		panel_16.setLayout(new MigLayout("", "[][grow][][grow]", "[][][][]"));
+		panel_16.setLayout(new MigLayout("", "[][grow][]", "[][][][][][][]"));
 
 		JLabel label_7 = new JLabel("Nome:");
 		panel_16.add(label_7, "cell 0 0,alignx trailing");
@@ -379,24 +379,6 @@ public class PrincipalFrm extends JInternalFrame {
 		txtNomeQuadro.setColumns(10);
 		panel_16.add(txtNomeQuadro, "cell 1 0,growx");
 
-		JLabel label_8 = new JLabel("Usabilidade:");
-		panel_16.add(label_8, "cell 2 0,alignx trailing");
-
-		cbUsabilidadeQuadro = new JComboBox<Usabilidade>();
-		cbUsabilidadeQuadro.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				List<Usabilidade> lista = new ArrayList<Usabilidade>();
-				cbUsabilidadeQuadro.removeAllItems();
-				lista.add(Usabilidade.ILUMINACAO_FLUORESCENTE);
-				lista.add(Usabilidade.ILUMINACAO_INCADESCENTE);
-				lista.add(Usabilidade.MOTOR);
-				setUsabilidadeQuadro(lista);
-			}
-		});
-		cbUsabilidadeQuadro.setName("cbUsabilidade");
-		panel_16.add(cbUsabilidadeQuadro, "cell 3 0,growx");
-
 		JLabel label_11 = new JLabel("Local:");
 		panel_16.add(label_11, "cell 0 1,alignx trailing");
 
@@ -404,13 +386,6 @@ public class PrincipalFrm extends JInternalFrame {
 		txtLocalQuadro.setMaximumSize(new Dimension(100, 2147483647));
 		txtLocalQuadro.setColumns(10);
 		panel_16.add(txtLocalQuadro, "cell 1 1,growx");
-
-		JLabel label_12 = new JLabel("DR Geral:");
-		panel_16.add(label_12, "cell 2 1,alignx trailing");
-
-		cbDrQuadro = new JComboBox<String>();
-		cbDrQuadro.setName("cbDrQuadro");
-		panel_16.add(cbDrQuadro, "cell 3 1,growx");
 
 		JLabel label_13 = new JLabel("FD:");
 		panel_16.add(label_13, "cell 0 2,alignx trailing");
@@ -421,8 +396,45 @@ public class PrincipalFrm extends JInternalFrame {
 		txtFdQuadro.setColumns(10);
 		panel_16.add(txtFdQuadro, "cell 1 2,growx");
 
+		JLabel label_15 = new JLabel("FP:");
+		panel_16.add(label_15, "cell 0 3,alignx trailing");
+
+		txtFpQuadro = new JTextField();
+		txtFpQuadro.setName("txtFpQuadro");
+		txtFpQuadro.setMaximumSize(new Dimension(100, 2147483647));
+		txtFpQuadro.setColumns(10);
+		panel_16.add(txtFpQuadro, "cell 1 3,growx");
+
+		JLabel label_8 = new JLabel("Usabilidade:");
+		panel_16.add(label_8, "cell 0 4,alignx trailing");
+
+		cbUsabilidadeQuadro = new JComboBox<Usabilidade>();
+		cbUsabilidadeQuadro.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				List<Usabilidade> lista = new ArrayList<Usabilidade>();
+				cbUsabilidadeQuadro.removeAllItems();
+				lista.add(Usabilidade.ILUMINACAO_FLUORESCENTE);
+				lista.add(Usabilidade.ILUMINACAO_INCADESCENTE);
+				lista.add(Usabilidade.MOTOR);
+				lista.add(Usabilidade.EQUIPAMENTOS_ESPECIAIS);
+				lista.add(Usabilidade.GERAL);
+				setUsabilidadeQuadro(lista);
+
+			}
+		});
+		cbUsabilidadeQuadro.setName("cbUsabilidade");
+		panel_16.add(cbUsabilidadeQuadro, "cell 1 4,growx,aligny center");
+
+		JLabel label_12 = new JLabel("DR Geral:");
+		panel_16.add(label_12, "cell 0 5,alignx trailing");
+
+		cbDrQuadro = new JComboBox<String>();
+		cbDrQuadro.setName("cbDrQuadro");
+		panel_16.add(cbDrQuadro, "cell 1 5,growx");
+
 		JLabel label_14 = new JLabel("Quadro pai:");
-		panel_16.add(label_14, "cell 2 2,alignx trailing");
+		panel_16.add(label_14, "cell 0 6,alignx trailing");
 
 		cbQuadroPaiQuadro = new JComboBox<Quadro>();
 		cbQuadroPaiQuadro.addFocusListener(new FocusAdapter() {
@@ -436,27 +448,18 @@ public class PrincipalFrm extends JInternalFrame {
 			}
 		});
 		cbQuadroPaiQuadro.setName("cbQuadroPaiQuadro");
-		panel_16.add(cbQuadroPaiQuadro, "cell 3 2,growx");
-
-		JLabel label_15 = new JLabel("FP:");
-		panel_16.add(label_15, "cell 0 3,alignx trailing");
-
-		txtFpQuadro = new JTextField();
-		txtFpQuadro.setName("txtFpQuadro");
-		txtFpQuadro.setMaximumSize(new Dimension(100, 2147483647));
-		txtFpQuadro.setColumns(10);
-		panel_16.add(txtFpQuadro, "cell 1 3,growx");
+		panel_16.add(cbQuadroPaiQuadro, "cell 1 6,growx");
 
 		JPanel panel_17 = new JPanel();
 		panel_17.setBorder(
 				new TitledBorder(null, "Cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
 		panel_17.setLayout(null);
-		panel_17.setBounds(427, 43, 248, 288);
+		panel_17.setBounds(375, 43, 300, 288);
 		panelQuadro.add(panel_17);
 
 		scrollPane_5 = new JScrollPane();
 		scrollPane_5.setName("scrollPane");
-		scrollPane_5.setBounds(12, 17, 224, 259);
+		scrollPane_5.setBounds(6, 17, 288, 259);
 		panel_17.add(scrollPane_5);
 
 		tableQuadros = new JTable();
@@ -503,12 +506,12 @@ public class PrincipalFrm extends JInternalFrame {
 
 		btnCondutorQuadro = new JButton("Condutor");
 		btnCondutorQuadro.setName("btnCondutorQuadro");
-		btnCondutorQuadro.setBounds(178, 211, 100, 21);
+		btnCondutorQuadro.setBounds(22, 350, 100, 21);
 		panelQuadro.add(btnCondutorQuadro);
 
 		btnCurtoCirQuadro = new JButton("Curto cir.");
 		btnCurtoCirQuadro.setName("btnCurtoCirQuadro");
-		btnCurtoCirQuadro.setBounds(178, 236, 100, 19);
+		btnCurtoCirQuadro.setBounds(130, 351, 100, 19);
 		panelQuadro.add(btnCurtoCirQuadro);
 
 		panelCircuito = new JPanel();
@@ -517,23 +520,23 @@ public class PrincipalFrm extends JInternalFrame {
 		panelCircuito.setLayout(null);
 
 		JPanel panel_6 = new JPanel();
-		panel_6.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrados",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
-		panel_6.setBounds(12, 153, 315, 178);
+		panel_6.setBorder(new TitledBorder(null, "Cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 255)));
+		panel_6.setBounds(375, 43, 300, 288);
 		panelCircuito.add(panel_6);
 		panel_6.setLayout(null);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(12, 17, 291, 149);
+		scrollPane_2.setBounds(6, 16, 288, 266);
 		panel_6.add(scrollPane_2);
 
 		tableCircuitos = new JTable();
 		scrollPane_2.setViewportView(tableCircuitos);
 
 		JPanel panel_8 = new JPanel();
-		panel_8.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informa\u00E7\u00F5es",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
-		panel_8.setBounds(12, 43, 207, 108);
+		panel_8.setBorder(new TitledBorder(null, "Informa\u00E7\u00F5es", TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 255)));
+		panel_8.setBounds(12, 43, 352, 288);
 		panelCircuito.add(panel_8);
 		panel_8.setLayout(null);
 
@@ -599,12 +602,12 @@ public class PrincipalFrm extends JInternalFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrados",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
-		panel_1.setBounds(351, 47, 324, 405);
+		panel_1.setBounds(375, 43, 300, 405);
 		panelEquipamento.add(panel_1);
 		panel_1.setLayout(null);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(12, 17, 300, 371);
+		scrollPane_1.setBounds(6, 17, 288, 382);
 		panel_1.add(scrollPane_1);
 
 		tableEquipamentos = new JTable();
@@ -646,7 +649,7 @@ public class PrincipalFrm extends JInternalFrame {
 		panelEquipamento.add(lblIdEquipamento);
 
 		JPanel panel_7 = new JPanel();
-		panel_7.setBounds(12, 47, 332, 405);
+		panel_7.setBounds(12, 43, 352, 405);
 		panelEquipamento.add(panel_7);
 		panel_7.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informa\u00E7\u00F5es",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
@@ -674,17 +677,6 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_7.add(lblNewLabel_1, "cell 0 2,alignx trailing");
 
 		cbUsabilidadeEquipamento = new JComboBox<Usabilidade>();
-		cbUsabilidadeEquipamento.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				List<Usabilidade> lista = new ArrayList<Usabilidade>();
-				cbUsabilidadeEquipamento.removeAllItems();
-				lista.add(Usabilidade.ILUMINACAO_FLUORESCENTE);
-				lista.add(Usabilidade.ILUMINACAO_INCADESCENTE);
-				lista.add(Usabilidade.GERAL);
-				setUsabilidadeEquipamento(lista);
-			}
-		});
 		cbUsabilidadeEquipamento.setName("cbUsabilidadeEquipamento");
 		panel_7.add(cbUsabilidadeEquipamento, "cell 1 2,grow");
 
@@ -717,19 +709,6 @@ public class PrincipalFrm extends JInternalFrame {
 		panel_7.add(lblLigao, "cell 0 6,alignx left");
 
 		cbLigacaoEquipamento = new JComboBox<Ligacao>();
-		cbLigacaoEquipamento.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				List<Ligacao> lista = new ArrayList<Ligacao>();
-				cbLigacaoEquipamento.removeAllItems();
-				lista.add(Ligacao.FF);
-				lista.add(Ligacao.FFN);
-				lista.add(Ligacao.FFF);
-				lista.add(Ligacao.FFFN);
-				lista.add(Ligacao.FN);
-				setLigacaoEquipamento(lista);
-			}
-		});
 		cbLigacaoEquipamento.setName("cbLigacaoEquipamento");
 		cbLigacaoEquipamento.setMinimumSize(new Dimension(40, 24));
 		cbLigacaoEquipamento.setMaximumSize(new Dimension(60, 32767));
@@ -798,19 +777,6 @@ public class PrincipalFrm extends JInternalFrame {
 		txtFSimutaneadadeEquipamento.setColumns(10);
 		panel_7.add(txtFSimutaneadadeEquipamento, "cell 1 13,growx");
 		cbUnidadePotEquipamento = new JComboBox<>();
-		cbUnidadePotEquipamento.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				List<UnidadePontencia> lista = new ArrayList<UnidadePontencia>();
-				cbUnidadePotEquipamento.removeAllItems();
-				lista.add(UnidadePontencia.BTU);
-				lista.add(UnidadePontencia.CV);
-				lista.add(UnidadePontencia.HP);
-				lista.add(UnidadePontencia.VA);
-				lista.add(UnidadePontencia.W);
-				setUnidadeEquipamento(lista);
-			}
-		});
 		cbUnidadePotEquipamento.setName("cbUnidadePotEquipamento");
 		panel_7.add(cbUnidadePotEquipamento, "cell 1 4,grow");
 

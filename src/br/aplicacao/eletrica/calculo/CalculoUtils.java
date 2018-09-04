@@ -12,7 +12,6 @@ public class CalculoUtils {
 	private Fonte fonte;
 	@SuppressWarnings("unused")
 	private MODELO_INSTALACAO modelo;
-	// private Projeto projeto;
 
 	public CalculoUtils() {
 
@@ -27,10 +26,6 @@ public class CalculoUtils {
 		this.modelo = m;
 		return this;
 	}
-
-	/*
-	 * public CalculoUtils comProjeto(Projeto p) { this.projeto = p; return this; }
-	 */
 
 	public double getDemanda(UnidadePontencia UnidadeDestino) {
 

@@ -26,7 +26,7 @@ public class FonteAcaoClicarItem implements MouseListener {
 
 		if (frm.getAbas().getSelectedComponent() == frm.getPanelFonte()) {
 			if (e.getClickCount() == 1) {
-				Integer idProjeto = Numero.stringToInteger(frm.getLblIdProjeto().getText());
+				Integer idProjeto = Numero.stringToInteger(frm.getLblIdProjeto().getText(),0);
 				if (idProjeto != null) {
 					//frm.getFonteControle().apagaDadosFrm();
 					frm.getFonteControle().iniciaTabelaFontes(frm.getProjetoControle().getProjeto().getFontes());

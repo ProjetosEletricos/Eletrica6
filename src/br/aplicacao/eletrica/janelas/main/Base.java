@@ -15,6 +15,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import br.aplicacao.eletrica.janelas.concessionaria.ConcessionariaFrm;
+import br.aplicacao.eletrica.janelas.tabelas.TabelaFrm;
+import br.aplicacao.eletrica.servico.CapacidadeCorrenteService;
 
 public class Base extends JFrame {
 
@@ -23,7 +25,6 @@ public class Base extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private BaseControle baseControle;
 
 	/**
 	 * Launch the application.
@@ -44,7 +45,6 @@ public class Base extends JFrame {
 	}
 
 	private JPanel contentPanePrincipal;
-	private JMenuItem mntmCapacidade1;
 
 	/**
 	 * Create the frame.
@@ -88,15 +88,18 @@ public class Base extends JFrame {
 		JMenu mnTabelas = new JMenu("Tabelas");
 		menuBar.add(mnTabelas);
 
-		JMenuItem mntmTiposDeLinhas = new JMenuItem("Tipos de linhas");
-		mnTabelas.add(mntmTiposDeLinhas);
+		JMenuItem mntmCapacidadeDeCorrente = new JMenuItem("Capacidade de Corrente");
+		mntmCapacidadeDeCorrente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-		JMenu mntmCapacidadeDeConduo = new JMenu("Capacidade de condução:");
-		mnTabelas.add(mntmCapacidadeDeConduo);
+				TabelaFrm frm = new TabelaFrm();
+				frm.setTitle("CAPACIDADE DE CORRENTE");
+				frm.getTabelaControle().abreJanela();
+				frm.getTabelaControle().iniciaTabela(CapacidadeCorrenteService.getAll());
 
-		mntmCapacidade1 = new JMenuItem("PVC:70°:Métodos A1, A2, B1, B2, C e D");
-		mntmCapacidade1.setName("mntmCapacidade1");
-		mntmCapacidadeDeConduo.add(mntmCapacidade1);
+			}
+		});
+		mnTabelas.add(mntmCapacidadeDeCorrente);
 		contentPanePrincipal = new JPanel();
 		contentPanePrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPanePrincipal.setLayout(new BorderLayout(0, 0));
@@ -106,12 +109,12 @@ public class Base extends JFrame {
 		contentPanePrincipal.add(Base.desktopPane, BorderLayout.CENTER);
 
 		// -------------------------Controle-----------------------
-		this.Listen();
+		// this.Listen();
 	}
 
-	private void Listen() {
-		baseControle = new BaseControle(this);
-	}
+	/*
+	 * private void Listen() { baseControle = new BaseControle(this); }
+	 */
 
 	public JPanel getContentPanePrincipal() {
 		return contentPanePrincipal;
@@ -119,22 +122,6 @@ public class Base extends JFrame {
 
 	public void setContentPanePrincipal(JPanel contentPanePrincipal) {
 		this.contentPanePrincipal = contentPanePrincipal;
-	}
-
-	public JMenuItem getMntmCapacidade1() {
-		return mntmCapacidade1;
-	}
-
-	public void setMntmCapacidade1(JMenuItem mntmCapacidade1) {
-		this.mntmCapacidade1 = mntmCapacidade1;
-	}
-
-	public BaseControle getBaseControle() {
-		return baseControle;
-	}
-
-	public void setBaseControle(BaseControle baseControle) {
-		this.baseControle = baseControle;
 	}
 
 }

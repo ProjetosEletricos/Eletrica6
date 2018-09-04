@@ -16,25 +16,25 @@ public class Numero {
 		return dfString;
 	}
 
-	public static Double stringToDouble(String valor) {
+	public static Double stringToDouble(String valor, double valorPadrao) {
 		double dfDouble = 0;
 		String pv = valor.replaceAll(",", ".");
-		try {
+		if (valor.equals("")) {
+			dfDouble = valorPadrao;
+		} else {
 			dfDouble = Double.parseDouble(pv);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return dfDouble;
 	}
 
-	public static Integer stringToInteger(String valor) {
-		Integer inteiro = null;
-		
-		if(!(valor == null || valor.equals(""))) {
-			String pv = valor.replaceAll(",", ".");
+	public static Integer stringToInteger(String valor, int valorPadrao) {
+		Integer inteiro = 0;
+		String pv = valor.replaceAll(",", ".");
+		if (valor.equals("")) {
+			inteiro = valorPadrao;
+		} else {
 			inteiro = Integer.parseInt(pv);
 		}
 		return inteiro;
 	}
-
 }

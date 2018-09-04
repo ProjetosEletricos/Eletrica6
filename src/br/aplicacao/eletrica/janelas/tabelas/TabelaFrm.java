@@ -5,8 +5,6 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -17,9 +15,13 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
 
+import br.aplicacao.eletrica.enums.TipoSelecao;
+import br.aplicacao.eletrica.servico.CapacidadeCorrenteService;
+import br.aplicacao.eletrica.uteis.GravarCSV;
+import br.aplicacao.eletrica.uteis.JanelaSelecao;
 import br.aplicacao.eletrica.uteis.LerCSV;
 
-public class TabelaModeloFrm extends JInternalFrame {
+public class TabelaFrm extends JInternalFrame {
 
 	/**
 	 * 
@@ -36,9 +38,10 @@ public class TabelaModeloFrm extends JInternalFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
-					TabelaModeloFrm frame = new TabelaModeloFrm();
+					TabelaFrm frame = new TabelaFrm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,10 +53,11 @@ public class TabelaModeloFrm extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TabelaModeloFrm() {
-		setTitle("Tabela");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 451, 300);
+	public TabelaFrm() {
+		setResizable(true);
+		setMaximizable(true);
+		setClosable(true);
+		setBounds(100, 100, 523, 345);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -65,27 +69,51 @@ public class TabelaModeloFrm extends JInternalFrame {
 		mnMenu.add(mntmImprimir);
 
 		mntmCarregarCSV = new JMenuItem("Carregar CSV");
-/*		mntmCarregarCSV.addActionListener(new ActionListener() {
+		mntmCarregarCSV.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				JFileChooser selecao = new JFileChooser();
-				selecao.setFileFilter(null);
-				int opcao = selecao.showSaveDialog(null);
-				if (opcao == JFileChooser.APPROVE_OPTION) {
+				JanelaSelecao janela = new JanelaSelecao();
+				janela.selecao(TipoSelecao.ABRIR);
+				if (janela.confirma()) {
+					switch (title) {
+					case "CAPACIDADE DE CORRENTE":
+						LerCSV dados = new LerCSV(janela.getSelecao().toString());
+						String[][] tabela = dados.toMatriz();
+						CapacidadeCorrenteService.salva(tabela);
+						tabelaControle.iniciaTabela(CapacidadeCorrenteService.getAll());
+						break;
 
-					LerCSV dados = new LerCSV(selecao.getSelectedFile().toString());
-					String[][] tabela = dados.lerTabela();
-					Util.salvarMatrizToTabelaCapacidadeCorrente(tabela);
-					System.out.println("Passou por aqui novamente");
-					System.out.println("Passou por aqui");
-
+					default:
+						break;
+					}
 				}
 			}
-		});*/
+		});
 		mntmCarregarCSV.setName("mntmCarregarCSV");
 		mnMenu.add(mntmCarregarCSV);
 
 		mntmSalvarCSV = new JMenuItem("Salvar CSV");
+		mntmSalvarCSV.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				JanelaSelecao janela = new JanelaSelecao();
+				janela.selecao(TipoSelecao.SALVAR);
+				if (janela.confirma()) {
+					GravarCSV arquivo = new GravarCSV(janela.getSelecao().toString() + ".csv");
+					switch (title) {
+					case "CAPACIDADE DE CORRENTE":
+						MenuSalvarCapacidadeCorrenteTabela menuSalvar = new MenuSalvarCapacidadeCorrenteTabela(arquivo);
+						menuSalvar.abre();
+						break;
+
+					default:
+						break;
+					}
+				}
+			}
+		});
 		mnMenu.add(mntmSalvarCSV);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -93,10 +121,13 @@ public class TabelaModeloFrm extends JInternalFrame {
 		contentPane.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 435, 235);
+		scrollPane.setBounds(0, 0, 513, 292);
 		contentPane.add(scrollPane);
 
 		table = new JTable();
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.setSurrendersFocusOnKeystroke(true);
+		table.setBorder(null);
 		table.setEnabled(true);
 		table.setColumnSelectionAllowed(true);
 		table.setCellSelectionEnabled(true);

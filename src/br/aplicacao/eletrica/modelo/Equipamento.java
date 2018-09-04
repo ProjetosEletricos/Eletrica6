@@ -324,7 +324,7 @@ public class Equipamento implements Entidade<Equipamento> {
 	@Override
 	public void apagar() {
 
-		id = null;
+		id = 0;
 		circuito = null;
 		ligacao = null;
 		ligacaoReal = "";
