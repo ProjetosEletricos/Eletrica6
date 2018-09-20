@@ -9,14 +9,14 @@ import br.aplicacao.eletrica.uteis.Numero;
 import br.aplicacao.eletrica.uteis.TrataID;
 import br.aplicacao.eletrica.uteis.tableModel.GenericTableModel;
 
-public class FonteControle {
+public class FonteControle2 {
 
 	private PrincipalFrm frm;
 	private Fonte fonte = new Fonte();
 	private GenericTableModel<Fonte> tabela;
 	private int tabelaSelecao = -1;
 
-	public FonteControle(PrincipalFrm frm) {
+	public FonteControle2(PrincipalFrm frm) {
 		this.frm = frm;
 		adicionaActionListener();
 		adicionaListSelectionListener();
@@ -61,6 +61,7 @@ public class FonteControle {
 		fonte.setConcessionaria((Concessionaria) frm.getCbConcessionaria().getModel().getSelectedItem());
 		fonte.setNome(frm.getTxtNomeFonte().getText());
 		fonte.setTensaoFN(Numero.stringToDouble(frm.getTxtTensaoFonte().getText(),0));
+		fonte.setProjeto(frm.getProjetoControle().getProjeto());
 
 		this.fonte = fonte;
 		return fonte;

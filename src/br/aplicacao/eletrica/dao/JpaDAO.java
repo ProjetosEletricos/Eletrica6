@@ -95,13 +95,11 @@ public class JpaDAO<T extends Entidade<T>> {
 			entityManager.getTransaction().begin();
 			if (obj.getId() == null) {
 				entityManager.persist(obj);
-
 			} else {
 				entityManager.merge(obj);
 			}
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
-			System.out.println("NÃO SALVOU!!: ");
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 		}

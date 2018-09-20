@@ -50,7 +50,7 @@ public class FonteAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frm.getBtnCopiarFonte()) {
 
-			frm.getLblIdFonte().setText(null);
+			frm.getLblIdFonte().setText("0");
 			this.salvar();
 
 		}
@@ -58,15 +58,14 @@ public class FonteAcaoBotoes implements ActionListener {
 
 	private void salvar() {
 
-		if (Numero.stringToInteger(frm.getLblIdProjeto().getText(),0) > 0) {
+		if (Integer.valueOf(frm.getLblIdProjeto().getText()) > 0) {
+			
 			Projeto projeto = ProjetoService.getById(Numero.stringToInteger(frm.getLblIdProjeto().getText(),0));
 			Fonte fonte = frm.getFonteControle().getDadosFrm();
-			Integer idFonte = Numero.stringToInteger(frm.getLblIdFonte().getText(),0);
-			//Integer idProjeto = Numero.stringToInteger(frm.getLblIdProjeto().getText());
-			
-			if (idFonte == null) {
-				projeto.getFontes().add(fonte);
-				FonteService.salva(fonte);
+
+			if (fonte.getId() == null) {
+				projeto.addFonte(fonte);
+				ProjetoService.salva(projeto);
 			} else {
 				FonteService.salva(fonte);
 			}

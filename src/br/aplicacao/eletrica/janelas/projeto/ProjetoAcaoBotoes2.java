@@ -8,11 +8,11 @@ import br.aplicacao.eletrica.modelo.Projeto;
 import br.aplicacao.eletrica.servico.ProjetoService;
 import br.aplicacao.eletrica.uteis.TrataID;
 
-public class ProjetoAcaoBotoes implements ActionListener {
+public class ProjetoAcaoBotoes2 implements ActionListener {
 
 	private PrincipalFrm frm;
 
-	public ProjetoAcaoBotoes(PrincipalFrm frm) {
+	public ProjetoAcaoBotoes2(PrincipalFrm frm) {
 
 		this.frm = frm;
 		this.adicionaActionListener();

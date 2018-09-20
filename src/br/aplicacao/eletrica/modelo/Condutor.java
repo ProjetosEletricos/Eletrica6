@@ -172,7 +172,7 @@ public class Condutor implements Entidade<Condutor> {
 	@Override
 	public void apagar() {
 
-		id = null;
+		id = 0;
 		bitolaSucessiva = "";
 		enterrado = "";
 		espacoCabos = "";

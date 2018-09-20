@@ -47,7 +47,6 @@ public class CurtoControle {
 	public Curto atualizaDados() {
 		
 		Curto curto = new Curto();
-		curto = this.curto;
 
 		curto.setId(Numero.stringToInteger(frm.getLblIdCurto().getText(),0));
 		curto.setCorrenteCurto(Numero.stringToDouble(frm.getTxtCorrenteCurto().getText(),0));
@@ -55,6 +54,7 @@ public class CurtoControle {
 		curto.setTempMaxCurto(Numero.stringToDouble(frm.getTxtTempMaxCurto().getText(),0));
 		curto.setTempoElimDef(Numero.stringToDouble(frm.getTxtTempoElimDefCurto().getText(),0));
 
+		this.curto = curto;
 		return curto;
 	}
 

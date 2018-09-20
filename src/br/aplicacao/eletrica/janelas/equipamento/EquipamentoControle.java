@@ -62,13 +62,12 @@ public class EquipamentoControle {
 		frm.getCbPolosEquipamento().setSelectedIndex(-1);
 		frm.getCbUnidadePotEquipamento().setSelectedIndex(-1);
 
-		frm.getLblIdEquipamento().setText(null);
+		frm.getLblIdEquipamento().setText("0");
 	}
 
 	public Equipamento getDadosFrm() {
 
 		Equipamento equipamento = new Equipamento();
-		equipamento = this.equipamento;
 
 		equipamento.setFd(Numero.stringToDouble(frm.getTxtFdEquipamento().getText(), 1));
 		equipamento.setFp(Numero.stringToDouble(frm.getTxtFpEquipamento().getText(), 1));
@@ -92,6 +91,7 @@ public class EquipamentoControle {
 		equipamento.setId(TrataID.StringToInteger(frm.getLblIdEquipamento().getText()));
 		equipamento.setCircuito(frm.getCircuitoControle().getCircuito());
 
+		this.equipamento = equipamento;
 		return equipamento;
 	}
 
@@ -145,9 +145,6 @@ public class EquipamentoControle {
 	public void iniciaTabelaEquipamento(List<Equipamento> lista) {
 
 		try {
-			Equipamento novo = new Equipamento();
-			novo.apagar();
-			lista.add(novo);
 			tabela = new GenericTableModel<Equipamento>(lista, Equipamento.class);
 			frm.getTableEquipamentos().setModel(tabela);
 			frm.getTableEquipamentos().setRowSelectionInterval(tabelaSelecao, tabelaSelecao);

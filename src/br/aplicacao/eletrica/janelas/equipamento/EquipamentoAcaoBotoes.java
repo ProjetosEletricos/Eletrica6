@@ -49,7 +49,7 @@ public class EquipamentoAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frm.getBtnCopiarEquipamento()) {
 
-			frm.getLblIdEquipamento().setText(null);
+			frm.getLblIdEquipamento().setText("0");
 			this.salvar();
 
 		}
@@ -63,8 +63,8 @@ public class EquipamentoAcaoBotoes implements ActionListener {
 			Equipamento equipamento = frm.getEquipamentoControle().getDadosFrm();
 
 			if (equipamento.getId() == null) {
-				circuito.getEquipamentos().add(equipamento);
-				EquipamentoService.salva(equipamento);
+				circuito.addEquipamento(equipamento);
+				CircuitoService.salva(circuito);
 			} else {
 				EquipamentoService.salva(equipamento);
 			}

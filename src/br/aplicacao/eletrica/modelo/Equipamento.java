@@ -1,6 +1,8 @@
 package br.aplicacao.eletrica.modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +29,7 @@ public class Equipamento implements Entidade<Equipamento> {
 	private Integer id;
 	@ManyToOne()
 	private Circuito circuito;
+	@Enumerated(EnumType.STRING)
 	private Ligacao ligacao;
 	private String ligacaoReal;
 	@Column(colName = "Nome", colPosition = 0)
@@ -43,7 +46,9 @@ public class Equipamento implements Entidade<Equipamento> {
 	private double fs = 1;
 	private double fSimu = 1;
 	private double fu = 1;
+	@Enumerated(EnumType.STRING)
 	private UnidadePontencia unidade;
+	@Enumerated(EnumType.STRING)
 	private Usabilidade usabilidade;
 	private Double tensaoFN;
 

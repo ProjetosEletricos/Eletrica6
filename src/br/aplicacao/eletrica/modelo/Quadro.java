@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -46,7 +48,9 @@ public class Quadro implements Entidade<Quadro> {
 	@Column(colName = "Nome", colPosition = 0)
 	private String nome;
 	private double pot100PercDem;
+	@Enumerated(EnumType.STRING)
 	private Usabilidade usabilidade;
+	@Enumerated(EnumType.STRING)
 	private UnidadePontencia unidade;
 	@Transient
 	private Quadro quadroPaiQuadro;
@@ -267,7 +271,7 @@ public class Quadro implements Entidade<Quadro> {
 	@Override
 	public void apagar() {
 
-		id = null;
+		id = 0;
 		fonte = null;
 		circuitos.clear();
 		condutor = null;

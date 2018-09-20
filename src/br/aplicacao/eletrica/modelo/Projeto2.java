@@ -15,10 +15,10 @@ import javax.persistence.Table;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
 import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 
-@Entity
-@Table(name = "Projeto")
+/*@Entity
+@Table(name = "Projeto")*/
 @TableModel
-public class Projeto implements Entidade<Projeto> {
+public class Projeto2 implements Entidade<Projeto2> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,10 +29,10 @@ public class Projeto implements Entidade<Projeto> {
 	@Column(colName = "Data", colPosition = 1)
 	private String data;
 	private String descricao;
-	@OneToMany(targetEntity = Fonte.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "projeto", targetEntity = Fonte.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Fonte> fontes;
 
-	public Projeto() {
+	public Projeto2() {
 		fontes = new ArrayList<>();
 	}
 
@@ -87,16 +87,16 @@ public class Projeto implements Entidade<Projeto> {
 	}
 
 	@Override
-	public Projeto clonarSemID() {
-		Projeto p = copiar();
+	public Projeto2 clonarSemID() {
+		Projeto2 p = copiar();
 		p.setId(null);
 		return p;
 	}
 
 	@Override
-	public Projeto copiar() {
+	public Projeto2 copiar() {
 
-		Projeto p = new Projeto();
+		Projeto2 p = new Projeto2();
 		p.setId(id);
 		p.setNome(nome);
 		p.setAutor(autor);
@@ -118,7 +118,7 @@ public class Projeto implements Entidade<Projeto> {
 		if (getClass() != obj.getClass())
 
 			return false;
-		final Projeto other = (Projeto) obj;
+		final Projeto2 other = (Projeto2) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -46,13 +46,12 @@ public class CircuitoControle {
 	public void apagaDadosFrm() {
 
 		frmPrincipal.getTxtNomeCircuito().setText("");
-		frmPrincipal.getLblIdCircuito().setText(null);
+		frmPrincipal.getLblIdCircuito().setText("0");
 	}
 
 	public Circuito getDadosFrm() {
 
 		Circuito circuito = new Circuito();
-		circuito = this.circuito;
 
 		circuito.setId(TrataID.StringToInteger(frmPrincipal.getLblIdCircuito().getText()));
 		circuito.setNome(frmPrincipal.getTxtNomeCircuito().getText());
@@ -60,6 +59,7 @@ public class CircuitoControle {
 		circuito.setCurto(frmCurto.getCurtoControle().getCurto());
 		circuito.setQuadro(frmPrincipal.getQuadroControle().getQuadro());
 
+		this.circuito = circuito;
 		return circuito;
 	}
 

@@ -46,10 +46,6 @@ public class Circuito implements Entidade<Circuito> {
 		dadosCurtoCircuito = new Curto();
 	}
 
-	public void addEquipamento(Equipamento equipamento) {
-		this.equipamentos.add(equipamento);
-	}
-
 	@Override
 	public Circuito clonarSemID() {
 		Circuito c = copiar();
@@ -139,6 +135,12 @@ public class Circuito implements Entidade<Circuito> {
 	public void setCurto(Curto dadosCurtoCircuito) {
 		this.dadosCurtoCircuito = dadosCurtoCircuito;
 	}
+	
+	public void addEquipamento(Equipamento equipamento) {
+		this.equipamentos.add(equipamento);
+	}
+	
+
 
 	public void setEquipamentos(List<Equipamento> equipamentosLista) {
 		this.equipamentos.clear();
@@ -161,7 +163,7 @@ public class Circuito implements Entidade<Circuito> {
 	@Override
 	public void apagar() {
 
-		id = null;
+		id = 0;
 		quadro = null;
 		condutor = null;
 		dadosCurtoCircuito = null;

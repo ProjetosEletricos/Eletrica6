@@ -78,7 +78,7 @@ public class Curto implements Entidade<Curto> {
 	@Override
 	public void apagar() {
 
-		id = null;
+		id = 0;
 		correnteCurto = 0;
 		tempAdmissRegime = 0;
 		tempMaxCurto = 0;

@@ -15,6 +15,7 @@ import br.aplicacao.eletrica.servico.CurtoService;
 import br.aplicacao.eletrica.servico.FonteService;
 import br.aplicacao.eletrica.servico.QuadroService;
 import br.aplicacao.eletrica.uteis.Numero;
+import br.aplicacao.eletrica.uteis.TrataID;
 
 public class QuadroAcaoBotoes implements ActionListener {
 
@@ -49,7 +50,7 @@ public class QuadroAcaoBotoes implements ActionListener {
 			Quadro quadroPai = (Quadro) frmPrincipal.getCbQuadroPai().getSelectedItem();
 			fonte.getQuadros().remove(quadro);
 			QuadroService.remove(quadro);
-			quadro.apagar();
+			//quadro.apagar();
 			if (quadroPai != null) {
 				quadroPai.getQuadros().remove(quadro);
 			}
@@ -64,14 +65,14 @@ public class QuadroAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frmPrincipal.getBtnCopiarQuadro()) {
 
-			frmPrincipal.getLblIdQuadro().setText(null);
+			frmPrincipal.getLblIdQuadro().setText("0");
 			this.salvar();
 
 			// ----------------------------------------
 
 		} else if (event.getSource() == frmPrincipal.getBtnCondutorQuadro()) {
 
-			if (Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText(),0) != null
+			if (TrataID.StringToInteger(frmPrincipal.getLblIdQuadro().getText()) != null
 					&& frmPrincipal.getQuadroControle().getQuadro().getCondutor().getId() > 0) {
 
 				Condutor condutor = frmPrincipal.getQuadroControle().getQuadro().getCondutor();
@@ -88,7 +89,7 @@ public class QuadroAcaoBotoes implements ActionListener {
 			}
 		} else if (event.getSource() == frmPrincipal.getBtnCurtoCirQuadro()) {
 
-			if (Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText(),0) != null
+			if (TrataID.StringToInteger(frmPrincipal.getLblIdQuadro().getText()) != null
 					&& frmPrincipal.getQuadroControle().getQuadro().getCurto().getId() > 0) {
 
 				Curto curto = frmPrincipal.getQuadroControle().getQuadro().getCurto();
@@ -105,17 +106,16 @@ public class QuadroAcaoBotoes implements ActionListener {
 
 	private void salvar() {
 
-		if (Numero.stringToInteger(frmPrincipal.getLblIdFonte().getText(),0) > 0) {
+		if (Integer.valueOf(frmPrincipal.getLblIdFonte().getText()) > 0) {
 
 			Fonte fonte = FonteService.getById(Numero.stringToInteger(frmPrincipal.getLblIdFonte().getText(),0));
 			Quadro quadro = frmPrincipal.getQuadroControle().getDadosFrm();
 			Quadro quadroPai = (Quadro) frmPrincipal.getCbQuadroPai().getSelectedItem();
-			Integer idQuadro = Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText(),0);
-			//Integer idFonte = Numero.stringToInteger(frmPrincipal.getLblIdFonte().getText());
-			if (idQuadro == null) {
+
+			if (quadro.getId() == null) {
 				CondutorService.salva(frmCondutor.getCondutorControle().getCondutor());
 				CurtoService.salva(frmCurto.getCurtoControle().getCurto());
-				fonte.getQuadros().add(quadro);
+				fonte.addQuadro(quadro);
 				FonteService.salva(fonte);
 				if (quadroPai != null) {
 					quadroPai.getQuadros().add(quadro);

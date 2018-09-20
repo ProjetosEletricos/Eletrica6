@@ -54,14 +54,13 @@ public class QuadroControle {
 		frmPrincipal.getTxtNomeQuadro().setText("");
 		frmPrincipal.getCbUsabilidadeQuadro().setSelectedIndex(-1);
 		frmPrincipal.getCbDrQuadro().setSelectedIndex(-1);
-		frmPrincipal.getLblIdQuadro().setText(null);
+		frmPrincipal.getLblIdQuadro().setText("0");
 		frmPrincipal.getCbQuadroPai().setSelectedIndex(-1);
 	}
 
 	public Quadro getDadosFrm() {
 
 		Quadro quadro = new Quadro();
-		quadro = this.quadro;
 
 		quadro.setId(TrataID.StringToInteger(frmPrincipal.getLblIdQuadro().getText()));
 		quadro.setFd(Numero.stringToDouble(frmPrincipal.getTxtFdQuadro().getText(), 0));
@@ -77,6 +76,7 @@ public class QuadroControle {
 		quadro.setQuadroPaiQuadro((Quadro) frmPrincipal.getCbQuadroPai().getModel().getSelectedItem());
 		// quadro.setQuadro(frmPrincipal.getQuadroControle().getQuadro());
 
+		this.quadro = quadro;
 		return quadro;
 	}
 

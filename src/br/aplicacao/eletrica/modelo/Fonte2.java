@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,14 +18,16 @@ import br.aplicacao.eletrica.enums.UnidadePontencia;
 import br.aplicacao.eletrica.uteis.tableModel.Column;
 import br.aplicacao.eletrica.uteis.tableModel.TableModel;
 
-@Entity
-@Table(name = "Fonte")
+/*@Entity
+@Table(name = "Fonte")*/
 @TableModel
-public class Fonte implements Entidade<Fonte> {
+public class Fonte2 implements Entidade<Fonte2> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	@ManyToOne()
+	private Projeto projeto;
 	@OneToOne()
 	@Column(colName = "Concessionária", colPosition = 2)
 	private Concessionaria concessionaria;
@@ -35,7 +38,7 @@ public class Fonte implements Entidade<Fonte> {
 	@Column(colName = "TensãoFN", colPosition = 1)
 	private double tensaoFN;
 
-	public Fonte() {
+	public Fonte2() {
 		quadros = new ArrayList<>();
 	}
 
@@ -83,7 +86,7 @@ public class Fonte implements Entidade<Fonte> {
 		this.quadros.clear();
 		this.quadros.addAll(quadros);
 	}
-
+	
 	public void addQuadro(Quadro quadro) {
 		this.quadros.add(quadro);
 	}
@@ -97,15 +100,15 @@ public class Fonte implements Entidade<Fonte> {
 	}
 
 	@Override
-	public Fonte clonarSemID() {
-		Fonte f = copiar();
+	public Fonte2 clonarSemID() {
+		Fonte2 f = copiar();
 		f.setId(null);
 		return f;
 	}
 
 	@Override
-	public Fonte copiar() {
-		Fonte f = new Fonte();
+	public Fonte2 copiar() {
+		Fonte2 f = new Fonte2();
 		f.setId(id);
 		f.setNome(nome);
 		f.setConcessionaria(concessionaria);
@@ -127,7 +130,7 @@ public class Fonte implements Entidade<Fonte> {
 		if (getClass() != obj.getClass())
 
 			return false;
-		final Fonte other = (Fonte) obj;
+		final Fonte2 other = (Fonte2) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -154,10 +157,19 @@ public class Fonte implements Entidade<Fonte> {
 		return nome;
 	}
 
+	public Projeto getProjeto() {
+		return projeto;
+	}
+
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
+	}
+
 	@Override
 	public void apagar() {
 
 		id = 0;
+		projeto = null;
 		concessionaria = null;
 		quadros.clear();
 		nome = "";

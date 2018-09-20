@@ -151,7 +151,6 @@ public class CondutorControle {
 	public Condutor getDadosFrm() {
 		
 		Condutor condutor = new Condutor();
-		condutor = this.condutor;
 
 		condutor.setId(Numero.stringToInteger(frm.getLblIdCondutor().getText(),0));
 		condutor.setQuedaTensao(Numero.stringToDouble(frm.getTxtQuedaTensaoCondutor().getText(),1));
@@ -171,6 +170,7 @@ public class CondutorControle {
 				Integer.parseInt(frm.getCbNcirAgrupadosCondutor().getModel().getSelectedItem().toString()));
 		condutor.setnCamadas(Integer.parseInt(frm.getCbNCamadasCondutor().getModel().getSelectedItem().toString()));
 
+		this.condutor = condutor;
 		return condutor;
 	}
 

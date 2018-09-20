@@ -48,7 +48,7 @@ public class ProjetoControle {
 		frm.getTxtNomeProjeto().setText("");
 		frm.getTxtDescricaoProjeto().setText("");
 		frm.getTxtData().setText(DataUtil.Atual());
-		frm.getLblIdProjeto().setText(null);
+		frm.getLblIdProjeto().setText("0");
 
 	}
 
@@ -59,7 +59,7 @@ public class ProjetoControle {
 	public Projeto getDadosFrm() {
 
 		Projeto projeto = new Projeto();
-		projeto = this.projeto;
+		
 
 		projeto.setId(TrataID.StringToInteger(frm.getLblIdProjeto().getText()));
 		projeto.setNome(frm.getTxtNomeProjeto().getText());
@@ -67,6 +67,7 @@ public class ProjetoControle {
 		projeto.setDescricao(frm.getTxtDescricaoProjeto().getText());
 		projeto.setData(frm.getTxtData().getText());
 
+		this.projeto = projeto;
 		return projeto;
 	}
 

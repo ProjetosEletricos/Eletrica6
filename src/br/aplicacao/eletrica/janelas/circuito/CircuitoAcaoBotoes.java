@@ -61,7 +61,7 @@ public class CircuitoAcaoBotoes implements ActionListener {
 
 		} else if (event.getSource() == frmPrincipal.getBtnCopiarCircuito()) {
 
-			frmPrincipal.getLblIdCircuito().setText(null);
+			frmPrincipal.getLblIdCircuito().setText("0");
 			this.salvar();
 
 			// ----------------------------------------------------------------------------------------------------------
@@ -102,14 +102,12 @@ public class CircuitoAcaoBotoes implements ActionListener {
 
 	private void salvar() {
 
-		if (Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText(),0) > 0) {
+		if (Integer.valueOf(frmPrincipal.getLblIdQuadro().getText()) > 0) {
 
 			Quadro quadro = QuadroService.getById(Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText(),0));
 			Circuito circuito = frmPrincipal.getCircuitoControle().getDadosFrm();
-			Integer idCircuito = Numero.stringToInteger(frmPrincipal.getLblIdCircuito().getText(),0);
-			//Integer idQuadro = Numero.stringToInteger(frmPrincipal.getLblIdQuadro().getText());
 
-			if (idCircuito == null) {
+			if (circuito.getId() == null) {
 				CondutorService.salva(frmCondutor.getCondutorControle().getCondutor());
 				CurtoService.salva(frmCurto.getCurtoControle().getCurto());
 				quadro.addCircuito(circuito);
